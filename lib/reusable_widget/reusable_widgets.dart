@@ -169,7 +169,7 @@ class CustomDropdownButton extends StatefulWidget {
 }
 
 class _CustomDropdownButtonState extends State<CustomDropdownButton> {
-  DropdownMenuItemWithImage? selectedValue;
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +178,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.3),
       ),
-      child: DropdownButtonFormField<DropdownMenuItemWithImage>(
+      child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           fillColor: Colors.black38.withOpacity(0.3),
         ),
@@ -191,11 +191,12 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
           setState(() {
             selectedValue = value;
           });
-          widget.onChanged(value);
+          var selectedItem = widget.items.firstWhere((item) => item.id == value);
+          widget.onChanged(selectedItem);
         },
         items: widget.items.map((item) {
-          return DropdownMenuItem<DropdownMenuItemWithImage>(
-            value: item,
+          return DropdownMenuItem<String>(
+            value: item.id,
             child: Row(
               children: [
                 Image.asset(
@@ -213,6 +214,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
     );
   }
 }
+
 
 // class DropdownMenuItemWithImage {
 //   final String title;
