@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:products/pages/Homepage.dart';
+import 'package:products/pages/userprofile.dart';
 
 void main() =>runApp(MyApp());
 class MyApp extends StatelessWidget{
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget{
         scaffoldBackgroundColor: Colors.white,
       ),
       routes: {
-    "/":(context)=>HomePage()
+    "/":(context)=>userprofile()
 
     },
 
