@@ -119,7 +119,7 @@ Container addProdcutsField(String text,TextEditingController controller){
         value=controller as String?;
       },
 
-      style: TextStyle(color: Colors.grey.withOpacity(0.9)),
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
 
 
@@ -176,10 +176,20 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 5),
+          ),
+        ],
+
         color: Colors.grey.withOpacity(0.3),
       ),
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
+
           fillColor: Colors.black38.withOpacity(0.3),
         ),
         value: selectedValue,
@@ -214,167 +224,4 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
     );
   }
 }
-
-
-// class DropdownMenuItemWithImage {
-//   final String title;
-//   final String imagePath;
-//
-//   DropdownMenuItemWithImage({
-//     required this.title,
-//     required this.imagePath,
-//   });
-// }
-//
-// class CustomDropdownButton extends StatefulWidget {
-//   final List<DropdownMenuItemWithImage> items;
-//   final String hint;
-//   final Function(DropdownMenuItemWithImage?) onChanged;
-//
-//   CustomDropdownButton({
-//     required this.items,
-//     required this.hint,
-//     required this.onChanged,
-//   });
-//
-//   @override
-//   _CustomDropdownButtonState createState() => _CustomDropdownButtonState();
-// }
-//
-// class _CustomDropdownButtonState extends State<CustomDropdownButton> {
-//   DropdownMenuItemWithImage? selectedValue;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//
-//       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-//       decoration: BoxDecoration(
-//
-//         color: Colors.grey.withOpacity(0.3),
-//       ),
-//       child: DropdownButtonFormField(
-//
-//         decoration: InputDecoration(
-//
-//           fillColor: Colors.black38.withOpacity(0.3),
-//
-//         ),
-//
-//         value: selectedValue,
-//         hint: Text(widget.hint,style: TextStyle(color: Colors.black54),),
-//         onChanged: (value) {
-//           setState(() {
-//             selectedValue = value as DropdownMenuItemWithImage?;
-//           });
-//           widget.onChanged(value as DropdownMenuItemWithImage?);
-//         },
-//         items: widget.items.map((item) {
-//           return DropdownMenuItem<DropdownMenuItemWithImage>(
-//
-//             value: item,
-//             child: Row(
-//
-//               children: [
-//
-//                 Image.asset(
-//                   item.imagePath,
-//                   width: 40,
-//                   height: 40,
-//                 ),
-//                 SizedBox(width: 20),
-//                 Text(item.title),
-//               ],
-//             ),
-//           );
-//         }).toList(),
-//       ),
-//     );
-//   }
-//
-// }
-
-
-
-// class CustomDropDown extends StatefulWidget {
-//   final List<String> options;
-//   final List<Widget> images;
-//   final Function(String) onOptionSelected;
-//
-//   CustomDropDown({required this.options, required this.images, required this.onOptionSelected});
-//
-//   @override
-//   _CustomDropDownState createState() => _CustomDropDownState();
-// }
-//
-// class _CustomDropDownState extends State<CustomDropDown> {
-//   String? selectedOption;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Container(
-//           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-//           decoration: BoxDecoration(
-//
-//             color: Colors.grey.withOpacity(0.3),
-//             borderRadius: BorderRadius.circular(8),
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.black12.withOpacity(0.1),
-//                 blurRadius: 10,
-//                 offset: Offset(0, 5),
-//               ),
-//             ],
-//           ),
-//           child: DropdownButtonHideUnderline(
-//
-//
-//             child: DropdownButton<String>(
-//               value: selectedOption,
-//               icon: Icon(Icons.arrow_drop_down),
-//               iconSize: 10,
-//               elevation: 6,
-//               onChanged: (String? newValue) {
-//                 setState(() {
-//                   selectedOption = newValue;
-//                   widget.onOptionSelected(newValue!);
-//                 });
-//               },
-//               hint: Container(
-//                 width:MediaQuery.of(context).size.width*0.7,
-//                 child: Text(
-//                   "Select Product Category",style: TextStyle(color: Colors.black38,fontSize: 16),
-//                 ),
-//               ),style: TextStyle(color: Colors.black38,decorationColor: Colors.red),
-//               items: List<DropdownMenuItem<String>>.generate(widget.options.length, (int index) {
-//                 return DropdownMenuItem<String>(
-//
-//                   value: widget.options[index],
-//                   child: Align(
-//                     alignment: Alignment.center,
-//                     child: Row(
-//                       children: [
-//                         widget.images[index],
-//                         SizedBox(width: 8),
-//                         Text(widget.options[index]),
-//                       ],
-//                     ),
-//                   ),
-//                 );
-//               }),
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-
-
-
 

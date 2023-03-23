@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:salescast/reusable_widget/SlideMenu.dart';
 
 import 'package:salescast/reusable_widget/app_large_text.dart';
 
@@ -12,22 +13,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+  bool isDarkMode = false;
 
 
 
-  @override
+
+@override
   Widget build(BuildContext context) {
     List _images= ["lib/assets/images/Image_6.jpg","lib/assets/images/Image_1.jpg","lib/assets/images/Image_4.jpg"];
     TabController _tabController=TabController(length: 3, vsync:this);
     return Scaffold(
-      backgroundColor: hexStringToColor("#b2d8d8"),
+      drawer: SlideMenu(),
+
 
   extendBodyBehindAppBar: true,
       // appBar: AppBar(
       //   backgroundColor: Colors.transparent,
       //   elevation: 0,
       //   leading: IconButton(
-      //     onPressed: (){},
+      //     onPressed: (){  Scaffold.of(context).openDrawer();
+      //
+      //     },
       //     icon: Icon(Icons.menu),
       //   ),
       //
@@ -44,17 +51,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
             child:SingleChildScrollView(
               child: Row(
                 children:<Widget> [
-                  IconButton(
-                      onPressed:(){},
-                      icon: Icon(Icons.menu_sharp,size: 30,color: Colors.black,)),
+                  Builder(
+                    builder: (context) {
+                      return IconButton(
+                          onPressed:(){
+                            Scaffold.of(context).openDrawer();
+
+                          },
+                          icon: Icon(Icons.menu_sharp,size: 30,color: Colors.black,));
+                    }
+                  ),
                   Expanded(child: Container()),
                   Container(
+
                     margin: const EdgeInsets.only(right: 20),
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey.withOpacity(0.5)
+                     image: DecorationImage(
+                       image: AssetImage("lib/assets/images/logo2.png"),
+                      fit: BoxFit.cover
+                     ),
+
                     ),
                   ),
 
@@ -77,20 +96,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
           Container(
             child: Align(
               alignment: Alignment.centerLeft,
-              child: TabBar(
-                labelPadding: const EdgeInsets.only(left: 20,right: 20),
-                controller: _tabController,
-                labelColor: Colors.black,
-                unselectedLabelColor: Colors.grey,
-                isScrollable: true,
-                indicatorSize: TabBarIndicatorSize.label,
-                indicator: CircleTabIndicator(color: Colors.deepPurpleAccent,radius: 4),
-
-                tabs: [Tab(text: "                   ",),
-                Tab(text: "                  ",),
-                Tab(text: "               ",)],
-
-              ),
+              // child: TabBar(
+              //   labelPadding: const EdgeInsets.only(left: 20,right: 20),
+              //   controller: _tabController,
+              //   labelColor: Colors.black,
+              //   unselectedLabelColor: Colors.grey,
+              //   isScrollable: true,
+              //   indicatorSize: TabBarIndicatorSize.label,
+              //   indicator: CircleTabIndicator(color: Colors.transparent,radius: 4),
+              //
+              //   tabs: [Tab(text: "                   ",),
+              //   Tab(text: "                  ",),
+              //   Tab(text: "               ",)],
+              //
+              // ),
             ),
           ),
           Container(
@@ -125,8 +144,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                   },
 
                 ),
-                Text("There"),
-                Text("Bye")
+
               ],
             ),
           ),
@@ -148,7 +166,7 @@ class CircleTabIndicator extends Decoration{
     // TODO: implement createBoxPainter
    return _CirclePainter(color:color,radius:radius);
   }
-  
+
 }
 class _CirclePainter extends BoxPainter{
   final Color color;
@@ -163,5 +181,5 @@ class _CirclePainter extends BoxPainter{
     final Offset circleOffset = Offset(configuration.size!.width/2,0);
     canvas.drawCircle(offset+circleOffset, radius, _paint);
   }
-  
+
 }

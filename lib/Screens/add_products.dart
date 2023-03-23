@@ -30,6 +30,8 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   TextEditingController _prodPrice = TextEditingController();
   TextEditingController _prodBrand = TextEditingController();
   TextEditingController _prodCategory= TextEditingController();
+  TextEditingController _prodQuantity= TextEditingController();
+  late String ProdCategory;
 
 
   @override
@@ -42,7 +44,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
         appBar: AppBar(
 
           title: Text(" Add new Product",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),),
-          backgroundColor: hexStringToColor("#008080"),
+          backgroundColor: hexStringToColor("#8776ff"),
 
           elevation: 0,
         ),
@@ -78,59 +80,62 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
 
 
 
-    CustomDropdownButton(
-    hint: 'Select the product category',
-    items: [
-    DropdownMenuItemWithImage(
-    id: 'electronics',
-    title: 'Electronics',
-    imagePath: 'lib/assets/images/Electronics.png',
-    ),
-    DropdownMenuItemWithImage(
-    id: 'home_garden',
-    title: 'Home & Garden',
-    imagePath: 'lib/assets/images/HomeGarden.png',
-    ),
-    // Add more items here
-    ],
-    onChanged: (selectedItem) {
-    // Do something with the selected item
-    },),
+                CustomDropdownButton(
+                hint: 'Select the product category',
+                items: [
+                DropdownMenuItemWithImage(
+                id: 'electronics',
+                title: 'Electronics',
+                imagePath: 'lib/assets/images/Electronics.png',
+                ),
+                DropdownMenuItemWithImage(
+                id: 'home_garden',
+                title: 'Home & Garden',
+                imagePath: 'lib/assets/images/HomeGarden.png',
+                ),
+                  DropdownMenuItemWithImage(
+                    id: 'jewelleries',
+                    title: 'Jewelry & Watches',
+                    imagePath: 'lib/assets/images/watches.png',
+                  ),
+                  DropdownMenuItemWithImage(
+                    id: 'health',
+                    title: 'Health & Beauty',
+                    imagePath: 'lib/assets/images/health.png',
+                  ),
+                  DropdownMenuItemWithImage(
+                    id: 'sports',
+                    title: 'Sporting Goods & Equipment',
+                    imagePath: 'lib/assets/images/Sports.png',
+                  ),
+                  DropdownMenuItemWithImage(
+                    id: 'clothing',
+                    title: 'Clothing, Shoes & Accessories',
+                    imagePath: 'lib/assets/images/Clothes.png',
+                  ),
+                  DropdownMenuItemWithImage(
+                    id: 'collectibles',
+                    title: 'Collectibles & Art',
+                    imagePath: 'lib/assets/images/Collectibles.png',
+                  ),
+
+                // Add more items here
+                ],
+                onChanged: (selectedItem) {
+                  setState(() {
+                  _prodCategory = selectedItem as TextEditingController ;
+                  });
+
+
+                // Do something with the selected item
+                },),
 
                 SizedBox(height: 10,),
                 addProdcutsField("Product Brand",_prodBrand),
-                  // SizedBox(height: 10,),
-                  // Padding(
-                  //   padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
-                  //   child: CustomDropDown(
-                  //     options: ['Electronics',
-                  //       'Home & Garden',
-                  //       'Sporting Goods & Equipment',
-                  //       'Health & Beauty',
-                  //       'Clothing, Shoes & Accessories',
-                  //       'Jewelry & Watches',
-                  //       'Collectibles & Art'],
-                  //     images: [
-                  //       Image.asset('lib/assets/images/Electronics.png'),
-                  //       Image.asset('lib/assets/images/HomeGarden.png'),
-                  //       Image.asset('lib/assets/images/Sports.png'),
-                  //       Image.asset('lib/assets/images/health.png'),
-                  //       Image.asset('lib/assets/images/Clothes.png'),
-                  //       Image.asset('lib/assets/images/watches.png'),
-                  //       Image.asset('lib/assets/images/Collectibles.png'),
-                  //     ],
-                  //     onOptionSelected: (String? value) {
-                  //       // _prodCategory.text= newValue!;
-                  //       // setState(() {
-                  //       //   value= newValue!;
-                  //       // });
-                  //
-                  //       // value= _prodCategory as String;
-                  //       // Do something with the selected value
-                  //     },
-                  //   ),
-                  // ),
-                SizedBox(height: 20,),
+                  SizedBox(height: 10,),
+                  addProdcutsField("Quantity",_prodQuantity),
+
+                SizedBox(height: 10,),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -163,9 +168,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.resolveWith((states) {
                               if(states.contains(MaterialState.pressed)){
-                                return hexStringToColor("#006666");
+                                return Colors.deepPurpleAccent;
                               }
-                              return hexStringToColor("#006666");
+                              return hexStringToColor("#8776ff");
                             }),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
@@ -204,7 +209,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   ),
                 ),
 
-                SizedBox(height: 60,),
+                SizedBox(height: 40,),
                 ElevatedButton(
                     onPressed: ()async{
                       final String prodName= _prodName.text;
@@ -212,6 +217,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       final String prodPrice= _prodPrice.text;
                       final String prodBrand = _prodBrand.text;
                       final String prodCategory= _prodCategory.text;
+                      final String prodQuantity=_prodQuantity.text;
 
                       await FirebaseFirestore.instance
                       .collection('products')
@@ -220,7 +226,8 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                         'product Id': prodID,
                         'product Price': prodPrice,
                         'product Brand': prodBrand,
-                        'product Category': prodCategory
+                        'product Category': prodCategory,
+                        'product Quantity': prodQuantity,
                       });
                       Navigator.pop(context);
 
@@ -230,9 +237,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   style:ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith((states) {
                         if(states.contains(MaterialState.pressed)){
-                          return hexStringToColor("#b2d8d8");
+                          return hexStringToColor("#aeaeff");
                         }
-                        return hexStringToColor("#004c4c");
+                        return hexStringToColor("#8776ff");
                       }),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))

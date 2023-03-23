@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import 'package:salescast/Screens/forecasts.dart';
 import 'package:salescast/Screens/home.dart';
@@ -17,7 +18,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List pages= [HomePage(),ProdcutsPage(),SalesRecords(),ForecastsPage(),ProfilePage()];
+  List pages= [HomePage(),ProdcutsPage(),MyRecordsPage(),ForecastsPage(),ProfilePage()];
   int currentIndex= 0;
   void onTap(int index){
     setState(() {
@@ -41,11 +42,11 @@ class _MainPageState extends State<MainPage> {
       onTap: onTap,
       elevation: 0,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home",),
-        BottomNavigationBarItem(icon: Icon(Icons.curtains_closed_rounded),label: "Prodcuts"),
-        BottomNavigationBarItem(icon: Icon(Icons.receipt),label: "Records"),
-        BottomNavigationBarItem(icon: Icon(Icons.insert_chart),label: "Forecasts"),
-        BottomNavigationBarItem(icon: Icon(Icons.person),label: "Profile")
+        BottomNavigationBarItem(icon: Icon(LineAwesomeIcons.home),label: "Home",),
+        BottomNavigationBarItem(icon: Icon(LineAwesomeIcons.box),label: "Prodcuts"),
+        BottomNavigationBarItem(icon: Icon(LineAwesomeIcons.newspaper),label: "Records"),
+        BottomNavigationBarItem(icon: Icon(LineAwesomeIcons.bar_chart),label: "Forecasts"),
+        BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined),label: "Profile")
       ],
     ),
       body: pages[currentIndex],

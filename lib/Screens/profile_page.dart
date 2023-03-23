@@ -3,23 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:salescast/Screens/welcome.dart';
 import 'package:salescast/auth_service.dart';
 
-void main() {
-  runApp(ProfilePage());
+
+
+class ProfilePage extends StatefulWidget {
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class ProfilePage extends StatelessWidget {
-  // This widget is the root of your application.
+class _ProfilePageState extends State<ProfilePage> {
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'User Profile',
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.red,
-          title: Center(
-            child: const Text(' User Profile'),
-          ),
-        ),
+    return Scaffold(
+        // appBar: AppBar(
+        //   backgroundColor: Colors.red,
+        //   title: Center(
+        //     child: const Text(' User Profile'),
+        //   ),
+        // ),
         body: ListView(
           children: <Widget>[
             Container(
@@ -120,7 +121,7 @@ class ProfilePage extends StatelessWidget {
             )
           ],
         ),
-      ),
+
     );
   }
 }

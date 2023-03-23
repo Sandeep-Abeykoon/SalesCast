@@ -12,7 +12,7 @@ class _ForecastsPageState extends State<ForecastsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: hexStringToColor("#b2d8d8"),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Forecasts",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
         backgroundColor:Colors.transparent,
