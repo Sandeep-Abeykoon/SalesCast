@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:csv/csv.dart';
 
 class MyRecordsPage extends StatefulWidget {
   const MyRecordsPage({Key? key}) : super(key: key);
@@ -17,7 +16,36 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
 
   var userId = "";
   User? user = FirebaseAuth.instance.currentUser;
-  late File file;
+
+
+  Future<void> pickAndPrintCsv() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['csv'],
+    );
+    if (result != null) {
+      final file = File(result.files.single.path!);
+      final contents = await file.readAsString();
+
+      sendCsvContents(contents);
+
+
+    }
+  }
+
+
+  void sendCsvContents(contents) async {
+    const url = "http://10.0.2.2:5000/upload_csv_contents";
+    final response = await http.post(
+      Uri.parse(url),
+      body: {'csv_contents': contents}
+    );
+    if (response.statusCode == 200) {
+      print("CSV data uploaded successfully");
+    }else{
+      print("error uploading CSV data");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,30 +70,8 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
             children: <Widget>[
 
           ElevatedButton(
-          child: const Text("Choose CSV file"),
-          onPressed: () async {
-            FilePickerResult? result = await FilePicker.platform.pickFiles(
-              type: FileType.custom,
-              allowedExtensions: ['csv'],
-            );
-            if (result != null) {
-              file = File(result.files.single.path!);
-            }
-
-            // Uploading to the Cloud Storage
-            String filePath = 'csv/$userId' ;
-            Reference ref = FirebaseStorage.instance.ref().child(filePath);
-            UploadTask uploadTask = ref.putFile(file);
-            TaskSnapshot taskSnapShot = await uploadTask.whenComplete(() => null);
-            String downloadUrl = await taskSnapShot.ref.getDownloadURL();
-
-            final referenceDatabase = FirebaseDatabase.instance.ref();
-            referenceDatabase.child(userId)
-            .child("userRecords").
-            push()
-            .set(downloadUrl);
-
-          }
+          onPressed: pickAndPrintCsv,
+          child: const Text("Choose CSV file")
           ),
               const SizedBox(
                 height: 50,
