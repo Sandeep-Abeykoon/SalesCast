@@ -1,10 +1,9 @@
 from flask import Flask, request
 
-
-
 #Importing Local Modules
 import csv_processesing as cp
 import data_preprocessing as dp
+import predictions
 
 app = Flask(__name__)
 
@@ -22,12 +21,15 @@ def upload_csv():
     # Processing the CSV data
     records = cp.csv_data_processing(csv_data)
 
-    # Preprocesing the data
-    dp.data_preprocessing(records)
+    # Preprocesing the data and getting the datarames for each product
+    product_data_frames, last_rows = dp.data_preprocessing(records)
+
+    # Training the model for each product and getting the sales prediction
+    sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
+
+    print(sales_predictions)
 
 
-
-    
     return "CSV data receied and processed", 200
 
    
