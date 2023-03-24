@@ -1,7 +1,8 @@
 import pandas as pd
+import user
 
 def data_preprocessing(records):
-    registered_products = ['9', '2']
+    registered_products = user.getUserProducts()
 
     main_df = pd.DataFrame(records)
 

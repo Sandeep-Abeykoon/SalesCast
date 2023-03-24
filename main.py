@@ -4,12 +4,14 @@ from flask import Flask, request
 import csv_processesing as cp
 import data_preprocessing as dp
 import predictions
+import web_scraping as ws
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
+    ws.getDemandProducts()
     return "Hello World!"
 
 
@@ -29,8 +31,10 @@ def upload_csv():
 
     print(sales_predictions)
 
+    # Getting the Trending product brands
 
-    return "CSV data receied and processed", 200
+
+    return [sales_predictions], 200
 
    
 if __name__ == "__main__":
