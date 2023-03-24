@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:salescast/Screens/welcome.dart';
 import 'package:salescast/auth_service.dart';
 
@@ -11,6 +15,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late String imageUrl;
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       CircleAvatar(
+
                         backgroundColor: Colors.white70,
                         minRadius: 60.0,
                         child: CircleAvatar(
@@ -49,11 +56,58 @@ class _ProfilePageState extends State<ProfilePage> {
                               "https://scontent.fcmb2-2.fna.fbcdn.net/v/t39.30808-6/327975720_515428384011697_8717420196609558001_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=XglucdrWZPUAX-_87kW&_nc_ht=scontent.fcmb2-2.fna&oh=00_AfAMi1R3VoioMiINSmf8Y9hlSlrz7vBdSPPTaBUyIb_7Tg&oe=6413128E"),
                         ),
                       ),
-                    ],
+
+                   ],
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
+                  TextButton(
+                      onPressed: () async{
+                        ImagePicker imagepicker= ImagePicker();
+                        XFile? file= await imagepicker.pickImage(source: ImageSource.gallery);
+                        print("${file?.path}");
+                        if(file == null)return;
+                        String UniqueFileName= DateTime.now().microsecondsSinceEpoch.toString();
+
+                        Reference referenceRoot= FirebaseStorage.instance.ref();
+                        Reference referenceDirImages= referenceRoot.child("Images");
+
+                        Reference referenceImageToUpload = referenceDirImages.child(UniqueFileName);
+
+                        try {
+                          await referenceImageToUpload.putFile(File(file!.path));
+                          imageUrl= await referenceImageToUpload.getDownloadURL();
+                        } catch (error) {
+
+                          // TODO
+                        }
+                      },
+                      child: Text("Upload Image",style: TextStyle(fontSize: 16),)),
+
+
+
+
+                  // showMenu(
+                  //   context: context,
+                  //   position: RelativeRect.fromLTRB(100.0, 100.0, 0.0, 0.0),
+                  //   items: <PopupMenuEntry>[
+                  //     PopupMenuItem(
+                  //       value: 1,
+                  //       child: Text('View Profile Picture'),
+                  //       onTap: (){},
+                  //     ),
+                  //     PopupMenuItem(
+                  //       value: 2,
+                  //       child: Text('Upload Image'),
+                  //     ),
+                  //
+                  //   ],
+                  // ).then((value) {
+                  //   // Do something when a menu item is selected
+                  // });
+
+
                   Text(
                     'Chathuni Abeysinghe',
                     style: TextStyle(
@@ -102,6 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   Divider(),
+                  SizedBox(height: 60,),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.red, // background
