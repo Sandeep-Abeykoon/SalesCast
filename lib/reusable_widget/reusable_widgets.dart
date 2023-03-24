@@ -13,6 +13,8 @@ Image logoWidget(String imageName){
 Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEditingController controller,bool isEmail){
   return Material(
 
+
+
     child: TextFormField(
 
       controller: controller,
@@ -20,7 +22,7 @@ Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEd
       enableSuggestions: !isPasswordType,
       autocorrect: !isPasswordType,
       autofillHints: [AutofillHints.email],
-      cursorColor: Colors.white,
+      cursorColor: Colors.grey,
 
 
      validator: (text){
@@ -35,18 +37,18 @@ Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEd
       return null;
     },
 
-      style: TextStyle(color: Colors.white.withOpacity(0.9)),
+      style: TextStyle(color: Colors.grey.withOpacity(0.9)),
       decoration: InputDecoration(
         prefixIcon: Icon(
-          icon,color: Colors.white70,
+          icon,color: Colors.grey ,
         ),
         labelText: text,
-        labelStyle: TextStyle(color: Colors.white.withOpacity(0.9)),
+        labelStyle: TextStyle(color: Colors.grey.withOpacity(0.9)),
         filled: true,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         fillColor: Colors.white.withOpacity(0.3),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(12.0),
           borderSide: const BorderSide(width: 0,style: BorderStyle.none),
         ),
       ),
