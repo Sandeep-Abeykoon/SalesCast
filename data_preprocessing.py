@@ -17,11 +17,20 @@ def data_preprocessing(records):
 
     product_dataframes = []
     last_rows = []
+    productIds = []
 
     # Creating Dataframes for the registered products only
     for id in registered_products:
         product_df = main_df[main_df['id_number'] == id]
         # processing each dataframe individually
+
+        # Checking if the registered product is included in the data or not
+        # Also checks whether atleast more than 1 record is there for a product
+        if ((len(product_df)) < 2):
+            continue
+
+        # Appending the record available products
+        productIds.append(product_df.iloc[0, 0])
 
         # Sorting the data according to the date
         product_df['date'] = pd.to_datetime(product_df['date'])
@@ -42,7 +51,7 @@ def data_preprocessing(records):
         # Appending the frames to a list
         product_dataframes.append(product_df)
 
-    return product_dataframes, last_rows
+    return product_dataframes, last_rows, productIds
 
 
 def date_processing(df):
@@ -52,7 +61,7 @@ def date_processing(df):
     df['year'] = df['date'].dt.year
     df['day_of_year'] = df['date'].dt.dayofyear
     df['day_of_month'] = df['date'].dt.day
-    df['week_of_year'] = df['date'].dt.weekofyear
+    df['week_of_year'] = df['date'].dt.isocalendar().week
 
     df = df.drop(['date'], axis = 1)
 
