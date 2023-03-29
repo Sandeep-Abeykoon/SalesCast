@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -25,12 +24,12 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   String imageUrl= "";
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final CollectionReference prod = FirebaseFirestore.instance.collection('products');
-  TextEditingController _prodName = TextEditingController();
-  TextEditingController _prodID= TextEditingController();
-  TextEditingController _prodPrice = TextEditingController();
-  TextEditingController _prodBrand = TextEditingController();
+  final TextEditingController _prodName = TextEditingController();
+  final TextEditingController _prodID= TextEditingController();
+  final TextEditingController _prodPrice = TextEditingController();
+  final TextEditingController _prodBrand = TextEditingController();
   TextEditingController _prodCategory= TextEditingController();
-  TextEditingController _prodQuantity= TextEditingController();
+  final TextEditingController _prodQuantity= TextEditingController();
   late String ProdCategory;
 
 
@@ -43,7 +42,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
 
         appBar: AppBar(
 
-          title: Text(" Add new Product",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),),
+          title: const Text(" Add new Product",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),),
           backgroundColor: hexStringToColor("#8776ff"),
 
           elevation: 0,
@@ -52,7 +51,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Material(
+              const Material(
                 elevation: 3,
 
 
@@ -67,13 +66,13 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
               Column(
 
                 children: [
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                  addProdcutsField("Product Name", _prodName),
-                 SizedBox(height: 10,),
+                 const SizedBox(height: 10,),
                  addProdcutsField("Product Id/ Bar Code", _prodID),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   addProdcutsField("Product Price", _prodPrice),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
 
 
 
@@ -130,12 +129,12 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                 // Do something with the selected item
                 },),
 
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 addProdcutsField("Product Brand",_prodBrand),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   addProdcutsField("Quantity",_prodQuantity),
 
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -143,7 +142,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       BoxShadow(
                         color: Colors.black12.withOpacity(0.1),
                         blurRadius: 8,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),
                     ],
                   ),
@@ -160,7 +159,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
 
                       filled: true,
                       labelText: "Upload the product image",
-                      labelStyle: TextStyle(color: Colors.black54),
+                      labelStyle: const TextStyle(color: Colors.black54),
                       
 
                       suffixIcon:ElevatedButton(
@@ -189,7 +188,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                            Reference referenceImageToUpload = referenceDirImages.child(UniqueFileName);
 
                            try {
-                            await referenceImageToUpload.putFile(File(file!.path));
+                            await referenceImageToUpload.putFile(File(file.path));
                             imageUrl= await referenceImageToUpload.getDownloadURL();
                            } catch (error) {
 
@@ -197,7 +196,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                            }
 
                            },
-                        child: Text("Browse"),),
+                        child: const Text("Browse"),),
                         fillColor: Colors.grey.withOpacity(0.3),
                         enabledBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -209,7 +208,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   ),
                 ),
 
-                SizedBox(height: 40,),
+                const SizedBox(height: 40,),
                 ElevatedButton(
                     onPressed: ()async{
                       final String prodName= _prodName.text;
@@ -232,8 +231,6 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       Navigator.pop(context);
 
                       },
-
-                    child:Text("Add Product"),
                   style:ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith((states) {
                         if(states.contains(MaterialState.pressed)){
@@ -243,10 +240,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       }),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))
-                  ), ),
+                  ),
 
-
-
+                    child:const Text("Add Product"), ),
 
 
 
