@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:salescast/Screens/view_product.dart';
-import 'package:salescast/Screens/view_records.dart';
 import 'package:salescast/assets/colors.dart';
 
 
 import 'add_products.dart';
 
 class ProdcutsPage extends StatefulWidget {
-  const ProdcutsPage({Key? key}) : super(key: key);
+  const ProdcutsPage.Products({Key? key}) : super(key: key);
 
   @override
-  State<ProdcutsPage> createState() => _ProdcutsPageState();
+  State<ProdcutsPage> createState() => _ProductsPageState();
 }
 
-class _ProdcutsPageState extends State<ProdcutsPage> {
-  List<int> text = [1,2,3,4,5,6];
+class _ProductsPageState extends State<ProdcutsPage> {
+  List<int> text = [];//TODO Need to load product data
 
 
 
@@ -26,7 +25,7 @@ class _ProdcutsPageState extends State<ProdcutsPage> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
 
-        title: Text("My Products",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
+        title: const Text("My Products",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 0,
 
@@ -35,9 +34,9 @@ class _ProdcutsPageState extends State<ProdcutsPage> {
       body: ListView(children: [
 
         Container(
-          padding: EdgeInsets.only(top:15),
-          decoration: BoxDecoration(
-              color: Color(0xFFEDCF2),
+          padding: const EdgeInsets.only(top:15),
+          decoration: const BoxDecoration(
+              color: Color(0x0ffedcf2),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(35),
                   topRight: Radius.circular(35)
@@ -48,8 +47,8 @@ class _ProdcutsPageState extends State<ProdcutsPage> {
             child: Column(
               children: [
                 Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15),
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     height: 50,
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(0.3),
@@ -59,25 +58,25 @@ class _ProdcutsPageState extends State<ProdcutsPage> {
                     child: Row(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(left:5),
+                          margin: const EdgeInsets.only(left:5),
                           height: 50,
                           width:200,
                           child: TextFormField(
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border:InputBorder.none,
                               hintText: "Search here...",
                             ),
 
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
 
                       ],
                     )
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 20,
                     horizontal: 10,
                   ),
@@ -88,35 +87,35 @@ class _ProdcutsPageState extends State<ProdcutsPage> {
                 Container(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                  padding: EdgeInsets.all(10),
+                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
                         blurRadius: 8,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),],
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.all(15),
-                    child: const Text(
+                    child: Text(
                       "Hey! \n\nYou Don't have any products added yet. Click ➕ in the corner to add a new product 😃  ",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w100),
                     ),
                   ),
                 ),
                 for (var i in text)Container(
                   height: 110,
-                  margin: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                  padding: EdgeInsets.all(10),
+                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       boxShadow: [
                   BoxShadow(
                   color: Colors.black12.withOpacity(0.1),
                   blurRadius: 8,
-                  offset: Offset(0, 5),
+                  offset: const Offset(0, 5),
                 ),],
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
@@ -126,11 +125,11 @@ class _ProdcutsPageState extends State<ProdcutsPage> {
                       Container(
                         height: 70,
                         width: 70,
-                        margin: EdgeInsets.only(right: 20),
+                        margin: const EdgeInsets.only(right: 20),
                         child: Image.asset("lib/assets/images/Clothes.png"),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,15 +162,15 @@ class _ProdcutsPageState extends State<ProdcutsPage> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical:20),
+                        padding: const EdgeInsets.symmetric(vertical:20),
                         child: Column(
 
                           children: [
-                            Padding(padding:EdgeInsets.fromLTRB(67, 0, 0, 0),
+                            Padding(padding:const EdgeInsets.fromLTRB(67, 0, 0, 0),
                             child: IconButton(onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProduct()));
 
 
-                            }, icon: Icon(Icons.navigate_next))),
+                            }, icon: const Icon(Icons.navigate_next))),
 
 
                           ],
@@ -211,11 +210,11 @@ class _ProdcutsPageState extends State<ProdcutsPage> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (_){
-              return AddNewProductPage();
+              return const AddNewProductPage();
             },
           ));
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
 
     );
