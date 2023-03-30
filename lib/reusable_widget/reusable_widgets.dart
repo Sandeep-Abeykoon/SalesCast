@@ -10,10 +10,9 @@ Image logoWidget(String imageName){
     height: 240,
   );
 }
+
 Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEditingController controller,bool isEmail){
   return Material(
-
-
 
     child: TextFormField(
 
@@ -21,7 +20,7 @@ Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEd
       obscureText: isPasswordType,
       enableSuggestions: !isPasswordType,
       autocorrect: !isPasswordType,
-      autofillHints: [AutofillHints.email],
+      autofillHints: const [AutofillHints.email],
       cursorColor: Colors.grey,
 
 
@@ -59,36 +58,40 @@ Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEd
   );
 
 }
-Container logInSignUpButton(BuildContext context,bool isLogin, Function onTap){
+Container logInSignUpButton(BuildContext context,bool isLogin, Function onTap) {
   return Container(
-    width:MediaQuery.of(context).size.width ,
+    width: MediaQuery
+        .of(context)
+        .size
+        .width,
     height: 50,
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
     child: ElevatedButton(
-      onPressed: (){
+      onPressed: () {
         onTap();
-        },
+      },
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.pressed)) {
+              return hexStringToColor("#b2d8d8");
+            }
+            return hexStringToColor("#66b2b2");
+          }),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))
+      ),
       child: Text(
         isLogin ? 'LOG IN' : 'SIGN UP',
         style: const TextStyle(
-          color: Colors.black54, fontWeight: FontWeight.bold,fontSize: 16
+            color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 16
         ),
-      ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          if(states.contains(MaterialState.pressed)){
-            return hexStringToColor("#b2d8d8");
-          }
-          return hexStringToColor("#66b2b2");
-        }),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))
       ),
     ),
   );
-
 }
+
+
 Container addProdcutsField(String text,TextEditingController controller){
   return Container(
     decoration: BoxDecoration(
@@ -99,7 +102,7 @@ Container addProdcutsField(String text,TextEditingController controller){
         BoxShadow(
           color: Colors.black12.withOpacity(0.1),
           blurRadius: 8,
-          offset: Offset(0, 5),
+          offset: const Offset(0, 5),
         ),
       ],
     ),
@@ -115,19 +118,20 @@ Container addProdcutsField(String text,TextEditingController controller){
         if(text!.isEmpty){
           return "This Field Cannot be empty";
         }
+        return null;
 
       },
       onSaved: (value){
         value=controller as String?;
       },
 
-      style: TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
 
 
 
         labelText: text,
-        labelStyle: TextStyle(color: Colors.black54),
+        labelStyle: const TextStyle(color: Colors.black54),
 
       filled: true,
         fillColor: Colors.grey.withOpacity(0.3),
@@ -160,7 +164,7 @@ class CustomDropdownButton extends StatefulWidget {
   final String hint;
   final Function(DropdownMenuItemWithImage?) onChanged;
 
-  CustomDropdownButton({
+  const CustomDropdownButton({super.key,
     required this.items,
     required this.hint,
     required this.onChanged,
@@ -176,14 +180,14 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
             color: Colors.black12.withOpacity(0.1),
             blurRadius: 8,
-            offset: Offset(0, 5),
+            offset: const Offset(0, 5),
           ),
         ],
 
@@ -197,7 +201,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
         value: selectedValue,
         hint: Text(
           widget.hint,
-          style: TextStyle(color: Colors.black54),
+          style: const TextStyle(color: Colors.black54),
         ),
         onChanged: (value) {
           setState(() {
@@ -216,7 +220,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
                   width: 40,
                   height: 40,
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Text(item.title),
               ],
             ),

@@ -1,17 +1,13 @@
-
-
-
-
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../assets/colors.dart';
 import '../reusable_widget/reusable_widgets.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
 
 class AddNewProductPage extends StatefulWidget {
   const AddNewProductPage({Key? key}) : super(key: key);
@@ -21,18 +17,44 @@ class AddNewProductPage extends StatefulWidget {
 }
 
 class _AddNewProductPageState extends State<AddNewProductPage> {
+
+  final String apiUrl = "http://10.0.2.2:5000/";
+
+  var userId = "";
+  User? user = FirebaseAuth.instance.currentUser;
+
   final _formkey = GlobalKey<FormState>();
   String imageUrl= "";
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final CollectionReference prod = FirebaseFirestore.instance.collection('products');
-  TextEditingController _prodName = TextEditingController();
-  TextEditingController _prodID= TextEditingController();
-  TextEditingController _prodPrice = TextEditingController();
-  TextEditingController _prodBrand = TextEditingController();
+  final TextEditingController _prodName = TextEditingController();
+  final TextEditingController _prodID= TextEditingController();
+  final TextEditingController _prodPrice = TextEditingController();
+  final TextEditingController _prodBrand = TextEditingController();
   TextEditingController _prodCategory= TextEditingController();
-  TextEditingController _prodQuantity= TextEditingController();
+  final TextEditingController _prodQuantity= TextEditingController();
   late String ProdCategory;
 
+
+  // This method is to check the product id with the available products
+  Future<bool?> _productAvailability() async {
+    try {
+      final response = await http.post(Uri.parse('$apiUrl/product_availability'),
+        body: {'user_id': user?.uid , 'product_id': '12345'});
+
+      if(response.statusCode == 200) {
+        print("Request sent");
+        final responseBody = json.decode(response.body);
+        final bool isAvailable = responseBody['is_available'];
+        print(isAvailable);
+      }else{
+        throw Exception("Failed to send the request");
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +65,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
 
         appBar: AppBar(
 
-          title: Text(" Add new Product",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),),
+          title: const Text(" Add new Product",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),),
           backgroundColor: hexStringToColor("#8776ff"),
 
           elevation: 0,
@@ -52,7 +74,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Material(
+              const Material(
                 elevation: 3,
 
 
@@ -67,17 +89,13 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
               Column(
 
                 children: [
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                  addProdcutsField("Product Name", _prodName),
-                 SizedBox(height: 10,),
+                 const SizedBox(height: 10,),
                  addProdcutsField("Product Id/ Bar Code", _prodID),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   addProdcutsField("Product Price", _prodPrice),
-                  SizedBox(height: 10,),
-
-
-
-
+                  const SizedBox(height: 10,),
 
 
                 CustomDropdownButton(
@@ -130,12 +148,12 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                 // Do something with the selected item
                 },),
 
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 addProdcutsField("Product Brand",_prodBrand),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   addProdcutsField("Quantity",_prodQuantity),
 
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -143,7 +161,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       BoxShadow(
                         color: Colors.black12.withOpacity(0.1),
                         blurRadius: 8,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),
                     ],
                   ),
@@ -160,7 +178,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
 
                       filled: true,
                       labelText: "Upload the product image",
-                      labelStyle: TextStyle(color: Colors.black54),
+                      labelStyle: const TextStyle(color: Colors.black54),
                       
 
                       suffixIcon:ElevatedButton(
@@ -189,7 +207,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                            Reference referenceImageToUpload = referenceDirImages.child(UniqueFileName);
 
                            try {
-                            await referenceImageToUpload.putFile(File(file!.path));
+                            await referenceImageToUpload.putFile(File(file.path));
                             imageUrl= await referenceImageToUpload.getDownloadURL();
                            } catch (error) {
 
@@ -197,7 +215,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                            }
 
                            },
-                        child: Text("Browse"),),
+                        child: const Text("Browse"),),
                         fillColor: Colors.grey.withOpacity(0.3),
                         enabledBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -209,9 +227,11 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   ),
                 ),
 
-                SizedBox(height: 40,),
+                const SizedBox(height: 40,),
                 ElevatedButton(
                     onPressed: ()async{
+
+
                       final String prodName= _prodName.text;
                       final String prodID= _prodID.text;
                       final String prodPrice= _prodPrice.text;
@@ -219,21 +239,19 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       final String prodCategory= _prodCategory.text;
                       final String prodQuantity=_prodQuantity.text;
 
-                      await FirebaseFirestore.instance
-                      .collection('products')
-                      .add({
-                        'product name': prodName,
-                        'product Id': prodID,
-                        'product Price': prodPrice,
-                        'product Brand': prodBrand,
-                        'product Category': prodCategory,
-                        'product Quantity': prodQuantity,
-                      });
+
+                      //await FirebaseFirestore.instance
+                      //.collection('products')
+                      //.add({
+                        //'product name': prodName,
+                       // 'product Id': prodID,
+                       // 'product Price': prodPrice,
+                       // 'product Brand': prodBrand,
+                       // 'product Category': prodCategory,
+                       // 'product Quantity': prodQuantity,
+                      //});
                       Navigator.pop(context);
-
                       },
-
-                    child:Text("Add Product"),
                   style:ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith((states) {
                         if(states.contains(MaterialState.pressed)){
@@ -243,10 +261,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       }),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))
-                  ), ),
+                  ),
 
-
-
+                    child:const Text("Add Product"), ),
 
 
 

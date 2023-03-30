@@ -54,7 +54,12 @@ dependencies:
   line_awesome_flutter: ^2.0.0
   firebase_database: ^10.0.15
   file_picker: ^5.2.6
+
   google_fonts: ^4.0.3
+
+  #http
+  http: ^0.13.5
+
 
 
 
