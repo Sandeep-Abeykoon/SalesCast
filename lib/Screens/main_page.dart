@@ -18,7 +18,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List pages= [HomePage(),ProdcutsPage(),MyRecordsPage(),ForecastsPage(),ProfilePage()];
+  List pages= [HomePage(),ProductsPage(),MyRecordsPage(),ForecastsPage(),ProfilePage()];
   int currentIndex= 0;
   void onTap(int index){
     setState(() {

@@ -5,7 +5,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:salescast/Screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:salescast/Screens/main_page.dart';
-import 'package:salescast/Screens/profile_screen.dart';
+
 import 'package:salescast/Screens/view_product.dart';
 import 'package:salescast/Screens/welcome.dart';
 import 'package:salescast/Screens/welcome_page_slide.dart';

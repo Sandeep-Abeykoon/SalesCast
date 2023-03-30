@@ -5,14 +5,14 @@ import 'package:salescast/assets/colors.dart';
 
 import 'add_products.dart';
 
-class ProdcutsPage extends StatefulWidget {
-  const ProdcutsPage.Products({Key? key}) : super(key: key);
+class ProductsPage extends StatefulWidget {
+  const ProductsPage({Key? key}) : super(key: key);
 
   @override
-  State<ProdcutsPage> createState() => _ProductsPageState();
+  State<ProductsPage> createState() => _ProductsPageState();
 }
 
-class _ProductsPageState extends State<ProdcutsPage> {
+class _ProductsPageState extends State<ProductsPage> {
   List<int> text = [];//TODO Need to load product data
 
 

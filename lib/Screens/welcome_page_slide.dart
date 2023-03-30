@@ -1,108 +1,156 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:salescast/Screens/welcome.dart';
 import 'package:salescast/assets/colors.dart';
-import 'package:salescast/auth_service.dart';
 import 'package:salescast/reusable_widget/app_large_text.dart';
-import 'package:salescast/reusable_widget/app_small_text.dart';
-import 'package:salescast/reusable_widget/responsive_button.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
  class WelcomePageSlide extends StatefulWidget {
    const WelcomePageSlide({Key? key}) : super(key: key);
- 
+
    @override
    State<WelcomePageSlide> createState() => _WelcomePageSlideState();
  }
- 
+
  class _WelcomePageSlideState extends State<WelcomePageSlide> {
    List images= ["lib/assets/images/Image_2.png","lib/assets/images/Image_3.png","lib/assets/images/Image_5.png"
 
    ];
+   final controller = LiquidController();
+   int currentPage = 0;
    @override
    Widget build(BuildContext context) {
      return Scaffold(
 
-       body:
+       body:Stack(
+         alignment: Alignment.center,
+         children: [
+           LiquidSwipe(
+             liquidController: controller,
+              onPageChangeCallback: onPageChanged,
+               pages: [
+                 Container(
+                     color: tOnBordingPage1color,
+                 child: Column(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   crossAxisAlignment: CrossAxisAlignment.center,
+                   children: [
+                     SizedBox(height: 10,),
+                     AppLargeText(text:"Welcome to SalesCast!" ),
 
+                     Image(
+                         image:
+                         AssetImage("lib/assets/images/OnBoardImages/Student_and_teacher_studying_financial_graph_growth-removebg-preview.png"),height:MediaQuery.of(context).size.height * 0.4 ,width: MediaQuery.of(context).size.width,
+                     ),
+                     SizedBox(height: 10,),
+                     Text("Let's start the journey with Salescast",style: TextStyle(fontFamily: "Poppins",fontSize: 18,color: Colors.grey),),
+                     SizedBox(height: 30,),
+                     Text("1/3",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
+                   ],
+                 ),
+                 ),
+                 Container(color: tOnBordingPage2color,
+                   child: Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     children: [
+                       SizedBox(height: 10,),
 
-         PageView.builder(
-           scrollDirection: Axis.vertical,
-            itemCount: images.length,
-             itemBuilder:(_,index){
-            return Container(
+                       Image(
+                         image:
+                         AssetImage("lib/assets/images/OnBoardImages/competitor_analysis_16-removebg-preview.png"),height:MediaQuery.of(context).size.height * 0.4 ,width: MediaQuery.of(context).size.width,
+                       ),
 
-           // margin: EdgeInsets.only(top: 300),
-              width:MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                image: DecorationImage(scale:1,
-                    image: AssetImage(
+                       Text("",style: TextStyle(fontFamily: "Poppins",fontSize: 26,fontWeight:FontWeight.bold,color: Colors.black),),
+                       SizedBox(height: 10,),
+                       Padding(
+                         padding: EdgeInsets.only(left: 30),
+                           child: Text("Get the detailed forecasts of your favourite products.",style: TextStyle(fontFamily: "Poppins",fontSize: 18,color: Colors.grey),)),
+                       SizedBox(height: 10,),
+                       Text("2/3",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
+                     ],
+                   ),),
+                  Container(color: tOnBordingPage3color,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 10,),
 
-                    images[index]
-                    ),
-                  fit: BoxFit.cover
-                ),
-                ),
-
-              child: Container(
-                margin: const EdgeInsets.only(left: 20,top: 100,right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    // SizedBox(height: 100),
-
-                    AppLargeText(text:"Welcome"),
-                    SizedBox(height:10 ,),
-                    Container(
-                      width: 250,
-
-                        child: AppSmallText(text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s  ", color: Colors.black.withOpacity(0.5))),
-                    SizedBox(height: 100,),
-                    Container(
-                      width: 100,
-                      height: 50,
-                      margin: EdgeInsets.only(left: 10),
-                      child: ElevatedButton(onPressed: (){
-
-
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WelcomePage()));
-                      }, child: Text("Next",style: TextStyle(color: Colors.black,fontSize: 15),),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.resolveWith((states) {
-                              if(states.contains(MaterialState.pressed)){
-                                return Colors.white70;
-                              }
-                              return hexStringToColor("#a6a6df");
-                            }),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),),
-                    )
-
-                    ],
-                    ),
-                  Column(
-                    children: List.generate(3, (indexDots) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 2),
-                        width: 8,
-                        height: index== indexDots?40:12,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: hexStringToColor("#a6a6df"),
+                        Image(
+                          image:
+                          AssetImage("lib/assets/images/OnBoardImages/rebranding_5-removebg-preview.png"),height:MediaQuery.of(context).size.height * 0.4 ,width: MediaQuery.of(context).size.width,
                         ),
+                        SizedBox(height: 10,),
+                        Padding
+                          (padding: EdgeInsets.fromLTRB(40, 20, 40, 0),
+                            child: Text("Compare the forecasts of your product brand with the highest demanding product brands.",style: TextStyle(fontFamily: "Poppins",fontSize: 18,color: Colors.grey),)),
+                        SizedBox(height: 10,),
+                        Text("3/3",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
+                      ],
+                    ),)
 
-                      );
-                    }),
-                  )],
-                ),
+                  ],
+             slideIconWidget: Icon(Icons.arrow_back_ios),
+             enableSideReveal: true,
+           ),
 
-              ),
+           Positioned(
+             bottom: 55,
+               child:OutlinedButton(
+                 onPressed: (){
+                   if(controller.currentPage ==2){
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=>WelcomePage()));
 
-            );
-           } ),
+                   }
+                   int nextpage = controller.currentPage +1 ;
+                   controller.animateToPage(page: nextpage);
 
+                 },
+
+                 style: ElevatedButton.styleFrom(
+                   side:  BorderSide(color: Colors.grey),
+                   shape:  CircleBorder(),
+                   padding:  EdgeInsets.all(15),
+                   onPrimary: Colors.white,
+                 ),
+                 child: Container(
+                   padding: EdgeInsets.all(20),
+                   decoration: BoxDecoration(
+                     color: Colors.black,shape: BoxShape.circle,
+                   ),
+                   child:  Icon(Icons.arrow_forward_ios),
+
+                 ),
+               )
+           ),
+           Positioned(
+             top: 50,
+               right: 20,
+
+               child: TextButton(
+                 onPressed: ()=> controller.jumpToPage(page: 2),
+                 child: Text(
+                   "Skip",style: TextStyle(color: Colors.grey),
+                 ),
+               )),
+           Positioned(
+             bottom: 10,
+
+               child: AnimatedSmoothIndicator(
+             activeIndex: controller.currentPage, count: 3,
+               effect: WormEffect(
+                 activeDotColor: Colors.black,
+                 dotHeight: 5,
+               ),))
+         ],
+       )
      );
    }
+
+ void onPageChanged(int activePageIndex) {
+     currentPage = activePageIndex;
+     setState(() {
+
+     });
  }
- 
+ }

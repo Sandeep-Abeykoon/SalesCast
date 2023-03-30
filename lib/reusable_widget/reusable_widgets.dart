@@ -61,7 +61,7 @@ Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEd
 }
 Container logInSignUpButton(BuildContext context,bool isLogin, Function onTap){
   return Container(
-    width:MediaQuery.of(context).size.width ,
+    width:300 ,
     height: 50,
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
@@ -70,7 +70,7 @@ Container logInSignUpButton(BuildContext context,bool isLogin, Function onTap){
         onTap();
         },
       child: Text(
-        isLogin ? 'LOG IN' : 'SIGN UP',
+        isLogin ? 'LOGIN' : 'SIGN UP',
         style: const TextStyle(
           color: Colors.black54, fontWeight: FontWeight.bold,fontSize: 16
         ),
@@ -80,16 +80,16 @@ Container logInSignUpButton(BuildContext context,bool isLogin, Function onTap){
           if(states.contains(MaterialState.pressed)){
             return hexStringToColor("#b2d8d8");
           }
-          return hexStringToColor("#66b2b2");
+          return Colors.deepPurple.shade500;
         }),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)))
       ),
     ),
   );
 
 }
-Container addProdcutsField(String text,TextEditingController controller){
+Container addProductsField(String text,TextEditingController controller, bool isQuantityOrPrice){
   return Container(
     decoration: BoxDecoration(
 
@@ -109,7 +109,9 @@ Container addProdcutsField(String text,TextEditingController controller){
       autocorrect: true,
       cursorColor: Colors.grey,
 
-
+      keyboardType: isQuantityOrPrice
+          ? TextInputType.numberWithOptions()
+          : TextInputType.multiline,
       validator: (text){
 
         if(text!.isEmpty){

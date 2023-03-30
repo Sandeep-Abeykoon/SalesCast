@@ -22,25 +22,25 @@ class _WelcomePageState extends State<WelcomePage> {
       body: Container(
         width: 1000,
         height: 1000,
-        decoration: BoxDecoration(gradient: LinearGradient(
-            colors: [
-              hexStringToColor("#008080"),
-              hexStringToColor("#b2d8d8"),
-              hexStringToColor("#66b2b2")],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter),
+        decoration: BoxDecoration(
+          color: Colors.deepPurpleAccent.withOpacity(0.6)
         ),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(20, MediaQuery
                 .of(context)
                 .size
-                .height * 0.2, 20, 0),
+                .height*0.1, 20, 0),
             child: Column(
               children: <Widget>[
-                logoWidget("lib/assets/images/logo.png"),
+                Padding(
+                    padding: EdgeInsets.fromLTRB(0,0, 0,0),
+                    child: Image(image: AssetImage("lib/assets/images/OnBoardImages/Image_2.png"))),
+
+
+                // logoWidget("lib/assets/images/logo.png"),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
 
                 logInSignUpButton(context, true, () {
@@ -57,7 +57,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   height: 10,
                 ),
                 Container(
-                  width:MediaQuery.of(context).size.width ,
+                  width:300 ,
                   height: 50,
                   margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
@@ -74,10 +74,10 @@ class _WelcomePageState extends State<WelcomePage> {
                                 if(states.contains(MaterialState.pressed)){
                                   return hexStringToColor("#b2d8d8");
                                 }
-                                return hexStringToColor("#66b2b2");
+                                return Colors.deepPurple.shade500;
                               }),
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
+                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)))),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                       child: Row(
@@ -106,67 +106,6 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                 ),
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                // Container(
-                //   width:MediaQuery.of(context).size.width ,
-                //   height: 50,
-                //   margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
-                //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(150)),
-                //   child: ElevatedButton(
-                //
-                //       onPressed:(){
-                //     AuthService().signInWithGoogle();
-                //
-                //
-                //   },
-                //
-                //
-                //       , child: Text("Sign in With Google", style: const TextStyle(
-                //           color: Colors.black87, fontWeight: FontWeight.bold,fontSize: 16
-                //       ),
-                //       ),
-                //     style: ButtonStyle(
-                //         backgroundColor: MaterialStateProperty.resolveWith((states) {
-                //           if(states.contains(MaterialState.pressed)){
-                //             return Colors.teal;
-                //           }
-                //           return Colors.white;
-                //         }),
-                //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))
-                //     ),
-                //   ),
-                // ),
-
-
-                SizedBox(
-                  height: 5,
-                ),
 
                 //signUpOption()
               ],

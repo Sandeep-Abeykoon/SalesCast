@@ -4,6 +4,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:salescast/Screens/home.dart';
+import 'package:salescast/Screens/main_page.dart';
 import 'package:salescast/Screens/signup.dart';
 import 'package:salescast/assets/colors.dart';
 import 'package:salescast/reusable_widget/reusable_widgets.dart';
@@ -68,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                                 email: _emailTextController.text,
                                 password: _passwordTextController.text).then((value) => {
                                   Navigator.push(context,
-                            MaterialPageRoute(builder: (context)=>HomePage()))
+                            MaterialPageRoute(builder: (context)=>MainPage()))
 
                             });
 

@@ -55,6 +55,9 @@ dependencies:
   firebase_database: ^10.0.15
   file_picker: ^5.2.6
   google_fonts: ^4.0.3
+  cached_network_image: ^3.2.3
+  liquid_swipe: ^3.1.0
+  smooth_page_indicator: ^1.0.1
 
 
 
@@ -87,6 +90,7 @@ flutter:
   assets:
      - lib/assets/images/
      - lib/assets/Fonts/
+     - lib/assets/images/OnBoardImages/
 
 
 

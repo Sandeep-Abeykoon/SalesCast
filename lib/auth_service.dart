@@ -18,7 +18,7 @@ class AuthService {
         if (snapshot.hasData) {
           return MainPage();
         } else {
-          return const WelcomePage();
+          return const WelcomePageSlide();
         }
       },
     );

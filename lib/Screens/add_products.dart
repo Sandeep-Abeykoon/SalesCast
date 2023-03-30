@@ -5,6 +5,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,9 +23,14 @@ class AddNewProductPage extends StatefulWidget {
 
 class _AddNewProductPageState extends State<AddNewProductPage> {
   final _formkey = GlobalKey<FormState>();
+  var userId = " " ;
+  User? user = FirebaseAuth.instance.currentUser;
+
   String imageUrl= "";
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final CollectionReference prod = FirebaseFirestore.instance.collection('products');
+  final referenceDatabase = FirebaseDatabase.instance.ref();
+  final referenceFirestore = FirebaseStorage.instance.ref();
+  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // final CollectionReference prod = FirebaseFirestore.instance.collection('products');
   final TextEditingController _prodName = TextEditingController();
   final TextEditingController _prodID= TextEditingController();
   final TextEditingController _prodPrice = TextEditingController();
@@ -67,11 +74,11 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
 
                 children: [
                   const SizedBox(height: 10,),
-                 addProdcutsField("Product Name", _prodName),
+                 addProductsField("Product Name", _prodName,false),
                  const SizedBox(height: 10,),
-                 addProdcutsField("Product Id/ Bar Code", _prodID),
+                 addProductsField("Product Id/ Bar Code", _prodID,false),
                   const SizedBox(height: 10,),
-                  addProdcutsField("Product Price", _prodPrice),
+                  addProductsField("Product Price", _prodPrice,true),
                   const SizedBox(height: 10,),
 
 
@@ -130,9 +137,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                 },),
 
                 const SizedBox(height: 10,),
-                addProdcutsField("Product Brand",_prodBrand),
+                addProductsField("Product Brand",_prodBrand,false),
                   const SizedBox(height: 10,),
-                  addProdcutsField("Quantity",_prodQuantity),
+                  addProductsField("Quantity",_prodQuantity,true),
 
                 const SizedBox(height: 10,),
                 Container(
@@ -176,23 +183,29 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                         ),
 
                           onPressed: ()async{
+
                           ImagePicker imagepicker= ImagePicker();
                            XFile? file= await imagepicker.pickImage(source: ImageSource.gallery);
                            print("${file?.path}");
                            if(file == null)return;
-                           String UniqueFileName= DateTime.now().microsecondsSinceEpoch.toString();
+                           // String UniqueFileName= DateTime.now().microsecondsSinceEpoch.toString();
 
                            Reference referenceRoot= FirebaseStorage.instance.ref();
                            Reference referenceDirImages= referenceRoot.child("Images");
+                           Reference referenceUserFolder= referenceDirImages.child(userId);
+                           Reference referenceImageToUpload = referenceUserFolder.child(_prodID.text);
 
-                           Reference referenceImageToUpload = referenceDirImages.child(UniqueFileName);
+
+
+
 
                            try {
                             await referenceImageToUpload.putFile(File(file.path));
                             imageUrl= await referenceImageToUpload.getDownloadURL();
-                           } catch (error) {
 
-                             // TODO
+                           } catch (e) {
+                             print(e);
+
                            }
 
                            },
@@ -204,9 +217,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       ),
 
                     ),
-
                   ),
                 ),
+
 
                 const SizedBox(height: 40,),
                 ElevatedButton(
@@ -217,17 +230,67 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       final String prodBrand = _prodBrand.text;
                       final String prodCategory= _prodCategory.text;
                       final String prodQuantity=_prodQuantity.text;
+                      final String imageURL= imageUrl;
 
-                      await FirebaseFirestore.instance
-                      .collection('products')
-                      .add({
-                        'product name': prodName,
-                        'product Id': prodID,
-                        'product Price': prodPrice,
-                        'product Brand': prodBrand,
-                        'product Category': prodCategory,
-                        'product Quantity': prodQuantity,
-                      });
+                      referenceDatabase.child(userId)
+                          .child("products")
+                          .child("productName")
+                          .push()
+                          .set(prodName)
+                          .asStream();
+
+                      referenceDatabase.child(userId)
+                          .child("products")
+                          .child("productPrice")
+                          .push()
+                          .set(prodPrice)
+                          .asStream();
+
+                      referenceDatabase.child(userId)
+                          .child("products")
+                          .child("productId")
+                          .push()
+                          .set(prodID)
+                          .asStream();
+                      referenceDatabase.child(userId)
+                          .child("products")
+                          .child("productBrand")
+                          .push()
+                          .set(prodBrand)
+                          .asStream();
+                      referenceDatabase.child(userId)
+                          .child("products")
+                          .child("productCategory")
+                          .push()
+                          .set(prodCategory)
+                          .asStream();
+
+                      referenceDatabase.child(userId)
+                          .child("products")
+                        .child("productQuantity")
+                          .push()
+                          .set(prodQuantity)
+                          .asStream();
+
+                      referenceDatabase.child(userId)
+                          .child("products")
+                          .child("imageUrl")
+                          .push()
+                          .set(imageURL)
+                          .asStream();
+
+
+                      // await FirebaseFirestore.instance
+                      // .collection('products')
+                      // .add({
+                      //   'product name': prodName,
+                      //   'product Id': prodID,
+                      //   'product Price': prodPrice,
+                      //   'product Brand': prodBrand,
+                      //   'product Category': prodCategory,
+                      //   'product Quantity': prodQuantity,
+                      //   'product Image': imageUrl,
+                      // });
                       Navigator.pop(context);
 
                       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salescast/Screens/welcome_page_slide.dart';
 
 import '../Screens/profile_page.dart';
 
