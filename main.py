@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 #Importing Local Modules
 import csv_processesing as cp
@@ -34,11 +34,32 @@ def upload_csv():
     print (sales_predictions)
 
     db.database_add(records)
+
     # Getting the Trending product brands
 
 
     return [sales_predictions], 200
 
+
+@app.route('/product_availability', methods=['POST'])
+def check_availability():
+    user_id = request.form.get('user_id')
+    product_id = request.form.get('product_id')
+    is_available = False
+    is_available = db.product_available(user_id,product_id,is_available)
+    print(is_available)
+    return jsonify({'is_available': is_available})
+
+@app.route('/register_product', methods=['POST'])
+def register_product():
+    user_id = request.form.get('user_id')
+    product_brand = request.form.get('product_brand')
+    product_name = request.form.get('product_name')
+    product_price = request.form.get('product_price')
+    product_category = request.form.get('product_category')
+    product_id = request.form.get('product_id')
+    db.add_product(user_id,product_name,product_id,product_price,product_brand,product_category)
+    return("hello world")
    
 if __name__ == "__main__":
     app.run(debug=True)
