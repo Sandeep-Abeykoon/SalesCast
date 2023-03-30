@@ -70,7 +70,7 @@ Container logInSignUpButton(BuildContext context,bool isLogin, Function onTap){
         onTap();
         },
       child: Text(
-        isLogin ? 'LOGIN' : 'SIGN UP',
+        isLogin ? 'LOGIN' : 'SIGNUP',
         style: const TextStyle(
           color: Colors.black54, fontWeight: FontWeight.bold,fontSize: 16
         ),

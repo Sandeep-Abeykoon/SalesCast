@@ -7,9 +7,6 @@ import 'package:salescast/Screens/products_page.dart';
 import 'package:salescast/Screens/profile_page.dart';
 import 'package:salescast/Screens/RecordsPage.dart';
 
-
-
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -18,43 +15,51 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List pages= [HomePage(),ProductsPage(),MyRecordsPage(),ForecastsPage(),ProfilePage()];
-  int currentIndex= 0;
-  void onTap(int index){
+  List pages = [
+    HomePage(),
+    ProductsPage(),
+    MyRecordsPage(),
+    ForecastsPage(),
+    ProfilePage()
+  ];
+  int currentIndex = 0;
+  void onTap(int index) {
     setState(() {
-      currentIndex= index;
+      currentIndex = index;
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( bottomNavigationBar: BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.white54,
-      currentIndex: currentIndex,
-      selectedItemColor: Colors.black87,
-      unselectedItemColor: Colors.grey,
-      unselectedFontSize: 0,
-      selectedFontSize: 0,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      onTap: onTap,
-      elevation: 0,
-      items: [
-        BottomNavigationBarItem(icon: Icon(LineAwesomeIcons.home),label: "Home",),
-        BottomNavigationBarItem(icon: Icon(LineAwesomeIcons.box),label: "Prodcuts"),
-        BottomNavigationBarItem(icon: Icon(LineAwesomeIcons.newspaper),label: "Records"),
-        BottomNavigationBarItem(icon: Icon(LineAwesomeIcons.bar_chart),label: "Forecasts"),
-        BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined),label: "Profile")
-      ],
-    ),
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white54,
+        currentIndex: currentIndex,
+        selectedItemColor: Colors.black87,
+        unselectedItemColor: Colors.grey,
+        unselectedFontSize: 0,
+        selectedFontSize: 0,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap: onTap,
+        elevation: 0,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(LineAwesomeIcons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(LineAwesomeIcons.box), label: "Prodcuts"),
+          BottomNavigationBarItem(
+              icon: Icon(LineAwesomeIcons.newspaper), label: "Records"),
+          BottomNavigationBarItem(
+              icon: Icon(LineAwesomeIcons.bar_chart), label: "Forecasts"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_2_outlined), label: "Profile")
+        ],
+      ),
       body: pages[currentIndex],
-
-
-
-
-
     );
   }
 }
