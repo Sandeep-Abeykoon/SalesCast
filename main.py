@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 #Importing Local Modules
 import csv_processesing as cp
@@ -36,6 +36,22 @@ def upload_csv():
 
 
     return [sales_predictions], 200
+
+
+@app.route('/product_availability', methods=['POST'])
+def check_availability():
+    user_id = request.form.get('user_id')
+    product_id = request.form.get('product_id')
+    print(user_id, product_id)
+    
+
+    is_available = False
+    return jsonify({'is_available': is_available})
+
+@app.route('/register_product')
+def register_product():
+    # Getting the data from the request
+    new_product_data = ''
 
    
 if __name__ == "__main__":
