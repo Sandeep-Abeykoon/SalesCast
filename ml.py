@@ -33,7 +33,7 @@ scaler = StandardScaler()
 df['price_scaled'] = scaler.fit_transform(df[['sold_price']])
 df['price_normalized'] = (df['sold_price'] - np.mean(df['sold_price'])) / np.std(df['sold_price'])
 
-# Convert prices to log prices
+# Convert prices to log price
 df['log_price'] = np.log(df['sold_price'])
 
 df = df.drop(['date'], axis = 1)
