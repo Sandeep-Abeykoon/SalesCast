@@ -54,11 +54,13 @@ dependencies:
   line_awesome_flutter: ^2.0.0
   firebase_database: ^10.0.15
   file_picker: ^5.2.6
-
+  flutter_share: ^2.0.0
   google_fonts: ^4.0.3
   cached_network_image: ^3.2.3
   liquid_swipe: ^3.1.0
   smooth_page_indicator: ^1.0.1
+  cool_alert: ^2.0.1
+
 
   #http
   http: ^0.13.5

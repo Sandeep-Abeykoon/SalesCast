@@ -23,7 +23,7 @@ class _WelcomePageState extends State<WelcomePage> {
         width: 1000,
         height: 1000,
         decoration: BoxDecoration(
-          color: Colors.deepPurpleAccent.withOpacity(0.6)
+          color: Colors.white12.withOpacity(0.6)
         ),
         child: SingleChildScrollView(
           child: Padding(
@@ -42,7 +42,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 SizedBox(
                   height: 10,
                 ),
-
+                Text("Let's begin by login or sign in",style: TextStyle(fontFamily: "Poppins",fontSize: 24,fontWeight:FontWeight.w300,color: Colors.black),),
+                SizedBox(height: 10,),
                 logInSignUpButton(context, true, () {
 
                   Navigator.push(context,
@@ -53,7 +54,10 @@ class _WelcomePageState extends State<WelcomePage> {
                 logInSignUpButton(context, false, () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SignUpPage()));
-                }), SizedBox(
+                }),
+
+
+                SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -67,7 +71,11 @@ class _WelcomePageState extends State<WelcomePage> {
                     //   foregroundColor: Colors.black, backgroundColor: Colors.transparent,
                     // ),
                     onPressed: () {
+
                       AuthService().googleSignIn();
+                      setState(() {
+                        
+                      });
                     },
                     style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.resolveWith((states) {
@@ -77,7 +85,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                 return Colors.deepPurple.shade500;
                               }),
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)))),
+                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)))),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                       child: Row(

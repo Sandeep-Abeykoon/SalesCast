@@ -32,7 +32,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         locale: DevicePreview.locale(context),
         builder: DevicePreview.appBuilder,
-        theme: ThemeData(),
+        theme: ThemeData(brightness: Brightness.light),
+
+
         home: AuthService().handleAuthState());
   }
 }

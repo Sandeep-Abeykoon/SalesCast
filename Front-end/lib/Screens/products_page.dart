@@ -102,7 +102,7 @@ class _ProductsPageState extends State<ProductsPage> {
                   child: const Padding(
                     padding: EdgeInsets.all(15),
                     child: Text(
-                      "Hey! \n\nYou Don't have any products added yet. Click ➕ in the corner to add a new product 😃  ",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w100),
+                      "Hey! \n\nYou Don't have any products added yet. Click ➕ in the corner to add a new product 😃  ",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w300),
                     ),
                   ),
                 ),

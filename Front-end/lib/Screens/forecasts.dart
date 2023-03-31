@@ -40,7 +40,7 @@ class _ForecastsPageState extends State<ForecastsPage> {
                 child: Padding(
                   padding: EdgeInsets.all(15),
                   child: const Text(
-                    "Hey! \n\nYou Don't have any Forecasts yet 🥺. Try adding product sales records and come back  ",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w100),
+                    "Hey! \n\nYou Don't have any Forecasts yet 🥺. Try adding product sales records and come back  ",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w300),
                   ),
                 ),
               ),

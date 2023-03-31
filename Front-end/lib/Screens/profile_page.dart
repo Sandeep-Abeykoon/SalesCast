@@ -1,7 +1,14 @@
 import 'dart:io';
+<<<<<<< Updated upstream
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+=======
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+>>>>>>> Stashed changes
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,6 +25,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+<<<<<<< Updated upstream
   @override
 
   late PickedFile _imageFile;
@@ -68,6 +76,73 @@ class _ProfilePageState extends State<ProfilePage> {
         children: <Widget>[
           Container(
             height: 350,
+=======
+
+  final ImagePicker _picker = ImagePicker();
+  String imageUrl = "";
+  var userId = " ";
+  XFile? _image;
+
+  @override
+  void initState() {
+    super.initState();
+    final user = FirebaseAuth.instance.currentUser;
+    userId = user!.uid;
+    imageUrl = user.photoURL ?? '';
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await _picker.pickImage(
+        source: source,
+        maxHeight: 512,
+        maxWidth: 512,
+        imageQuality: 75,
+      );
+
+      if (pickedFile != null) {
+        setState(() {
+          _image = pickedFile;
+          uploadPic(context);
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> uploadPic(BuildContext context) async {
+    try {
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('ProfilePics')
+          .child(userId)
+          .child(_image!.path);
+      final task = ref.putFile(File(_image!.path));
+      final snapshot = await task.whenComplete(() {});
+      imageUrl = await snapshot.ref.getDownloadURL();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Profile Picture Updated')),
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+  @override
+  final user = FirebaseAuth.instance.currentUser;
+  var url = FirebaseAuth.instance.currentUser?.photoURL;
+ final name= FirebaseAuth.instance.currentUser?.displayName;
+  final email= FirebaseAuth.instance.currentUser?.email;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      body: ListView(
+        children: <Widget>[
+          Container(
+            height: 300,
+>>>>>>> Stashed changes
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Colors.deepPurpleAccent, Colors.deepPurple.shade400],
@@ -93,6 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             height: 150.0,
                             width: 150.0,
                             color: Colors.blueGrey,
+<<<<<<< Updated upstream
                             child:
                             imageUrl =="" ? Icon(Icons.person,color: Colors.white,size: 80,)
                                 : Image.network(imageUrl,fit: BoxFit.cover,)
@@ -114,6 +190,32 @@ class _ProfilePageState extends State<ProfilePage> {
                         //       // NetworkImage("")
                         //   ),
                         // ),
+=======
+                            child:imageUrl == ''
+                                ? Icon(
+                              Icons.person,
+                              color: Colors.white,
+                              size: 80,
+                            )
+                                : CachedNetworkImage(
+                              imageUrl: imageUrl,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                    size: 80,
+                                  ),
+                            ),
+                            // imageUrl =="" ? Icon(Icons.person,color: Colors.white,size: 80,)
+                            //                             //   : CachedNetworkImage(imageUrl: imageUrl)
+                          ),
+                        ),
+
+>>>>>>> Stashed changes
                         Positioned(
                             bottom: 0,
                             right: 5,
@@ -123,6 +225,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               icon: Icon(Icons.camera_alt, color: Colors.black,
                                   size: 35),
                               onPressed: () {
+<<<<<<< Updated upstream
                                pickUploadImage();
 
 
@@ -130,11 +233,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             )),
 
 
+=======
+                              _pickImage(ImageSource.gallery);
+                              },
+                            )),
+>>>>>>> Stashed changes
                       ],
                     ),
                   ],
                 ),
                 SizedBox(
+<<<<<<< Updated upstream
                   height: 5,
                 ),
 
@@ -194,6 +303,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     color: Colors.white,
                   ),
                 ),
+=======
+                  height: 40,
+                ),
+              Text(name!,
+                style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+>>>>>>> Stashed changes
               ],
             ),
           ),
@@ -211,11 +331,20 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   subtitle: Text(
+<<<<<<< Updated upstream
                     'Chathuni Abeysinghe',
+=======
+
+                    name!,
+>>>>>>> Stashed changes
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
+<<<<<<< Updated upstream
+=======
+                  trailing:  IconButton(onPressed: (){}, icon: Icon(Icons.edit)),
+>>>>>>> Stashed changes
                 ),
                 Divider(),
                 ListTile(
@@ -228,17 +357,28 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   subtitle: Text(
+<<<<<<< Updated upstream
                     'chathuni@gmail.com',
+=======
+                    email!,
+>>>>>>> Stashed changes
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
                 ),
                 Divider(),
+<<<<<<< Updated upstream
                 SizedBox(height: 60,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.red, // background
+=======
+                SizedBox(height: 30,),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.deepPurple.withOpacity(0.6), // background
+>>>>>>> Stashed changes
                     onPrimary: Colors.white, // foreground
                   ),
                   onPressed: () {
@@ -261,6 +401,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
 
+<<<<<<< Updated upstream
 
 
   Widget bottomSheet(BuildContext context) {
@@ -393,6 +534,8 @@ setState(() {
   }
 
 
+=======
+>>>>>>> Stashed changes
 }
 
 
@@ -408,6 +551,7 @@ setState(() {
 
 
 
+<<<<<<< Updated upstream
 
 
 
@@ -461,3 +605,5 @@ setState(() {
 //     );
 //   }
 // }
+=======
+>>>>>>> Stashed changes

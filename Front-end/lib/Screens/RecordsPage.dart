@@ -67,7 +67,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                   child: Padding(
                     padding: EdgeInsets.all(15),
                     child: const Text(
-                      "Hey! \n\nYou can upload your sales records here. Upload a csv file of your sales records to get started 😃",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w100),
+                      "Hey! \n\nYou can upload your sales records here. Upload a csv file of your sales records to get started 😃",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w300),
                     ),
                   ),
                 ),

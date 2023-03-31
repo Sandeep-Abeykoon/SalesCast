@@ -95,7 +95,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
            ),
 
            Positioned(
-             bottom: 55,
+             bottom: 30,
                child:OutlinedButton(
                  onPressed: (){
                    if(controller.currentPage ==2){
