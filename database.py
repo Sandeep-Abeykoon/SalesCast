@@ -19,7 +19,7 @@ def database_add(records):
     client.close()
 
 
-def product_available(user_id,product_id,is_available):
+def product_available(user_id, product_id):
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
@@ -38,13 +38,15 @@ def product_available(user_id,product_id,is_available):
         is_available = False
     return is_available
 
-def add_product(user_id,product_name,product_id,product_price,product_brand,product_category):
+
+def add_product(user_id, product_name, product_id, product_price, product_brand, product_category):
     print("inside db")
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
     db = client["SalesCast"]
     collection = db["Sales_record"]
-    post = {"userid": user_id, "productName": product_name, "productID": product_id, "product price": product_price,"product category": product_category, "product brand": product_brand}
+    post = {"userid": user_id, "productName": product_name, "productID": product_id, "product price": product_price,
+            "product category": product_category, "product brand": product_brand}
     collection.insert_one(post)
     print("added succesfully")
