@@ -43,20 +43,19 @@ y = df['sold_quantity']
 
 
 from sklearn.model_selection import train_test_split
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size= 0.1, shuffle=False)
-
+x_train, x_test, y_train, y_test=train_test_split(x,y,test_size=0.2,shuffle=False)
 
 
 # Model
 import  xgboost as xgb
-reg = xgb.XGBRegressor(objective='reg:squarederror', n_estimators = 1000)
+reg = xgb.XGBRegressor(objective='reg:squarederror', n_estimators = 2000)
 reg.fit(x_train, y_train, verbose=False)
 
 
 
 import numpy as np
-x_test_prediction = np.round(reg.predict(x_test))
+x_test_prediction=np.round(reg.predict(x_test
+
 
 
 
@@ -72,5 +71,5 @@ mape
 
 import matplotlib.pyplot as plt
 plt.plot(y_test.values, label = 'Original')
-plt.plot(x_test_prediction, color = 'red', label = 'XGBoost')
+plt.plot(x_test_prediction, color = 'green', label = 'XGBoost')
 plt.legend()
