@@ -5,6 +5,7 @@ import csv_processesing as cp
 import data_preprocessing as dp
 import predictions
 import web_scraping as ws
+import database as db
 
 app = Flask(__name__)
 
@@ -32,9 +33,9 @@ def upload_csv():
     print(productIds)
     print (sales_predictions)
 
+    db.database_add(records)
+
     # Getting the Trending product brands
-
-
     return [sales_predictions], 200
 
 
@@ -46,13 +47,21 @@ def check_availability():
     
 
     is_available = False
+    is_available = False
+    is_available = db.product_available(user_id,product_id,is_available)
+    print(is_available)
     return jsonify({'is_available': is_available})
 
 @app.route('/register_product', methods=['POST'])
-def register_product():
-
-    return "Hello world!"
-    
+def register_product(): 
+    user_id = request.form.get('user_id')
+    product_brand = request.form.get('product_brand')
+    product_name = request.form.get('product_name')
+    product_price = request.form.get('product_price')
+    product_category = request.form.get('product_category')
+    product_id = request.form.get('product_id')
+    db.add_product(user_id,product_name,product_id,product_price,product_brand,product_category)
+    return("hello world")
    
 if __name__ == "__main__":
     app.run(debug=True)
