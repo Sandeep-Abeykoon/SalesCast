@@ -48,13 +48,13 @@ x_train, x_test, y_train, y_test=train_test_split(x,y,test_size=0.2,shuffle=Fals
 
 # Model
 import  xgboost as xgb
-reg = xgb.XGBRegressor(objective='reg:squarederror', n_estimators = 2000)
+reg = xgb.XGBRegressor(objective='reg:squarederror', n_estimators = 1000)
 reg.fit(x_train, y_train, verbose=False)
 
 
 
 import numpy as np
-x_test_prediction=np.round(reg.predict(x_test
+x_test_prediction = np.round(reg.predict(x_test))
 
 
 
