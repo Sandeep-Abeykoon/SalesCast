@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class ViewRecords extends StatefulWidget {
   const ViewRecords({Key? key}) : super(key: key);
 
@@ -12,20 +10,21 @@ class ViewRecords extends StatefulWidget {
 class _ViewRecordsState extends State<ViewRecords> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white38,
       appBar: AppBar(
-        title: Text("View Records",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,color: Colors.black),),
+        title: Text(
+          "View Records",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),
+        ),
         backgroundColor: Colors.grey.withOpacity(0.3),
       ),
       body: SingleChildScrollView(
-        child:Container(
-
+        child: Container(
           width: MediaQuery.of(context).size.width,
           child: DataTable(
             dividerThickness: 1,
-
-
             columnSpacing: 1,
             columns: <DataColumn>[
               DataColumn(
@@ -34,7 +33,6 @@ class _ViewRecordsState extends State<ViewRecords> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-
               DataColumn(
                 label: Text(
                   'Product Name',
@@ -63,7 +61,6 @@ class _ViewRecordsState extends State<ViewRecords> {
             rows: <DataRow>[
               DataRow(
                 cells: <DataCell>[
-
                   DataCell(Text('1')),
                   DataCell(Text('Product A')),
                   DataCell(Text('\$10')),
@@ -73,7 +70,6 @@ class _ViewRecordsState extends State<ViewRecords> {
               ),
               DataRow(
                 cells: <DataCell>[
-
                   DataCell(Text('2')),
                   DataCell(Text('Product B')),
                   DataCell(Text('\$20')),
@@ -83,7 +79,6 @@ class _ViewRecordsState extends State<ViewRecords> {
               ),
               DataRow(
                 cells: <DataCell>[
-
                   DataCell(Text('3')),
                   DataCell(Text('Product C')),
                   DataCell(Text('\$20')),
@@ -93,7 +88,6 @@ class _ViewRecordsState extends State<ViewRecords> {
               ),
               DataRow(
                 cells: <DataCell>[
-
                   DataCell(Text('4')),
                   DataCell(Text('Product D')),
                   DataCell(Text('\$10')),
@@ -103,7 +97,6 @@ class _ViewRecordsState extends State<ViewRecords> {
               ),
               DataRow(
                 cells: <DataCell>[
-
                   DataCell(Text('5')),
                   DataCell(Text('Product E')),
                   DataCell(Text('\$30')),
@@ -113,7 +106,6 @@ class _ViewRecordsState extends State<ViewRecords> {
               ),
               DataRow(
                 cells: <DataCell>[
-
                   DataCell(Text('2')),
                   DataCell(Text('Product B')),
                   DataCell(Text('\$20')),
@@ -123,7 +115,6 @@ class _ViewRecordsState extends State<ViewRecords> {
               ),
               DataRow(
                 cells: <DataCell>[
-
                   DataCell(Text('2')),
                   DataCell(Text('Product B')),
                   DataCell(Text('\$20')),
@@ -131,14 +122,9 @@ class _ViewRecordsState extends State<ViewRecords> {
                   DataCell(Text('\$1000')),
                 ],
               ),
-
             ],
           ),
         ),
-
-
-
-
       ),
     );
   }

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
 import 'package:salescast/assets/colors.dart';
 
-Image logoWidget(String imageName,double width,double height){
+Image logoWidget(String imageName, double width, double height) {
   return Image.asset(
     imageName,
     fit: BoxFit.fitWidth,
@@ -10,43 +10,38 @@ Image logoWidget(String imageName,double width,double height){
     height: height,
   );
 }
-Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEditingController controller,bool isEmail,){
+
+Material reusableTextfield(
+  String text,
+  IconData icon,
+  bool isPasswordType,
+  TextEditingController controller,
+  bool isEmail,
+) {
   return Material(
-
-
-
-
     child: TextFormField(
-
       controller: controller,
       obscureText: isPasswordType,
       enableSuggestions: !isPasswordType,
       autocorrect: !isPasswordType,
       autofillHints: [AutofillHints.email],
       cursorColor: Colors.grey,
-
-
-
-     validator: (text){
-
-      if(text!.isEmpty){
-        return "This Field Cannot be empty";
-      }
-      if(isEmail&&!EmailValidator.validate(text, true)){
-
-       return "Invalid Email Address";
-      }
-      return null;
-    },
-
+      validator: (text) {
+        if (text!.isEmpty) {
+          return "This Field Cannot be empty";
+        }
+        if (isEmail && !EmailValidator.validate(text, true)) {
+          return "Invalid Email Address";
+        }
+        return null;
+      },
       style: TextStyle(color: Colors.black.withOpacity(0.9)),
       decoration: InputDecoration(
         hintText: text,
         prefixIcon: Icon(
-          icon,color: Colors.grey ,
+          icon,
+          color: Colors.grey,
         ),
-
-
         labelText: text,
         labelStyle: TextStyle(color: Colors.grey.withOpacity(0.9)),
         filled: true,
@@ -54,7 +49,7 @@ Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEd
         fillColor: Colors.white.withOpacity(0.3),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(width: 5,style: BorderStyle.solid),
+          borderSide: const BorderSide(width: 5, style: BorderStyle.solid),
         ),
       ),
       keyboardType: isPasswordType
@@ -62,43 +57,41 @@ Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEd
           : TextInputType.emailAddress,
     ),
   );
-
 }
-Container logInSignUpButton(BuildContext context,bool isLogin, Function onTap){
+
+Container logInSignUpButton(
+    BuildContext context, bool isLogin, Function onTap) {
   return Container(
-    width:300 ,
+    width: 300,
     height: 50,
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
     child: ElevatedButton(
-      onPressed: (){
+      onPressed: () {
         onTap();
-        },
+      },
       child: Text(
         isLogin ? 'LOGIN' : 'SIGNUP',
         style: const TextStyle(
-          color: Colors.black54, fontWeight: FontWeight.bold,fontSize: 16
-        ),
+            color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 16),
       ),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          if(states.contains(MaterialState.pressed)){
-            return hexStringToColor("#b2d8d8");
-          }
-          return Colors.deepPurple.shade500;
-        }),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)))
-      ),
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.pressed)) {
+              return hexStringToColor("#b2d8d8");
+            }
+            return Colors.deepPurple.shade500;
+          }),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)))),
     ),
   );
-
 }
-Container addProductsField(String text,TextEditingController controller, bool isQuantityOrPrice){
+
+Container addProductsField(
+    String text, TextEditingController controller, bool isQuantityOrPrice) {
   return Container(
     decoration: BoxDecoration(
-
-
       borderRadius: BorderRadius.circular(8),
       boxShadow: [
         BoxShadow(
@@ -109,46 +102,34 @@ Container addProductsField(String text,TextEditingController controller, bool is
       ],
     ),
     child: TextFormField(
-
       controller: controller,
       autocorrect: true,
       cursorColor: Colors.grey,
-
       keyboardType: isQuantityOrPrice
           ? TextInputType.numberWithOptions()
           : TextInputType.multiline,
-      validator: (text){
-
-        if(text!.isEmpty){
+      validator: (text) {
+        if (text!.isEmpty) {
           return "This Field Cannot be empty";
         }
-
       },
-      onSaved: (value){
-        value=controller as String?;
+      onSaved: (value) {
+        value = controller as String?;
       },
-
       style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
-
-
-
         labelText: text,
         labelStyle: TextStyle(color: Colors.black54),
-
-      filled: true,
+        filled: true,
         fillColor: Colors.grey.withOpacity(0.3),
         enabledBorder: UnderlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(width: 0,style: BorderStyle.solid),
+          borderSide: const BorderSide(width: 0, style: BorderStyle.solid),
         ),
       ),
-
     ),
   );
-
 }
-
 
 class DropdownMenuItemWithImage {
   final String id;
@@ -193,12 +174,10 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
             offset: Offset(0, 5),
           ),
         ],
-
         color: Colors.grey.withOpacity(0.3),
       ),
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
-
           fillColor: Colors.black38.withOpacity(0.3),
         ),
         value: selectedValue,
@@ -210,7 +189,8 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
           setState(() {
             selectedValue = value;
           });
-          var selectedItem = widget.items.firstWhere((item) => item.id == value);
+          var selectedItem =
+              widget.items.firstWhere((item) => item.id == value);
           widget.onChanged(selectedItem);
         },
         items: widget.items.map((item) {
@@ -233,4 +213,3 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
     );
   }
 }
-

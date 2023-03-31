@@ -5,18 +5,19 @@ class AppSmallText extends StatelessWidget {
   final Color color;
   final String text;
 
-  AppSmallText({Key? key,
-    this.size= 15,
-    required this.text,
-    required this.color}) : super(key: key);
+  AppSmallText(
+      {Key? key, this.size = 15, required this.text, required this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,
+    return Text(
+      text,
       style: TextStyle(
         color: color,
         fontSize: size,
         fontWeight: FontWeight.normal,
-      ),);
+      ),
+    );
   }
 }

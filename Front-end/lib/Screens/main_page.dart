@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-
+import 'package:salescast/Screens/RecordsPage.dart';
 import 'package:salescast/Screens/forecasts.dart';
 import 'package:salescast/Screens/home.dart';
 import 'package:salescast/Screens/products_page.dart';
 import 'package:salescast/Screens/profile_page.dart';
-import 'package:salescast/Screens/RecordsPage.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -23,6 +22,7 @@ class _MainPageState extends State<MainPage> {
     ProfilePage()
   ];
   int currentIndex = 0;
+
   void onTap(int index) {
     setState(() {
       currentIndex = index;

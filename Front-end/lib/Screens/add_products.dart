@@ -1,15 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+
 import '../assets/colors.dart';
 import '../reusable_widget/reusable_widgets.dart';
-import 'package:http/http.dart' as http;
-import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:convert';
 
 class AddNewProductPage extends StatefulWidget {
   const AddNewProductPage({Key? key}) : super(key: key);
@@ -26,12 +26,14 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   User? user = FirebaseAuth.instance.currentUser;
 
   final _formkey = GlobalKey<FormState>();
+
   // var userId = " " ;
   // User? user = FirebaseAuth.instance.currentUser;
 
   String imageUrl = "";
   final referenceDatabase = FirebaseDatabase.instance.ref();
   final referenceFirestore = FirebaseStorage.instance.ref();
+
   // final FirebaseFirestore firestore = FirebaseFirestore.instance;
   // final CollectionReference prod = FirebaseFirestore.instance.collection('products');
   final TextEditingController _prodName = TextEditingController();

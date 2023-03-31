@@ -4,7 +4,9 @@ import 'package:salescast/assets/colors.dart';
 class ResponsiveButton extends StatelessWidget {
   bool? isResponsive;
   double? width;
-  ResponsiveButton({Key? key,this.width,this.isResponsive=false}) : super(key: key);
+
+  ResponsiveButton({Key? key, this.width, this.isResponsive = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +19,7 @@ class ResponsiveButton extends StatelessWidget {
         color: hexStringToColor("#a6a6df"),
       ),
       child: Row(
-
-        children: [
-          Image.asset("lib/assets/images/next_button.png")
-        ],
-
+        children: [Image.asset("lib/assets/images/next_button.png")],
       ),
     );
   }
