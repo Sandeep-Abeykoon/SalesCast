@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:salescast/Screens/RecordsPage.dart';
 
 import 'package:salescast/Screens/forecasts.dart';
 import 'package:salescast/Screens/home.dart';
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
   List pages = [
     HomePage(),
     ProductsPage(),
-    MyRecordsPage(),
+   MyRecordsPage(),
     ForecastsPage(),
     ProfilePage()
   ];

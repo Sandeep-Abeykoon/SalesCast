@@ -219,20 +219,11 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                       ),
                     ),
                   ),
-                  DataRow(
-                    cells: <DataCell>[
 
-                      DataCell(Text('2')),
-                      DataCell(Text('Product B')),
-                      DataCell(Text('\$20')),
-                      DataCell(Text('100')),
-                      DataCell(Text('\$1000')),
-                    ],
-                  ),
 
-                ],
+
               ),
-            ),
+            
                 IconButton(
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewRecords()));
