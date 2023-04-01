@@ -33,23 +33,53 @@ class AboutUs extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  "We are team Code Fellas, a group of second-year undergraduates "
-                  "undertaking the BEng (Hons) Software Engineering Degree at the "
-                  "Informatics Institute of Technology (IIT) affiliated with the "
-                  "University of Westminster, United Kingdom. And this app was created "
-                  "for the software development group project",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black26),
-                ),
+            Container(
+              height: 230,
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(
+                  horizontal: 15, vertical: 10),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+                color: Colors.grey.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
               ),
-            ),
+              child: Text(
+                "We are team Code Fellas, a group of second-year undergraduates "
+                    "undertaking the BEng (Hons) Software Engineering Degree at the "
+                    "Informatics Institute of Technology (IIT) affiliated with the "
+                    "University of Westminster, United Kingdom. And this app was created "
+                    "for the software development group project",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black38),
+              ),
+              ),
+
+            // Align(
+            //   alignment: Alignment.center,
+            //   child: Padding(
+            //     padding: EdgeInsets.all(10),
+            //     child: Text(
+            //       "We are team Code Fellas, a group of second-year undergraduates "
+            //       "undertaking the BEng (Hons) Software Engineering Degree at the "
+            //       "Informatics Institute of Technology (IIT) affiliated with the "
+            //       "University of Westminster, United Kingdom. And this app was created "
+            //       "for the software development group project",
+            //       style: TextStyle(
+            //           fontSize: 20,
+            //           fontWeight: FontWeight.w400,
+            //           color: Colors.black26),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 20,
             ),

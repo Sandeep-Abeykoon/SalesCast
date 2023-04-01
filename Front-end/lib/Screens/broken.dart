@@ -19,7 +19,7 @@ class Broken extends StatelessWidget {
               height: 50,
             ),
             Text(
-              "Sorry, This Page is Under Maintenance",
+              "Sorry, This Page is Under Maintenance !",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(

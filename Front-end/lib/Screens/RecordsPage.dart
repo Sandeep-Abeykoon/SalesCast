@@ -144,61 +144,80 @@ class _MyRecordsPageState extends State<MyRecordsPage> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  child: DataTable(
-                    dividerThickness: 1,
-                    columnSpacing: 1,
-                    columns: <DataColumn>[
-                      DataColumn(
-                        label: Text(
-                          'Product Id',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Product Name',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Price',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Items Sold',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'Profit',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                    rows: <DataRow>[
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('1')),
-                          DataCell(Text('Product A')),
-                          DataCell(Text('\$10')),
-                          DataCell(Text('100')),
-                          DataCell(Text('\$500')),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: DataTable(
+                        dataRowHeight: 70,
+                        decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
                         ],
                       ),
-                      DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text('2')),
-                          DataCell(Text('Product B')),
-                          DataCell(Text('\$20')),
-                          DataCell(Text('100')),
-                          DataCell(Text('\$1000')),
+                        dividerThickness: 1,
+                        columnSpacing: 10,
+                        columns: <DataColumn>[
+                          DataColumn(
+                            label: Text(
+                              'Product Id',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Product Name',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Price',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Items Sold',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Date and Time',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                        rows: <DataRow>[
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('1')),
+                              DataCell(Text('Product A')),
+                              DataCell(Text('\$10')),
+                              DataCell(Text('100')),
+                              DataCell(Text('\$500')),
+                            ],
+                          ),
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('2')),
+                              DataCell(Text('Product B')),
+                              DataCell(Text('\$20')),
+                              DataCell(Text('100')),
+                              DataCell(Text('\$1000')),
+                            ],
+                          ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
                 IconButton(

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:salescast/reusable_widget/SlideMenu.dart';
 import 'package:salescast/reusable_widget/app_large_text.dart';
@@ -11,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
-  bool isDarkMode = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +26,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       drawer: SlideMenu(),
 
       extendBodyBehindAppBar: true,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   leading: IconButton(
-      //     onPressed: (){  Scaffold.of(context).openDrawer();
-      //
-      //     },
-      //     icon: Icon(Icons.menu),
-      //   ),
-      //
-      //
-      //   title: Text("SalesCast",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
-      //
-      // ),
+
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -87,20 +75,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Container(
             child: Align(
               alignment: Alignment.centerLeft,
-              // child: TabBar(
-              //   labelPadding: const EdgeInsets.only(left: 20,right: 20),
-              //   controller: _tabController,
-              //   labelColor: Colors.black,
-              //   unselectedLabelColor: Colors.grey,
-              //   isScrollable: true,
-              //   indicatorSize: TabBarIndicatorSize.label,
-              //   indicator: CircleTabIndicator(color: Colors.transparent,radius: 4),
-              //
-              //   tabs: [Tab(text: "                   ",),
-              //   Tab(text: "                  ",),
-              //   Tab(text: "               ",)],
-              //
-              // ),
+
             ),
           ),
           Container(
@@ -130,37 +105,37 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ],
             ),
           ),
-        ],
+    ],
       ),
     );
   }
 }
 
-class CircleTabIndicator extends Decoration {
-  final Color color;
-  double radius;
-
-  CircleTabIndicator({required this.color, required this.radius});
-
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    // TODO: implement createBoxPainter
-    return _CirclePainter(color: color, radius: radius);
-  }
-}
-
-class _CirclePainter extends BoxPainter {
-  final Color color;
-  double radius;
-
-  _CirclePainter({required this.color, required this.radius});
-
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    Paint _paint = Paint();
-    _paint.color = color;
-    _paint.isAntiAlias = true;
-    final Offset circleOffset = Offset(configuration.size!.width / 2, 0);
-    canvas.drawCircle(offset + circleOffset, radius, _paint);
-  }
-}
+// class CircleTabIndicator extends Decoration {
+//   final Color color;
+//   double radius;
+//
+//   CircleTabIndicator({required this.color, required this.radius});
+//
+//   @override
+//   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+//     // TODO: implement createBoxPainter
+//     return _CirclePainter(color: color, radius: radius);
+//   }
+// }
+//
+// class _CirclePainter extends BoxPainter {
+//   final Color color;
+//   double radius;
+//
+//   _CirclePainter({required this.color, required this.radius});
+//
+//   @override
+//   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+//     Paint _paint = Paint();
+//     _paint.color = color;
+//     _paint.isAntiAlias = true;
+//     final Offset circleOffset = Offset(configuration.size!.width / 2, 0);
+//     canvas.drawCircle(offset + circleOffset, radius, _paint);
+//   }
+// }
