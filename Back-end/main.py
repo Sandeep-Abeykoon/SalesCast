@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 
-#Importing Local Modules
+# Importing Local Modules
 import csv_processesing as cp
 import data_preprocessing as dp
 import predictions
@@ -12,20 +12,22 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    #ws.getDemandProducts()
+    # ws.getDemandProducts()
     return "Testing!"
+
 
 @app.route('/load_products', methods=['POST'])
 def load_products():
     user_id = request.form['user_id']
     print("The user Id is : ", user_id)
 
-    products = [
-        {'product_id' : '20210057',
-        'product_name': 'AAA Batteries',
-        'product_price' : '25',
-        'product_brand' : 'Eveready'},
-    ]
+    # products = [
+    #     {'product_id': '20210057',
+    #      'product_name': 'AAA Batteries',
+    #      'product_price': '25',
+    #      'product_brand': 'Eveready'},
+    # ]
+    products = db.load_product(user_id)
 
     return jsonify(products)
 
@@ -37,7 +39,7 @@ def upload_csv():
     product_data_frames, last_rows, productIds = dp.data_preprocessing(records)
     sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
     print(productIds)
-    print (sales_predictions)
+    print(sales_predictions)
     db.database_add(records)
     return [sales_predictions], 200
 
@@ -47,13 +49,13 @@ def check_availability():
     user_id = request.form.get('user_id')
     product_id = request.form.get('product_id')
     print(user_id, product_id)
-    is_available = db.product_available(user_id,product_id)
+    is_available = db.product_available(user_id, product_id)
     print(is_available)
     return jsonify({'is_available': is_available})
 
 
 @app.route('/register_product', methods=['POST'])
-def register_product(): 
+def register_product():
     user_id = request.form.get("user_Id")
     product_name = request.form.get("product_name")
     product_id = request.form.get("product_id")
@@ -61,11 +63,9 @@ def register_product():
     product_brand = request.form.get("product_brand")
     product_category = request.form.get("product_category")
 
-    db.add_product(user_id,product_name,product_id,product_price,product_brand,product_category)
-    return("The product is added sucessfully")
-   
+    db.add_product(user_id, product_name, product_id, product_price, product_brand, product_category)
+    return ("The product is added sucessfully")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
