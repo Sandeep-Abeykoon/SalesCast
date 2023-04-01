@@ -43,6 +43,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     try {
       final response = await http.post(
           Uri.parse('$apiUrl/product_availability'),
+
           body: {'user_id': user?.uid, 'product_id': _prodID.text.trim()});
 
       if (response.statusCode == 200) {
@@ -59,6 +60,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
 
   // This method sends the new product details to the back-end
   Future<void> registerProduct() async {
+
     final response =
         await http.post(Uri.parse('$apiUrl/register_product'),
             body: {
@@ -69,6 +71,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
               'product_brand': _prodBrand.text.trim(),
               'product_category': ' ',
             });
+
 
     if (response.statusCode == 200) {
       print("data sent successfully");
