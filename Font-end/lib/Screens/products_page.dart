@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:salescast/Screens/view_product.dart';
 import 'package:salescast/assets/colors.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 
 import 'add_products.dart';
 
@@ -66,10 +66,6 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   List<int> text = [];//TODO Need to load product data
-=======
-class _ProductsPageState extends State<ProductsPage> {
-  List<int> text = [];//TODO Need to load product data
-
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +224,7 @@ class _ProductsPageState extends State<ProductsPage> {
                       ),
                     ],
                   ),
-                  ),
+
                 ),
 
               ],
