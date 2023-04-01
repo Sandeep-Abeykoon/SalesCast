@@ -19,26 +19,25 @@ def database_add(records):
     client.close()
 
 
-def product_available(user_id,product_id,is_available):
+def product_available(user_id, product_id):
+
+    is_available = False
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
     db = client["SalesCast"]
     collection = db["Sales_record"]
-    results = collection.find_one({"userid": user_id, "productID": product_id})
-    if collection.count_documents({}) != 0:
-        if results:
-            print("Product already exists")
-            is_available = True
-        else:
-            print("Product not available")
-            is_available = False
-    else:
-        print("No collections")
+    result = collection.find_one({"userid": user_id, "productID": product_id})
+    print("result : ", result)
+
+    if result == None:
         is_available = False
+    else:
+        is_available =True
     return is_available
 
-def add_product(user_id,product_name,product_id,product_price,product_brand,product_category):
+
+def add_product(user_id, product_name, product_id, product_price, product_brand, product_category):
     print("inside db")
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
