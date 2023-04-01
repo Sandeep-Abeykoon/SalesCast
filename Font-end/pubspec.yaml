@@ -59,6 +59,10 @@ dependencies:
   cached_network_image: ^3.2.3
   liquid_swipe: ^3.1.0
   smooth_page_indicator: ^1.0.1
+  cool_alert: ^2.0.1
+  syncfusion_flutter_charts: ^21.1.37
+
+
 
   #http
   http: ^0.13.5

@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import '../assets/colors.dart';
 import '../reusable_widget/reusable_widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 
 class AddNewProductPage extends StatefulWidget {
@@ -26,8 +25,6 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   User? user = FirebaseAuth.instance.currentUser;
 
   final _formkey = GlobalKey<FormState>();
-  // var userId = " " ;
-  // User? user = FirebaseAuth.instance.currentUser;
 
   String imageUrl = "";
   final referenceDatabase = FirebaseDatabase.instance.ref();
@@ -46,7 +43,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     try {
       final response = await http.post(
           Uri.parse('$apiUrl/product_availability'),
-          body: {'user_id': user?.uid, 'product_id': '12345'});
+          body: {'user_id': user?.uid, 'product_id': _prodID.text.trim()});
 
       if (response.statusCode == 200) {
         print("Request sent");
@@ -62,17 +59,16 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
 
   // This method sends the new product details to the back-end
   Future<void> registerProduct() async {
-    var data = {
-      'user_Id': user?.uid,
-      'string1': _prodName.text,
-      'string2': _prodID.text,
-      'string3': _prodPrice.text,
-      'string4': _prodBrand.text,
-      'string5': ' ',
-    };
-
     final response =
-        await http.post(Uri.parse('$apiUrl/register_product'), body: data);
+        await http.post(Uri.parse('$apiUrl/register_product'),
+            body: {
+              'user_Id': user?.uid,
+              'product_name': _prodName.text.trim(),
+              'product_id': _prodID.text.trim(),
+              'product_price': _prodPrice.text.trim(),
+              'product_brand': _prodBrand.text.trim(),
+              'product_category': ' ',
+            });
 
     if (response.statusCode == 200) {
       print("data sent successfully");

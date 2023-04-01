@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:salescast/Screens/view_product.dart';
 import 'package:salescast/assets/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 import 'add_products.dart';
@@ -12,11 +15,57 @@ class ProductsPage extends StatefulWidget {
   State<ProductsPage> createState() => _ProductsPageState();
 }
 
+class Product {
+  final String productId;
+  final String productName;
+  final String productPrice;
+  final String productBrand;
+
+  Product({
+    required this.productId,
+    required this.productName,
+    required this.productPrice,
+    required this.productBrand,
+  });
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      productId: json['product_id'],
+      productName: json['product_name'],
+      productPrice: json['product_price'],
+      productBrand: json['product_brand'],
+    );
+  }
+}
+
 class _ProductsPageState extends State<ProductsPage> {
+  List<Product>? products;
+
+  final String apiUrl = "http://10.0.2.2:5000/";
+  User? user = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    loadProducts();
+  }
+
+  Future<void> loadProducts() async {
+    final response = await http.post(Uri.parse("$apiUrl/load_products"),
+        body: {'user_id': user?.uid});
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      setState(() {
+        products = List.from(jsonResponse.map((product) => Product.fromJson(product)));
+        print(products![0].productName);
+      });
+      print("User Id Sent successfully");
+    } else {
+      print("Server error");
+    }
+  }
+
   List<int> text = [];//TODO Need to load product data
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +77,6 @@ class _ProductsPageState extends State<ProductsPage> {
         title: const Text("My Products",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 0,
-
 
       ),
       body: ListView(children: [
@@ -106,6 +154,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     ),
                   ),
                 ),
+
                 for (var i in text)Container(
                   height: 110,
                   margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
@@ -169,20 +218,12 @@ class _ProductsPageState extends State<ProductsPage> {
                             Padding(padding:const EdgeInsets.fromLTRB(67, 0, 0, 0),
                             child: IconButton(onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProduct()));
 
-
                             }, icon: const Icon(Icons.navigate_next))),
-
-
                           ],
                         ),
                       ),
                     ],
-
                   ),
-
-
-
-
 
                 ),
 

@@ -5,7 +5,7 @@ import 'package:salescast/Screens/forecasts.dart';
 import 'package:salescast/Screens/home.dart';
 import 'package:salescast/Screens/products_page.dart';
 import 'package:salescast/Screens/profile_page.dart';
-import 'package:salescast/Screens/RecordsPage.dart';
+import 'package:salescast/Screens/view_product.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
