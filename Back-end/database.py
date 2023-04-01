@@ -26,7 +26,7 @@ def product_available(user_id, product_id):
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
     db = client["SalesCast"]
     collection = db["Sales_record"]
-    result = collection.find_one({"userid": user_id, "productID": product_id})
+    result = collection.find_one({"user_id": user_id, "product_iD": product_id})
     print("result : ", result)
 
     if result == None:
@@ -43,8 +43,8 @@ def add_product(user_id, product_name, product_id, product_price, product_brand,
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
     db = client["SalesCast"]
     collection = db["Sales_record"]
-    post = {"userid": user_id, "productName": product_name, "productID": product_id, "product price": product_price,
-            "product category": product_category, "product brand": product_brand}
+    post = {"user_id": user_id, "product_name": product_name, "product_iD": product_id, "product_price": product_price,
+            "product_category": product_category, "product_brand": product_brand}
     collection.insert_one(post)
     print("added succesfully")
 
@@ -55,10 +55,10 @@ def load_product(user_id):
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
     db = client["SalesCast"]
     collection = db["Sales_record"]
-    projection = {"_id": 0}
-    document = collection.find({"userid": user_id},projection)
+    projection = {"_id": 0, "user_id": 0}
+    document = collection.find({"user_id": user_id}, projection)
     matching_docs = []
     for x in document:
-        print(x)
+        # print(x)
         matching_docs.append(x)
     return matching_docs

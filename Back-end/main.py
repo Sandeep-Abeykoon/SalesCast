@@ -28,6 +28,7 @@ def load_products():
     #      'product_brand': 'Eveready'},
     # ]
     products = db.load_product(user_id)
+    print(products)
 
     return jsonify(products)
 
