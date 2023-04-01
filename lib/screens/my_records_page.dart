@@ -18,7 +18,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
   User? user = FirebaseAuth.instance.currentUser;
 
 
-  Future<void> pickAndPrintCsv() async {
+  Future<void> pickCsvFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['csv'],
@@ -70,7 +70,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
             children: <Widget>[
 
           ElevatedButton(
-          onPressed: pickAndPrintCsv,
+          onPressed: pickCsvFile,
           child: const Text("Choose CSV file")
           ),
               const SizedBox(
