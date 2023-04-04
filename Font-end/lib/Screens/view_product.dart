@@ -3,14 +3,16 @@ import 'package:salescast/reusable_widget/app_large_text.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ViewProduct extends StatefulWidget {
-  ViewProduct({Key? key}) : super(key: key);
+
+  String id;
+  ViewProduct({Key? key, required this.id}) : super(key: key);
 
   @override
   State<ViewProduct> createState() => _ViewProductState();
 }
 var productname="";
 var productPrice="";
-var productId=" ";
+var productId="";
 var productCategory="";
 var productBrand ="";
 var productImageUrl="";
@@ -20,6 +22,8 @@ class _ViewProductState extends State<ViewProduct> {
 
   @override
   Widget build(BuildContext context) {
+
+
     List<_SalesData> data = [
       _SalesData('Week 1', 10,),
       _SalesData('Week 2', 18),
@@ -27,6 +31,7 @@ class _ViewProductState extends State<ViewProduct> {
       _SalesData('Week 4', 12),
 
     ];
+    widget.id= productId;
     final List<ChartData> chartData = <ChartData>[
       ChartData('Week 1', 128, 129),
       ChartData('Week 2', 123, 92),

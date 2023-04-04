@@ -56,57 +56,72 @@ class _ViewRecordsState extends State<ViewRecords> {
         child:SizedBox(
 
           width: MediaQuery.of(context).size.width,
-          child: DataTable(
-            dividerThickness: 1,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              dividerThickness: 1,
 
 
-            columnSpacing: 1,
-            columns: const <DataColumn>[
-              DataColumn(
-                label: Text(
-                  'Product Id',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+              columnSpacing: 1,
+              columns: const <DataColumn>[
+                DataColumn(
+                  label: Text(
+                    'Product Id',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
 
-              DataColumn(
-                label: Text(
-                  'Product Name',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Product Name',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Price',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Price',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Items Sold',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Items Sold',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Date',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Date',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
+              ],
+              rows: List<DataRow>.generate(
+                recordsArray.length,
+                    (index) {
+                  return DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text(recordsArray[index]['id_number'].toString())),
+                      DataCell(Text(recordsArray[index]['product'].toString())),
+                      DataCell(Text(recordsArray[index]['price'].toString())),
+                      DataCell(Text(recordsArray[index]['sold_quantity'].toString())),
+                      DataCell(Text(recordsArray[index]['date'].toString())),
+                    ],
+                  );
+                },
               ),
-            ],
-            rows: List<DataRow>.generate(
-              recordsArray.length,
-                  (index) {
-                return DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text(recordsArray[index]['id_number'].toString())),
-                    DataCell(Text(recordsArray[index]['product'].toString())),
-                    DataCell(Text(recordsArray[index]['price'].toString())),
-                    DataCell(Text(recordsArray[index]['sold_quantity'].toString())),
-                    DataCell(Text(recordsArray[index]['date'].toString())),
-                  ],
-                );
-              },
             ),
           ),
         ),
