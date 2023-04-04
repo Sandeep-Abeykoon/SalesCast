@@ -30,8 +30,6 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   String imageUrl = "";
   final referenceDatabase = FirebaseDatabase.instance.ref();
   final referenceFirestore = FirebaseStorage.instance.ref();
-  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // final CollectionReference prod = FirebaseFirestore.instance.collection('products');
   final TextEditingController _prodName = TextEditingController();
   final TextEditingController _prodID = TextEditingController();
   final TextEditingController _prodPrice = TextEditingController();
@@ -271,7 +269,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                 "The product is already registered to the system by the current user");
                           }
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductsPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const ProductsPage()));
                         },
                         style: ButtonStyle(
                             backgroundColor:
