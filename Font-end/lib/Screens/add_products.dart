@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -37,8 +36,6 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     'lib/assets/images/Sports.png',
     'lib/assets/images/Clothes.png',
     'lib/assets/images/Collectibles.png',
-
-
   ];
   final String apiUrl = "http://10.0.2.2:5000/";
 
@@ -79,16 +76,15 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   // This method sends the new product details to the back-end
   Future<void> registerProduct() async {
     final response =
-    await http.post(Uri.parse('$apiUrl/register_product'),
-        body: {
-          'user_id': user?.uid,
-          'product_name': _prodName.text.trim(),
-          'product_id': _prodID.text.trim(),
-          'product_price': _prodPrice.text.trim(),
-          'product_brand': _prodBrand.text.trim(),
-          'product_category': ' ',
-          'product_image_url': imageUrl,
-        });
+        await http.post(Uri.parse('$apiUrl/register_product'), body: {
+      'user_id': user?.uid,
+      'product_name': _prodName.text.trim(),
+      'product_id': _prodID.text.trim(),
+      'product_price': _prodPrice.text.trim(),
+      'product_brand': _prodBrand.text.trim(),
+      'product_category': ' ',
+      'product_image_url': imageUrl,
+    });
 
     if (response.statusCode == 200) {
       print("data sent successfully");
@@ -142,7 +138,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                         height: 10,
                       ),
 
-                  Container(
+                      Container(
                         width: MediaQuery.of(context).size.width,
                         height: 55,
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -155,7 +151,6 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                               offset: Offset(0, 5),
                             ),
                           ],
-
                           color: Colors.grey.withOpacity(0.3),
                         ),
                         child: DropdownButton<String>(
@@ -233,19 +228,19 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                             suffixIcon: ElevatedButton(
                               style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.resolveWith(
+                                      MaterialStateProperty.resolveWith(
                                           (states) {
-                                        if (states
-                                            .contains(MaterialState.pressed)) {
-                                          return Colors.deepPurpleAccent;
-                                        }
-                                        return hexStringToColor("#8776ff");
-                                      }),
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
+                                      return Colors.deepPurpleAccent;
+                                    }
+                                    return hexStringToColor("#8776ff");
+                                  }),
                                   shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
+                                          RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(8)))),
+                                              BorderRadius.circular(8)))),
                               onPressed: () async {
                                 ImagePicker imagepicker = ImagePicker();
                                 XFile? file = await imagepicker.pickImage(
@@ -255,13 +250,13 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                 // String UniqueFileName= DateTime.now().microsecondsSinceEpoch.toString();
 
                                 Reference referenceRoot =
-                                FirebaseStorage.instance.ref();
+                                    FirebaseStorage.instance.ref();
                                 Reference referenceDirImages =
-                                referenceRoot.child("Images");
+                                    referenceRoot.child("Images");
                                 Reference referenceUserFolder =
-                                referenceDirImages.child(userId);
+                                    referenceDirImages.child(userId);
                                 Reference referenceImageToUpload =
-                                referenceUserFolder.child(_prodID.text);
+                                    referenceUserFolder.child(_prodID.text);
 
                                 try {
                                   await referenceImageToUpload
@@ -298,18 +293,18 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                 "The product is already registered to the system by the current user");
                           }
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const ProductsPage()));
+                          Navigator.pop(context);
                         },
                         style: ButtonStyle(
                             backgroundColor:
-                            MaterialStateProperty.resolveWith((states) {
+                                MaterialStateProperty.resolveWith((states) {
                               if (states.contains(MaterialState.pressed)) {
                                 return hexStringToColor("#aeaeff");
                               }
                               return hexStringToColor("#8776ff");
                             }),
                             shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
+                                    RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)))),
                         child: const Text("Add Product"),
@@ -339,4 +334,3 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     );
   }
 }
-
