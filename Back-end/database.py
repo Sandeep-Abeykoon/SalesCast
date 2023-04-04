@@ -151,6 +151,7 @@ def machine_learning_load(user_id):
 
     return matching_docs
 
+
 def return_all(user_id):
     # connect to MongoDB
     client = pymongo.MongoClient(
@@ -160,8 +161,10 @@ def return_all(user_id):
     # access the "SalesCast" database
     db = client["SalesCast"]
     collection = db["Product"]
-    for doc in collection.find({'user_id': user_id}, {'_id':0, 'user_id': 0}):
+    for doc in collection.find({'user_id': user_id}, {'_id': 0, 'user_id': 0}):
         print(doc)
+
+
 def last_two(user_id):
     # connect to MongoDB
     client = pymongo.MongoClient(
@@ -173,6 +176,6 @@ def last_two(user_id):
     collection = db["Product"]
     count = 1
     for doc in collection.find({'user_id': user_id}, {'_id': 0, 'user_id': 0}):
-        if count <3:
+        if count < 3:
             print(doc)
             count += 1
