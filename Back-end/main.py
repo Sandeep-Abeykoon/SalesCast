@@ -57,6 +57,7 @@ def register_product():
     product_price = request.form.get("product_price")
     product_brand = request.form.get("product_brand")
     product_category = request.form.get("product_category")
+    product_image_url = request.form.get("product_image_url")
 
     db.add_product(user_id, product_name, product_id, product_price, product_brand, product_category)
     return ("The product is added sucessfully")
