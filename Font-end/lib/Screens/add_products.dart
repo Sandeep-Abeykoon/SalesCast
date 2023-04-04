@@ -1,7 +1,6 @@
+
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +18,28 @@ class AddNewProductPage extends StatefulWidget {
 }
 
 class _AddNewProductPageState extends State<AddNewProductPage> {
+  String selectedItem = 'Electronics';
+  List<String> dropdownItems = [
+    'Electronics',
+    'Home & Garden',
+    'Jewelry & Watches',
+    'Health & Beauty',
+    'Sporting Goods & Equipment',
+    'Clothing, Shoes & Accessories',
+    'Collectibles & Art',
+  ];
+
+  List<String> imagePaths = [
+    'lib/assets/images/Electronics.png',
+    'lib/assets/images/HomeGarden.png',
+    'lib/assets/images/watches.png',
+    'lib/assets/images/health.png',
+    'lib/assets/images/Sports.png',
+    'lib/assets/images/Clothes.png',
+    'lib/assets/images/Collectibles.png',
+
+
+  ];
   final String apiUrl = "http://10.0.2.2:5000/";
 
   // Getting the Current user ID
@@ -28,10 +49,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   final _formkey = GlobalKey<FormState>();
 
   String imageUrl = "";
-  final referenceDatabase = FirebaseDatabase.instance.ref();
   final referenceFirestore = FirebaseStorage.instance.ref();
-  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // final CollectionReference prod = FirebaseFirestore.instance.collection('products');
   final TextEditingController _prodName = TextEditingController();
   final TextEditingController _prodID = TextEditingController();
   final TextEditingController _prodPrice = TextEditingController();
@@ -61,15 +79,16 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   // This method sends the new product details to the back-end
   Future<void> registerProduct() async {
     final response =
-        await http.post(Uri.parse('$apiUrl/register_product'),
-            body: {
-              'user_Id': user?.uid,
-              'product_name': _prodName.text.trim(),
-              'product_id': _prodID.text.trim(),
-              'product_price': _prodPrice.text.trim(),
-              'product_brand': _prodBrand.text.trim(),
-              'product_category': ' ',
-            });
+    await http.post(Uri.parse('$apiUrl/register_product'),
+        body: {
+          'user_id': user?.uid,
+          'product_name': _prodName.text.trim(),
+          'product_id': _prodID.text.trim(),
+          'product_price': _prodPrice.text.trim(),
+          'product_brand': _prodBrand.text.trim(),
+          'product_category': ' ',
+          'product_image_url': imageUrl,
+        });
 
     if (response.statusCode == 200) {
       print("data sent successfully");
@@ -123,55 +142,63 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                         height: 10,
                       ),
 
-                      CustomDropdownButton(
-                        hint: 'Select the product category',
-                        items: [
-                          DropdownMenuItemWithImage(
-                            id: 'electronics',
-                            title: 'Electronics',
-                            imagePath: 'lib/assets/images/Electronics.png',
-                          ),
-                          DropdownMenuItemWithImage(
-                            id: 'home_garden',
-                            title: 'Home & Garden',
-                            imagePath: 'lib/assets/images/HomeGarden.png',
-                          ),
-                          DropdownMenuItemWithImage(
-                            id: 'jewelleries',
-                            title: 'Jewelry & Watches',
-                            imagePath: 'lib/assets/images/watches.png',
-                          ),
-                          DropdownMenuItemWithImage(
-                            id: 'health',
-                            title: 'Health & Beauty',
-                            imagePath: 'lib/assets/images/health.png',
-                          ),
-                          DropdownMenuItemWithImage(
-                            id: 'sports',
-                            title: 'Sporting Goods & Equipment',
-                            imagePath: 'lib/assets/images/Sports.png',
-                          ),
-                          DropdownMenuItemWithImage(
-                            id: 'clothing',
-                            title: 'Clothing, Shoes & Accessories',
-                            imagePath: 'lib/assets/images/Clothes.png',
-                          ),
-                          DropdownMenuItemWithImage(
-                            id: 'collectibles',
-                            title: 'Collectibles & Art',
-                            imagePath: 'lib/assets/images/Collectibles.png',
-                          ),
+                  Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 55,
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12.withOpacity(0.1),
+                              blurRadius: 8,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
 
-                          // Add more items here
-                        ],
-                        onChanged: (selectedItem) {
-                          setState(() {
-                            _prodCategory =
-                                selectedItem as TextEditingController;
-                          });
-
-                          // Do something with the selected item
-                        },
+                          color: Colors.grey.withOpacity(0.3),
+                        ),
+                        child: DropdownButton<String>(
+                          value: selectedItem,
+                          icon: Padding(
+                              padding: EdgeInsets.only(left: 50),
+                              child: const Icon(Icons.arrow_drop_down)),
+                          iconSize: 32,
+                          elevation: 30,
+                          style: const TextStyle(color: Colors.black),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.transparent,
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedItem = newValue!;
+                            });
+                            print(selectedItem);
+                          },
+                          items: dropdownItems
+                              .asMap()
+                              .entries
+                              .map<DropdownMenuItem<String>>((entry) {
+                            int index = entry.key;
+                            String item = entry.value;
+                            String imagePath = imagePaths[index];
+                            return DropdownMenuItem<String>(
+                              value: item,
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    imagePath,
+                                    height: 32.0,
+                                    width: 32.0,
+                                  ),
+                                  SizedBox(width: 16.0),
+                                  Text(item),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
 
                       const SizedBox(
@@ -206,19 +233,19 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                             suffixIcon: ElevatedButton(
                               style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.resolveWith(
+                                  MaterialStateProperty.resolveWith(
                                           (states) {
-                                    if (states
-                                        .contains(MaterialState.pressed)) {
-                                      return Colors.deepPurpleAccent;
-                                    }
-                                    return hexStringToColor("#8776ff");
-                                  }),
+                                        if (states
+                                            .contains(MaterialState.pressed)) {
+                                          return Colors.deepPurpleAccent;
+                                        }
+                                        return hexStringToColor("#8776ff");
+                                      }),
                                   shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(8)))),
+                                          BorderRadius.circular(8)))),
                               onPressed: () async {
                                 ImagePicker imagepicker = ImagePicker();
                                 XFile? file = await imagepicker.pickImage(
@@ -228,13 +255,13 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                 // String UniqueFileName= DateTime.now().microsecondsSinceEpoch.toString();
 
                                 Reference referenceRoot =
-                                    FirebaseStorage.instance.ref();
+                                FirebaseStorage.instance.ref();
                                 Reference referenceDirImages =
-                                    referenceRoot.child("Images");
+                                referenceRoot.child("Images");
                                 Reference referenceUserFolder =
-                                    referenceDirImages.child(userId);
+                                referenceDirImages.child(userId);
                                 Reference referenceImageToUpload =
-                                    referenceUserFolder.child(_prodID.text);
+                                referenceUserFolder.child(_prodID.text);
 
                                 try {
                                   await referenceImageToUpload
@@ -271,18 +298,18 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                 "The product is already registered to the system by the current user");
                           }
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductsPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const ProductsPage()));
                         },
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.resolveWith((states) {
+                            MaterialStateProperty.resolveWith((states) {
                               if (states.contains(MaterialState.pressed)) {
                                 return hexStringToColor("#aeaeff");
                               }
                               return hexStringToColor("#8776ff");
                             }),
                             shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)))),
                         child: const Text("Add Product"),
@@ -312,3 +339,4 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     );
   }
 }
+

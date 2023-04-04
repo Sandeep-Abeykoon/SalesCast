@@ -15,18 +15,25 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
   List pages = [
     HomePage(),
     ProductsPage(),
     MyRecordsPage(),
-    ForecastsPage(),
+   ForecastsPage(),
     ProfilePage()
   ];
   int currentIndex = 0;
   void onTap(int index) {
+
     setState(() {
+
       currentIndex = index;
     });
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => pages[currentIndex]),
+    // );
   }
 
   @override

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:salescast/Screens/about_us.dart';
 import 'package:salescast/Screens/broken.dart';
+import 'package:salescast/Screens/main_page.dart';
 import 'package:salescast/Screens/welcome_page_slide.dart';
 
 import '../Screens/profile_page.dart';
@@ -18,6 +19,7 @@ class SlideMenu extends StatefulWidget {
 }
 
 class _SlideMenuState extends State<SlideMenu> {
+
   String imageUrl = "";
   var userId = " ";
   bool _iconbool = false;
@@ -50,7 +52,7 @@ class _SlideMenuState extends State<SlideMenu> {
           UserAccountsDrawerHeader(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("lib/assets/images/Bg1.jpg"),
+                      image: AssetImage("lib/assets/images/bg2.jpeg"),
                       fit: BoxFit.cover)),
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
@@ -77,31 +79,21 @@ class _SlideMenuState extends State<SlideMenu> {
               ),
               accountName: Text(
                 name!,
-                style: TextStyle(fontSize: 18, color: Colors.black38),
+                style: TextStyle(fontSize: 18, color: Colors.black),
               ),
               accountEmail: Text(
                 email!,
-                style: TextStyle(fontSize: 18, color: Colors.black38),
+                style: TextStyle(fontSize: 18, color: Colors.black),
               )),
           ListTile(
             leading: Icon(Icons.person_2_outlined),
             title: Text("Profile"),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()));
+                  MaterialPageRoute(builder: (context) =>ProfilePage()));
             },
           ),
-          // ListTile(
-          //   leading: Icon(_iconbool ? _iconDark : _iconLight),
-          //   title: Text("Dark Mode"),
-          //   onTap: (){
-          //     setState(() {
-          //       _iconbool = !_iconbool;
-          //
-          //     });
-          //
-          //   },
-          // ),
+
           ListTile(
             leading: Icon(Icons.share),
             title: Text("Share"),

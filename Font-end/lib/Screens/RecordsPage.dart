@@ -1,10 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:salescast/Screens/view_records.dart';
+
 import '../assets/colors.dart';
 
 class MyRecordsPage extends StatefulWidget {
@@ -16,10 +21,34 @@ class MyRecordsPage extends StatefulWidget {
 
 class _MyRecordsPageState extends State<MyRecordsPage>{
 
+
+  final String apiUrl = "http://10.0.2.2:5000/";
   var userId = "";
   User? user = FirebaseAuth.instance.currentUser;
-
   late File file;
+  List<Map<String, dynamic>> recordsArray = [];
+
+  void initState() {
+    super.initState();
+    fetchLastTwoRecords().then((data) {
+      setState(() {
+        recordsArray = data;
+        print(recordsArray);
+      });
+    });
+  }
+  Future<List<Map<String, dynamic>>> fetchLastTwoRecords() async {
+    final response = await http.post(
+      Uri.parse("$apiUrl/getLastTwoRecords"),
+      body: {'user_id': user?.uid},
+    );
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      return List<Map<String, dynamic>>.from(jsonData);
+    } else {
+      throw Exception('Failed to fetch data from server');
+    }
+  }
 
   Future<void> pickCsvFile() async {
     final result = await FilePicker.platform.pickFiles(
@@ -33,13 +62,11 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
       sendCsvContents(contents);
     }
   }
-
-
   void sendCsvContents(contents) async {
     const url = "http://10.0.2.2:5000/upload_csv_contents";
     final response = await http.post(
         Uri.parse(url),
-        body: {'csv_contents': contents}
+        body: {'user_id': user?.uid,'csv_contents': contents}
     );
     if (response.statusCode == 200) {
       if (kDebugMode) {
@@ -52,17 +79,21 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
 
+    final user = this.user;
+    if(user != null){
+      userId = user.uid;
+      print("User Id : $userId");
+    }
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-            "My Records",style: TextStyle(color: Colors.black),),
+          "My Records",style: TextStyle(color: Colors.black),),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -74,28 +105,29 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                 Container(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                  padding: const EdgeInsets.all(10),
+                  margin: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                  padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
                         blurRadius: 8,
-                        offset: const Offset(0, 5),
+                        offset: Offset(0, 5),
                       ),],
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
 
 
-                  child: const Padding(
+
+                  child: Padding(
                     padding: EdgeInsets.all(15),
-                    child: Text(
-                      "Hey! \n\nYou can upload your sales records here. Upload a csv file of your sales records to get started 😃",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w100),
+                    child: const Text(
+                      "Hey! \n\nYou can upload your sales records here. Upload a csv file of your sales records to get started 😃",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w300),
                     ),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 30,
                 ),
 
@@ -111,7 +143,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
                     ),
                     onPressed:
-                      pickCsvFile,
+                    pickCsvFile,
                     child: const Text("Choose CSV file")
                 ),
                 const SizedBox(
@@ -120,104 +152,120 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                 Row(
 
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(left: 20,right: 60),
-                      child: Text("Previous Records",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize:20,
-                        )
-                  ),
+                      child: const Text("Previous Records",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize:20,
+                          )
+                      ),
                     ),
 
                     IconButton(
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewRecords()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewRecords()));
 
 
                         },
-                        icon:const Icon(Icons.navigate_next,)
+                        icon:Icon(Icons.navigate_next,)
                     ),
+
+
 
                   ],),
                 const SizedBox(
                   height: 10,
                 ),
-
-            SizedBox(
-
-              width: MediaQuery.of(context).size.width,
-              child: DataTable(
-             dividerThickness: 1,
-
-
-                columnSpacing: 1,
-                columns: const <DataColumn>[
-                  DataColumn(
-                    label: Text(
-                      'Product Id',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: DataTable(
+                        dataRowHeight: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        dividerThickness: 1,
+                        columnSpacing: 10,
+                        columns: <DataColumn>[
+                          DataColumn(
+                            label: Text(
+                              'Product Id',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Product Name',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Price',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Items Sold',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              'Date',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                        rows: List<DataRow>.generate(
+                          recordsArray.length,
+                              (index) {
+                            return DataRow(
+                              cells: <DataCell>[
+                                DataCell(Text(recordsArray[index]['id_number'].toString())),
+                                DataCell(Text(recordsArray[index]['product'].toString())),
+                                DataCell(Text(recordsArray[index]['price'].toString())),
+                                DataCell(Text(recordsArray[index]['sold_quantity'].toString())),
+                                DataCell(Text(recordsArray[index]['date'].toString())),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
 
-                  DataColumn(
-                    label: Text(
-                      'Product Name',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Text(
-                      'Price',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Text(
-                      'Items Sold',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Text(
-                      'Profit',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-                rows: const <DataRow>[
-                  DataRow(
-                    cells: <DataCell>[
 
-                      DataCell(Text('1')),
-                      DataCell(Text('Product A')),
-                      DataCell(Text('\$10')),
-                      DataCell(Text('100')),
-                      DataCell(Text('\$500')),
-                    ],
-                  ),
-                  DataRow(
-                    cells: <DataCell>[
 
-                      DataCell(Text('2')),
-                      DataCell(Text('Product B')),
-                      DataCell(Text('\$20')),
-                      DataCell(Text('100')),
-                      DataCell(Text('\$1000')),
-                    ],
-                  ),
+                ),
 
-                ],
-              ),
-            ),
                 IconButton(
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewRecords()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewRecords()));
 
 
                     },
-                    icon:const Icon(Icons.arrow_circle_down_sharp,)
+                    icon:Icon(Icons.arrow_circle_down_sharp,)
                 ),
+
+
+
+
+
               ],
             ),
           ),

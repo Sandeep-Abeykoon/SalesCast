@@ -171,6 +171,7 @@ class CustomDropdownButton extends StatefulWidget {
     required this.items,
     required this.hint,
     required this.onChanged,
+
   });
 
   @override
@@ -210,6 +211,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
           setState(() {
             selectedValue = value;
           });
+
           var selectedItem = widget.items.firstWhere((item) => item.id == value);
           widget.onChanged(selectedItem);
         },
