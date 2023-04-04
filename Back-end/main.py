@@ -21,15 +21,8 @@ def load_products():
     user_id = request.form['user_id']
     print("The user Id is : ", user_id)
 
-    # products = [
-    #     {'product_id': '20210057',
-    #      'product_name': 'AAA Batteries',
-    #      'product_price': '25',
-    #      'product_brand': 'Eveready'},
-    # ]
+   
     products = db.load_product(user_id)
-    # print(products)
-
     return jsonify(products)
 
 
@@ -58,7 +51,7 @@ def check_availability():
 
 @app.route('/register_product', methods=['POST'])
 def register_product():
-    user_id = request.form.get("user_Id")
+    user_id = request.form.get("user_id")
     product_name = request.form.get("product_name")
     product_id = request.form.get("product_id")
     product_price = request.form.get("product_price")

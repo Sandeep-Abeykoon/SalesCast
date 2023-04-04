@@ -32,7 +32,7 @@ def product_available(user_id, product_id):
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
     db = client["SalesCast"]
     collection = db["Sales_record"]
-    result = collection.find_one({"user_id": user_id, "product_iD": product_id})
+    result = collection.find_one({"user_id": user_id, "product_id": product_id})
     print("result : ", result)
 
     if result is None:
@@ -49,7 +49,7 @@ def add_product(user_id, product_name, product_id, product_price, product_brand,
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
     db = client["SalesCast"]
     collection = db["Sales_record"]
-    post = {"user_id": user_id, "product_name": product_name, "product_iD": product_id, "product_price": product_price,
+    post = {"user_id": user_id, "product_name": product_name, "product_id": product_id, "product_price": product_price,
             "product_category": product_category, "product_brand": product_brand}
     collection.insert_one(post)
     print("added succesfully")
