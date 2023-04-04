@@ -65,5 +65,13 @@ def register_product():
     return ("The product is added sucessfully")
 
 
+
+@app.route('/getSalesRecords', methods=['POST'])
+def getSalesRecords():
+    user_id = request.form.get("user_id")
+    records = db.return_all_records(user_id)
+    return jsonify(records)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
