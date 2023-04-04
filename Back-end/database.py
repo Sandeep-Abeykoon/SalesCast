@@ -150,3 +150,29 @@ def machine_learning_load(user_id):
             matching_docs.append(doc)
 
     return matching_docs
+
+def return_all(user_id):
+    # connect to MongoDB
+    client = pymongo.MongoClient(
+        'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
+        ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
+
+    # access the "SalesCast" database
+    db = client["SalesCast"]
+    collection = db["Product"]
+    for doc in collection.find({'user_id': user_id}, {'_id':0, 'user_id': 0}):
+        print(doc)
+def last_two(user_id):
+    # connect to MongoDB
+    client = pymongo.MongoClient(
+        'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
+        ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
+
+    # access the "SalesCast" database
+    db = client["SalesCast"]
+    collection = db["Product"]
+    count = 1
+    for doc in collection.find({'user_id': user_id}, {'_id': 0, 'user_id': 0}):
+        if count <3:
+            print(doc)
+            count += 1

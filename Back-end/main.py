@@ -20,7 +20,6 @@ def index():
 def load_products():
     user_id = request.form['user_id']
     print("The user Id is : ", user_id)
-
     products = db.load_product(user_id)
     return jsonify(products)
 
