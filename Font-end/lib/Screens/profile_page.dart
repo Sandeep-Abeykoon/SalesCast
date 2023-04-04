@@ -149,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Text(
                   name!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -165,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 20,
                 ),
                 ListTile(
-                  title: Text(
+                  title: const Text(
                     'Name',
                     style: TextStyle(
                       color: Colors.black,
@@ -175,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   subtitle: Text(
                     name!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                     ),
                   ),
