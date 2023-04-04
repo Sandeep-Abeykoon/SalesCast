@@ -35,8 +35,8 @@ class _SignUpPageState extends State<SignUpPage> {
       extendBodyBehindAppBar: true,
       // l
       body: Container(
-        width: 1000,
-        height: 1000,
+        width: 1500,
+        height: 1500,
         decoration: BoxDecoration(),
         child: SingleChildScrollView(
           child: Form(
