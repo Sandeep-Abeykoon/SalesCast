@@ -2,12 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:salescast/Screens/view_records.dart';
 
 import '../assets/colors.dart';
@@ -28,6 +25,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
   late File file;
   List<Map<String, dynamic>> recordsArray = [];
 
+  @override
   void initState() {
     super.initState();
     fetchLastTwoRecords().then((data) {
@@ -37,6 +35,8 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
       });
     });
   }
+
+
   Future<List<Map<String, dynamic>>> fetchLastTwoRecords() async {
     final response = await http.post(
       Uri.parse("$apiUrl/getLastTwoRecords"),
@@ -105,14 +105,14 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                 Container(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                  padding: EdgeInsets.all(10),
+                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
                         blurRadius: 8,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),],
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
@@ -120,14 +120,14 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
 
 
 
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.all(15),
-                    child: const Text(
+                    child: Text(
                       "Hey! \n\nYou can upload your sales records here. Upload a csv file of your sales records to get started 😃",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w300),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
 
@@ -152,9 +152,9 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                 Row(
 
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 20,right: 60),
-                      child: const Text("Previous Records",
+                      child: Text("Previous Records",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize:20,
@@ -164,11 +164,11 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
 
                     IconButton(
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewRecords()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewRecords()));
 
 
                         },
-                        icon:Icon(Icons.navigate_next,)
+                        icon:const Icon(Icons.navigate_next,)
                     ),
 
 
@@ -177,10 +177,10 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
@@ -193,13 +193,13 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3),
+                              offset: const Offset(0, 3),
                             ),
                           ],
                         ),
                         dividerThickness: 1,
                         columnSpacing: 10,
-                        columns: <DataColumn>[
+                        columns: const <DataColumn>[
                           DataColumn(
                             label: Text(
                               'Product Id',
@@ -255,11 +255,11 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
 
                 IconButton(
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewRecords()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewRecords()));
 
 
                     },
-                    icon:Icon(Icons.arrow_circle_down_sharp,)
+                    icon:const Icon(Icons.arrow_circle_down_sharp,)
                 ),
 
 

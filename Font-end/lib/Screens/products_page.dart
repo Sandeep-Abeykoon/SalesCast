@@ -20,12 +20,14 @@ class Product {
   final String productName;
   final String productPrice;
   final String productBrand;
+  final String productImageUrl;
 
   Product({
     required this.productId,
     required this.productName,
     required this.productPrice,
     required this.productBrand,
+    required this.productImageUrl
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class Product {
       productName: json['product_name'] as String? ?? " ",
       productPrice: json['product_price'] as String,
       productBrand: json['product_brand'] as String,
+      productImageUrl: json['product_image_url'] as String? ?? " "
     );
   }
 }
@@ -174,7 +177,7 @@ class _ProductsPageState extends State<ProductsPage> {
                         height: 70,
                         width: 70,
                         margin: const EdgeInsets.only(right: 20),
-                        child: Image.asset("lib/assets/images/Clothes.png"),
+                        child: Image.network(item!.productImageUrl),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -182,28 +185,28 @@ class _ProductsPageState extends State<ProductsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(item?.productName ?? 'N/A',
+                            Text(item.productName,
                               style:TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                   color:Colors.black.withOpacity(0.4)
                               ) ,
                             ),
-                            Text("Product Id: ${item?.productId ?? 'N/A'}",
+                            Text("Product Id: ${item.productId}",
                               style:TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                   color:Colors.black.withOpacity(0.4)
                               ) ,
                             ),
-                            Text("Price: ${item?.productPrice ?? 'N/A'} ",
+                            Text("Price: ${item.productPrice} ",
                               style:TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                   color:Colors.black.withOpacity(0.4)
                               ),
                             ),
-                            Text("Price: ${item?.productBrand ?? 'N/A'} ",
+                            Text("Price: ${item.productBrand} ",
                               style:TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,

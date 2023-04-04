@@ -51,7 +51,6 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   final TextEditingController _prodID = TextEditingController();
   final TextEditingController _prodPrice = TextEditingController();
   final TextEditingController _prodBrand = TextEditingController();
-  TextEditingController _prodCategory = TextEditingController();
   late String prodCategory;
 
   // This method is to check the product id with the available products
@@ -82,9 +81,10 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
       'product_id': _prodID.text.trim(),
       'product_price': _prodPrice.text.trim(),
       'product_brand': _prodBrand.text.trim(),
-      'product_category': ' ',
+      'product_category': selectedItem,
       'product_image_url': imageUrl,
     });
+    print(imageUrl);
 
     if (response.statusCode == 200) {
       print("data sent successfully");
@@ -141,23 +141,23 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       Container(
                         width: MediaQuery.of(context).size.width,
                         height: 55,
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black12.withOpacity(0.1),
                               blurRadius: 8,
-                              offset: Offset(0, 5),
+                              offset: const Offset(0, 5),
                             ),
                           ],
                           color: Colors.grey.withOpacity(0.3),
                         ),
                         child: DropdownButton<String>(
                           value: selectedItem,
-                          icon: Padding(
+                          icon: const Padding(
                               padding: EdgeInsets.only(left: 50),
-                              child: const Icon(Icons.arrow_drop_down)),
+                              child: Icon(Icons.arrow_drop_down)),
                           iconSize: 32,
                           elevation: 30,
                           style: const TextStyle(color: Colors.black),
@@ -187,7 +187,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                     height: 32.0,
                                     width: 32.0,
                                   ),
-                                  SizedBox(width: 16.0),
+                                  const SizedBox(width: 16.0),
                                   Text(item),
                                 ],
                               ),
