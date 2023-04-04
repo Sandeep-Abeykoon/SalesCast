@@ -8,7 +8,7 @@ class ForecastsPage extends StatefulWidget {
   State<ForecastsPage> createState() => _ForecastsPageState();
 }
 
-List<int> text = [1, 2, 3];
+List<int> text = [1, 2, 3,4,5,6,7,8,9,];
 
 class _ForecastsPageState extends State<ForecastsPage> {
   @override

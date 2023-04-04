@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.17"
+  adaptive_scrollbar:
+    dependency: "direct main"
+    description:
+      name: adaptive_scrollbar
+      sha256: d615755ffba8bce96aa8445afc79727d1339651bbf4c08ce80a077c619eb7a1b
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.2"
   archive:
     dependency: transitive
     description:
@@ -453,6 +461,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.0+1"
+  hovering:
+    dependency: transitive
+    description:
+      name: hovering
+      sha256: "0df77800487be6d29c8687fb775f53e1b308988c6e63a6a9c579cec701fbfe76"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   http:
     dependency: "direct main"
     description:

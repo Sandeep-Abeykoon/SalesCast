@@ -74,7 +74,7 @@ class _ViewRecordsState extends State<ViewRecords> {
               dividerThickness: 1,
 
 
-              columnSpacing: 1,
+              columnSpacing: 10,
               columns: const <DataColumn>[
                 DataColumn(
                   label: Text(
