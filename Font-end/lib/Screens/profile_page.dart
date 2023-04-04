@@ -184,7 +184,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 ListTile(
-                  title: Text(
+                  title: const Text(
                     'Email',
                     style: TextStyle(
                       color: Colors.black,
@@ -214,7 +214,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WelcomePage()))
+                              builder: (context) => const WelcomePage()))
                     });
                   },
                   child: Text('Sign Out'),
