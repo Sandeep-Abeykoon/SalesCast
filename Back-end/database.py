@@ -3,24 +3,30 @@ import ssl
 
 
 def database_add(records):
-    first = records[0]
-    print(first)
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
-        ssl=True)
+        ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
     if client:
         print("connected successfully to database")
         db = client["SalesCast"]
         collection = db["Product"]
-        collection.insert_one(first)
-        print("added successfully")
+        for x in records:
+            new_dict = {"user_id": "MqoldQlyAHb9I3zWGQZGnNbH6qX2"}
+            new_dict.update(x)
+            result = collection.find_one({"user_id": "MqoldQlyAHb9I3zWGQZGnNbH6qX2", "id_number": new_dict['id_number'], "product": new_dict['product'], "sold_quantity": new_dict['sold_quantity'], "price": new_dict['price'], "date": new_dict['date']})
+            if result is None:
+                collection.insert_one(new_dict)
+                print("added")
+            else:
+                print("already exists")
+            # print(new_dict)
+        # print("added successfully")
     else:
         print("failed to connect to database")
     client.close()
 
 
 def product_available(user_id, product_id):
-    is_available = False
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
@@ -29,7 +35,7 @@ def product_available(user_id, product_id):
     result = collection.find_one({"user_id": user_id, "product_iD": product_id})
     print("result : ", result)
 
-    if result == None:
+    if result is None:
         is_available = False
     else:
         is_available = True

@@ -21,8 +21,14 @@ def load_products():
     user_id = request.form['user_id']
     print("The user Id is : ", user_id)
 
+    # products = [
+    #     {'product_id': '20210057',
+    #      'product_name': 'AAA Batteries',
+    #      'product_price': '25',
+    #      'product_brand': 'Eveready'},
+    # ]
     products = db.load_product(user_id)
-    print(products)
+    # print(products)
 
     return jsonify(products)
 
