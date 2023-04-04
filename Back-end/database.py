@@ -75,7 +75,7 @@ def add_product(user_id, product_name, product_id, product_price, product_brand,
     post = {
         "user_id": user_id,
         "product_name": product_name,
-        "product_iD": product_id,
+        "product_id": product_id,
         "product_price": product_price,
         "product_category": product_category,
         "product_brand": product_brand,
@@ -135,7 +135,7 @@ def machine_learning_load(user_id):
 
     # iterate through the documents and append the product_iD to the list
     for doc in docs:
-        product_ids.append(doc['product_iD'])
+        product_ids.append(doc['product_id'])
 
     # remove duplicates from the list and sort it in ascending order
     sorted_product_ids = sorted(set(product_ids), key=int)
