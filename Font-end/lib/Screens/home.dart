@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: const Padding(
                   padding: EdgeInsets.all(15),
                   child: Text(
-                    "Hey! \n\nWelcome to SalesCast !!!.You can start by adding your products in the products page 😃  ",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w300),
+                    "Hello! \n\nWelcome to SalesCast !!!.You can start by adding your products in the products page 😃  ",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w300),
                   ),
                 ),
               ),

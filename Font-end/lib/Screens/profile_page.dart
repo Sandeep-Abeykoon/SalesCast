@@ -20,7 +20,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final ImagePicker _picker = ImagePicker();
   String imageUrl = "";
-  var userId = " ";
+  var userId = "";
   XFile? _image;
 
   @override
