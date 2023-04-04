@@ -8,7 +8,11 @@ packages:
       sha256: f175bc1414e4edf8c5b83372c98eeabecf8353f39c9da423c2cfdf1f1f508788
       url: "https://pub.dev"
     source: hosted
+<<<<<<< Updated upstream
     version: "1.1.0"
+=======
+    version: "1.0.17"
+>>>>>>> Stashed changes
   archive:
     dependency: transitive
     description:
@@ -304,7 +308,11 @@ packages:
       sha256: b6d3c104fecafdce5fe1795306d33856c9a11fa76f73fe7eb062430fc151d686
       url: "https://pub.dev"
     source: hosted
+<<<<<<< Updated upstream
     version: "3.4.0"
+=======
+    version: "3.3.24"
+>>>>>>> Stashed changes
   flare_flutter:
     dependency: transitive
     description:
