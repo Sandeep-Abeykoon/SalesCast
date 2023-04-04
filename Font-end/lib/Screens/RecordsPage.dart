@@ -190,7 +190,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
 
                   DataColumn(
                     label: Text(
-                      'Product Name',
+                      'Product',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
