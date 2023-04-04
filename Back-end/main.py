@@ -21,7 +21,6 @@ def load_products():
     user_id = request.form['user_id']
     print("The user Id is : ", user_id)
 
-   
     products = db.load_product(user_id)
     return jsonify(products)
 
@@ -35,7 +34,7 @@ def upload_csv():
     sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
     print(productIds)
     print(sales_predictions)
-    db.database_add(records,user_id)
+    db.database_add(records, user_id)
     return [sales_predictions], 200
 
 
@@ -57,8 +56,9 @@ def register_product():
     product_price = request.form.get("product_price")
     product_brand = request.form.get("product_brand")
     product_category = request.form.get("product_category")
+    product_image_url = request.form.get("product_image_url")
 
-    db.add_product(user_id, product_name, product_id, product_price, product_brand, product_category)
+    db.add_product(user_id, product_name, product_id, product_price, product_brand, product_category, product_image_url)
     return ("The product is added sucessfully")
 
 
