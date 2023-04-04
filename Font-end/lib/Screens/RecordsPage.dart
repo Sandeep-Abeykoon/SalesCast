@@ -208,40 +208,30 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                   ),
                   DataColumn(
                     label: Text(
-                      'Profit',
+                      'Date',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
-                rows: const <DataRow>[
-                  DataRow(
-                    cells: <DataCell>[
-
-                      DataCell(Text('1')),
-                      DataCell(Text('Product A')),
-                      DataCell(Text('\$10')),
-                      DataCell(Text('100')),
-                      DataCell(Text('\$500')),
-                    ],
+                  rows: List<DataRow>.generate(
+                    recordsArray.length,
+                        (index) {
+                      return DataRow(
+                        cells: <DataCell>[
+                          DataCell(Text(recordsArray[index]['id_number'].toString())),
+                          DataCell(Text(recordsArray[index]['product'].toString())),
+                          DataCell(Text(recordsArray[index]['price'].toString())),
+                          DataCell(Text(recordsArray[index]['sold_quantity'].toString())),
+                          DataCell(Text(recordsArray[index]['date'].toString())),
+                        ],
+                      );
+                    },
                   ),
-                  DataRow(
-                    cells: <DataCell>[
-
-                      DataCell(Text('2')),
-                      DataCell(Text('Product B')),
-                      DataCell(Text('\$20')),
-                      DataCell(Text('100')),
-                      DataCell(Text('\$1000')),
-                    ],
-                  ),
-
-                ],
               ),
             ),
                 IconButton(
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewRecords()));
-
 
                     },
                     icon:const Icon(Icons.arrow_circle_down_sharp,)
