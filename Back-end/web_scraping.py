@@ -2,9 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-# Local Modules
-import user
-
 def getDemandProducts():
     get_product("toffee")
     return None

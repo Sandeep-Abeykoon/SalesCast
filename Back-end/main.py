@@ -30,12 +30,16 @@ def upload_csv():
     user_id = request.form['user_id']
     csv_data = request.form['csv_contents']
     records = cp.csv_data_processing(csv_data)
-    product_data_frames, last_rows, productIds = dp.data_preprocessing(records)
-    sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
-    print(productIds)
-    print(sales_predictions)
     db.database_add(records, user_id)
-    return [sales_predictions], 200
+
+    # Running the ML model to predict the sales based on the added records and available records.
+    db_sales_records = db.machine_learning_load(user_id)
+    print(db_sales_records)
+    #product_data_frames, last_rows, productIds = dp.data_preprocessing(records)
+    #sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
+    #print(productIds)
+    #print(sales_predictions)
+    #return [sales_predictions], 200
 
 
 @app.route('/product_availability', methods=['POST'])
