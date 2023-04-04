@@ -32,8 +32,8 @@ class Product {
     return Product(
       productId: json['product_id'] as String? ?? " ",
       productName: json['product_name'] as String? ?? " ",
-      productPrice: json['product_price'] as String ?? " ",
-      productBrand: json['product_brand'] as String ?? " ",
+      productPrice: json['product_price'] as String,
+      productBrand: json['product_brand'] as String,
     );
   }
 }
