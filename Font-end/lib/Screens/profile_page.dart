@@ -144,12 +144,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ],
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 40,
                 ),
                 Text(
                   name!,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -161,11 +161,11 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(
             child: Column(
               children: <Widget>[
-                const SizedBox(
+                SizedBox(
                   height: 20,
                 ),
                 ListTile(
-                  title: const Text(
+                  title: Text(
                     'Name',
                     style: TextStyle(
                       color: Colors.black,
@@ -175,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   subtitle: Text(
                     name!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
@@ -184,7 +184,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 ListTile(
-                  title: const Text(
+                  title: Text(
                     'Email',
                     style: TextStyle(
                       color: Colors.black,
@@ -214,7 +214,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const WelcomePage()))
+                              builder: (context) => WelcomePage()))
                     });
                   },
                   child: Text('Sign Out'),
