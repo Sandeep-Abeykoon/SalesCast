@@ -152,7 +152,7 @@ def machine_learning_load(user_id):
     return matching_docs
 
 
-def return_all(user_id):
+def return_all_records(user_id):
     # connect to MongoDB
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
@@ -166,7 +166,7 @@ def return_all(user_id):
     return arr
 
 
-def last_two(user_id):
+def last_two_records(user_id):
     # connect to MongoDB
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
