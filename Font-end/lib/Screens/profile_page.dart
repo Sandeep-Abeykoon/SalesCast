@@ -103,10 +103,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     Stack(
                       children: <Widget>[
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0), //or 15.0
+                          borderRadius: BorderRadius.circular(20.0), //or 15.0
                           child: Container(
-                            height: 100.0,
-                            width: 100.0,
+                            height: 150.0,
+                            width: 150.0,
                             color: Colors.blueGrey,
                             child: imageUrl == ''
                                 ? Icon(
