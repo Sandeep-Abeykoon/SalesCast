@@ -131,7 +131,7 @@ def machine_learning_load(user_id):
     product_ids = []
 
     # find all documents with user_id and retrieve only the product_iD field
-    docs = collection.find({'user_id': user_id}, {'product_iD': 1, '_id': 0})
+    docs = collection.find({'user_id': user_id}, {'product_id': 1, '_id': 0})
 
     # iterate through the documents and append the product_iD to the list
     for doc in docs:
@@ -147,7 +147,7 @@ def machine_learning_load(user_id):
 
     # find all documents with user_id and matching product IDs
     for product_id in sorted_product_ids:
-        for doc in collection2.find({'user_id': user_id, 'id_number': product_id}, {'_id': 0}):
+        for doc in collection2.find({'user_id': user_id, 'id_number': product_id}, {'_id': 0, 'user_id': 0}):
             matching_docs.append(doc)
             print(doc)
 
