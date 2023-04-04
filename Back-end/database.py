@@ -148,5 +148,5 @@ def machine_learning_load(user_id):
     for product_id in sorted_product_ids:
         for doc in collection2.find({'user_id': user_id, 'id_number': product_id}, {'_id': 0, 'user_id': 0}):
             matching_docs.append(doc)
-            print(doc)
 
+    return matching_docs
