@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "21878486830",
+    "project_id": "salescast-9c3d6",
+    "storage_bucket": "salescast-9c3d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21878486830:android:957f2a31286992fec52cbf",
+        "android_client_info": {
+          "package_name": "com.example.salescast"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21878486830-k5vdhdl335srgl27ulnp230s2ps320jo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkGhApF9y2bAooOt_-Z2sFg61djGZQ5hs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21878486830-k5vdhdl335srgl27ulnp230s2ps320jo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
