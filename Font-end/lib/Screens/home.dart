@@ -51,8 +51,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Expanded(child: Container()),
                   Container(
                     margin: const EdgeInsets.only(right: 20),
-                    width: 45,
-                    height: 45,
+                    width: 50,
+                    height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Visibility(
               visible: isEmpty,
               child: Container(
-                height: 250,
+                height: 200,
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                 padding: const EdgeInsets.all(10),
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: const Padding(
                   padding: EdgeInsets.all(15),
                   child: Text(
-                    "Hello! \n\nWelcome to SalesCast !!!.You can start by adding your products in the products page 😃  ",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w300),
+                    "Hey! \n\nWelcome to SalesCast !!!.You can start by adding your products in the products page 😃  ",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w300),
                   ),
                 ),
               ),
