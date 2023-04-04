@@ -39,7 +39,7 @@ class Product {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  List<Product>? products;
+  List<Product>? products = [];
 
   final String apiUrl = "http://10.0.2.2:5000/";
   User? user = FirebaseAuth.instance.currentUser;
@@ -64,8 +64,6 @@ class _ProductsPageState extends State<ProductsPage> {
       print("Server error");
     }
   }
-
-  List<int> text = [];//TODO Need to load product data
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +153,8 @@ class _ProductsPageState extends State<ProductsPage> {
                   ),
                 ),
 
-                for (var i in text)Container(
+
+                for (Product? item in products!)Container(
                   height: 110,
                   margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                   padding: const EdgeInsets.all(10),
@@ -183,29 +182,33 @@ class _ProductsPageState extends State<ProductsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Product Title",
+                            Text(item?.productName ?? 'N/A',
                               style:TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                   color:Colors.black.withOpacity(0.4)
-                              ) ,),
-                            Text("Product Id: 12",
+                              ) ,
+                            ),
+                            Text("Product Id: ${item?.productId ?? 'N/A'}",
                               style:TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                   color:Colors.black.withOpacity(0.4)
-                              ) ,),
-                            Text("Quantity : 20 ",
-                              style:TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                                color:Colors.black.withOpacity(0.4)),
+                              ) ,
                             ),
-                            Text("Price: Rs.800 ",
+                            Text("Price: ${item?.productPrice ?? 'N/A'} ",
                               style:TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
-                                  color:Colors.black.withOpacity(0.4)),
+                                  color:Colors.black.withOpacity(0.4)
+                              ),
+                            ),
+                            Text("Price: ${item?.productBrand ?? 'N/A'} ",
+                              style:TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color:Colors.black.withOpacity(0.4)
+                              ),
                             ),
                           ],
                         ),
@@ -224,9 +227,7 @@ class _ProductsPageState extends State<ProductsPage> {
                       ),
                     ],
                   ),
-
                 ),
-
               ],
             ),
           ),

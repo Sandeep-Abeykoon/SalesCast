@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:salescast/Screens/products_page.dart';
 import '../assets/colors.dart';
 import '../reusable_widget/reusable_widgets.dart';
 import 'package:http/http.dart' as http;
@@ -270,7 +271,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                 "The product is already registered to the system by the current user");
                           }
 
-                          Navigator.pop(context);
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductsPage()));
                         },
                         style: ButtonStyle(
                             backgroundColor:

@@ -1,13 +1,10 @@
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:salescast/Screens/view_records.dart';
-
 import '../assets/colors.dart';
 
 class MyRecordsPage extends StatefulWidget {
@@ -21,16 +18,44 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
 
   var userId = "";
   User? user = FirebaseAuth.instance.currentUser;
+
   late File file;
+
+  Future<void> pickCsvFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['csv'],
+    );
+    if (result != null) {
+      final file = File(result.files.single.path!);
+      final contents = await file.readAsString();
+
+      sendCsvContents(contents);
+    }
+  }
+
+
+  void sendCsvContents(contents) async {
+    const url = "http://10.0.2.2:5000/upload_csv_contents";
+    final response = await http.post(
+        Uri.parse(url),
+        body: {'csv_contents': contents}
+    );
+    if (response.statusCode == 200) {
+      if (kDebugMode) {
+        print("CSV data uploaded successfully");
+      }
+    }else{
+      if (kDebugMode) {
+        print("error uploading CSV data");
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
-    final user = this.user;
-    if(user != null){
-      userId = user.uid;
-      print("User Id : $userId");
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -49,34 +74,32 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                 Container(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                  padding: EdgeInsets.all(10),
+                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
                         blurRadius: 8,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),],
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
 
 
-
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.all(15),
-                    child: const Text(
+                    child: Text(
                       "Hey! \n\nYou can upload your sales records here. Upload a csv file of your sales records to get started 😃",style:TextStyle(fontSize: 18,fontWeight:FontWeight.w100),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
 
                 ElevatedButton(
-                    child: const Text("Choose CSV file"),
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.resolveWith((states) {
                           if(states.contains(MaterialState.pressed)){
@@ -87,29 +110,9 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
                     ),
-                    onPressed: () async {
-                      FilePickerResult? result = await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['csv'],
-                      );
-                      if (result != null) {
-                        file = File(result.files.single.path!);
-                      }
-
-                      // Uploading to the Cloud Storage
-                      String filePath = 'csv/$userId' ;
-                      Reference ref = FirebaseStorage.instance.ref().child(filePath);
-                      UploadTask uploadTask = ref.putFile(file);
-                      TaskSnapshot taskSnapShot = await uploadTask.whenComplete(() => null);
-                      String downloadUrl = await taskSnapShot.ref.getDownloadURL();
-
-                      final referenceDatabase = FirebaseDatabase.instance.ref();
-                      referenceDatabase.child(userId)
-                          .child("userRecords").
-                      push()
-                          .set(downloadUrl);
-
-                    }
+                    onPressed:
+                      pickCsvFile,
+                    child: const Text("Choose CSV file")
                 ),
                 const SizedBox(
                   height: 30,
@@ -117,9 +120,9 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                 Row(
 
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 20,right: 60),
-                      child: const Text("Previous Records",
+                      child: Text("Previous Records",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize:20,
@@ -129,114 +132,92 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
 
                     IconButton(
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewRecords()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewRecords()));
 
 
                         },
-                        icon:Icon(Icons.navigate_next,)
+                        icon:const Icon(Icons.navigate_next,)
                     ),
-
-
 
                   ],),
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: DataTable(
-                        dataRowHeight: 70,
-                        decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                        dividerThickness: 1,
-                        columnSpacing: 10,
-                        columns: <DataColumn>[
-                          DataColumn(
-                            label: Text(
-                              'Product Id',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Text(
-                              'Product Name',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Text(
-                              'Price',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Text(
-                              'Items Sold',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Text(
-                              'Date and Time',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                        rows: <DataRow>[
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('1')),
-                              DataCell(Text('Product A')),
-                              DataCell(Text('\$10')),
-                              DataCell(Text('100')),
-                              DataCell(Text('\$500')),
-                            ],
-                          ),
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('2')),
-                              DataCell(Text('Product B')),
-                              DataCell(Text('\$20')),
-                              DataCell(Text('100')),
-                              DataCell(Text('\$1000')),
-                            ],
-                          ),
-                        ],
-                      ),
+
+            SizedBox(
+
+              width: MediaQuery.of(context).size.width,
+              child: DataTable(
+             dividerThickness: 1,
+
+
+                columnSpacing: 1,
+                columns: const <DataColumn>[
+                  DataColumn(
+                    label: Text(
+                      'Product Id',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
 
+                  DataColumn(
+                    label: Text(
+                      'Product Name',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      'Price',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      'Items Sold',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      'Profit',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+                rows: const <DataRow>[
+                  DataRow(
+                    cells: <DataCell>[
 
+                      DataCell(Text('1')),
+                      DataCell(Text('Product A')),
+                      DataCell(Text('\$10')),
+                      DataCell(Text('100')),
+                      DataCell(Text('\$500')),
+                    ],
+                  ),
+                  DataRow(
+                    cells: <DataCell>[
 
+                      DataCell(Text('2')),
+                      DataCell(Text('Product B')),
+                      DataCell(Text('\$20')),
+                      DataCell(Text('100')),
+                      DataCell(Text('\$1000')),
+                    ],
+                  ),
+
+                ],
               ),
-            
+            ),
                 IconButton(
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewRecords()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewRecords()));
 
 
                     },
-                    icon:Icon(Icons.arrow_circle_down_sharp,)
+                    icon:const Icon(Icons.arrow_circle_down_sharp,)
                 ),
-
-
-
-
-
               ],
             ),
           ),
@@ -247,86 +228,3 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
 }
 
 
-// import 'dart:html';
-//
-// import 'package:file_picker/file_picker.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-// import 'package:salescast/assets/colors.dart';
-//
-// class SalesRecords extends StatefulWidget {
-//   const SalesRecords({Key? key}) : super(key: key);
-//
-//   @override
-//   State<SalesRecords> createState() => _SalesRecordsState();
-// }
-//
-// class _SalesRecordsState extends State<SalesRecords> {
-//   var userId = "";
-//   User? user = FirebaseAuth.instance.currentUser;
-//   late File file;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     throw UnimplementedError();
-//   }
-// }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: hexStringToColor("#b2d8d8"),
-//       appBar: AppBar(
-//         title: Text("Sales Records",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-//         backgroundColor: Colors.transparent,
-//         elevation: 0,
-//       ),
-//       body: SingleChildScrollView(
-//         child: Column(
-//           children: [
-//             Placeholder(
-//               child: Text(
-//                 "Your Sales Records will be appear here"
-//
-//               ),
-//               fallbackHeight: 20,
-//               fallbackWidth: 10,
-//               strokeWidth: 0,
-//             ),
-//             SizedBox(
-//               height: 350,
-//             ),
-//
-//             Center(
-//               child: Container(
-//                 child: ElevatedButton(
-//                   onPressed:()async{
-//                     FilePickerResult? result = await FilePicker.platform.pickFiles(
-//                         type: FileType.custom,
-//                         allowedExtensions: ['csv'],);
-//                     if (result != null) {
-//                       file = File(result.files.single.path!);
-//
-//
-//
-//
-//
-//
-//                   } ,
-//                   child: Text(
-//                     "Choose Csv file"
-//                   ),
-//
-//
-//                 ),
-//
-//               ),
-//             ),
-//
-//
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

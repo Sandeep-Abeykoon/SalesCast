@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+  bool isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
       drawer: SlideMenu(),
+
       extendBodyBehindAppBar: true,
+      // appBar: AppBar(
+
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,16 +92,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-
                       margin: const EdgeInsets.only(right: 15, top: 10),
                       width: 300,
                       height: 300,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          // image: DecorationImage(
-                          //     image: AssetImage(_images[index]),
-                          //     fit: BoxFit.cover)
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        // image: DecorationImage(
+                        //     image: AssetImage(_images[index]),
+                        //     fit: BoxFit.cover)
                       ),
                     );
                   },
@@ -111,31 +114,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 }
 
-// class CircleTabIndicator extends Decoration {
-//   final Color color;
-//   double radius;
-//
-//   CircleTabIndicator({required this.color, required this.radius});
-//
-//   @override
-//   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-//     // TODO: implement createBoxPainter
-//     return _CirclePainter(color: color, radius: radius);
-//   }
-// }
-//
-// class _CirclePainter extends BoxPainter {
-//   final Color color;
-//   double radius;
-//
-//   _CirclePainter({required this.color, required this.radius});
-//
-//   @override
-//   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-//     Paint _paint = Paint();
-//     _paint.color = color;
-//     _paint.isAntiAlias = true;
-//     final Offset circleOffset = Offset(configuration.size!.width / 2, 0);
-//     canvas.drawCircle(offset + circleOffset, radius, _paint);
-//   }
-// }
+class CircleTabIndicator extends Decoration {
+  final Color color;
+  double radius;
+
+  CircleTabIndicator({required this.color, required this.radius});
+
+  @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+    // TODO: implement createBoxPainter
+    return _CirclePainter(color: color, radius: radius);
+  }
+}
+
+class _CirclePainter extends BoxPainter {
+  final Color color;
+  double radius;
+  _CirclePainter({required this.color, required this.radius});
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+    Paint _paint = Paint();
+    _paint.color = color;
+    _paint.isAntiAlias = true;
+    final Offset circleOffset = Offset(configuration.size!.width / 2, 0);
+    canvas.drawCircle(offset + circleOffset, radius, _paint);
+  }
+}

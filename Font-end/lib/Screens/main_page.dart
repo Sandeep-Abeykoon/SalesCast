@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:salescast/Screens/RecordsPage.dart';
 
 import 'package:salescast/Screens/forecasts.dart';
 import 'package:salescast/Screens/home.dart';
 import 'package:salescast/Screens/products_page.dart';
 import 'package:salescast/Screens/profile_page.dart';
-import 'package:salescast/Screens/test.dart';
-import 'package:salescast/Screens/view_product.dart';
+import 'package:salescast/Screens/RecordsPage.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -20,8 +18,8 @@ class _MainPageState extends State<MainPage> {
   List pages = [
     HomePage(),
     ProductsPage(),
-   MyRecordsPage(),
-   Dashboard(),
+    MyRecordsPage(),
+    ForecastsPage(),
     ProfilePage()
   ];
   int currentIndex = 0;
