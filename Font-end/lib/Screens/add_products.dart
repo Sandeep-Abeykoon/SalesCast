@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,7 +26,6 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   final _formkey = GlobalKey<FormState>();
 
   String imageUrl = "";
-  final referenceDatabase = FirebaseDatabase.instance.ref();
   final referenceFirestore = FirebaseStorage.instance.ref();
   final TextEditingController _prodName = TextEditingController();
   final TextEditingController _prodID = TextEditingController();
@@ -67,6 +64,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
               'product_price': _prodPrice.text.trim(),
               'product_brand': _prodBrand.text.trim(),
               'product_category': ' ',
+              'product_image_url': imageUrl,
             });
 
     if (response.statusCode == 200) {
