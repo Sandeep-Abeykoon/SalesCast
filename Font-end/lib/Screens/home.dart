@@ -51,8 +51,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Expanded(child: Container()),
                   Container(
                     margin: const EdgeInsets.only(right: 20),
-                    width: 50,
-                    height: 50,
+                    width: 45,
+                    height: 45,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Visibility(
               visible: isEmpty,
               child: Container(
-                height: 200,
+                height: 250,
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                 padding: const EdgeInsets.all(10),
