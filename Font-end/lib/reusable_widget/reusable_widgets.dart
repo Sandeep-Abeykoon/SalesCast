@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:salescast/assets/colors.dart';
 
-Image logoWidget(String imageName){
+Image logoWidget(String imageName,double width,double height){
   return Image.asset(
     imageName,
     fit: BoxFit.fitWidth,
-    width: 240,
-    height: 240,
+    width: width,
+    height: height,
   );
 }
-Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEditingController controller,bool isEmail){
+Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEditingController controller,bool isEmail,){
   return Material(
+
 
 
 
@@ -25,31 +26,35 @@ Material reusableTextfield(String text, IconData icon,bool isPasswordType,TextEd
       cursorColor: Colors.grey,
 
 
-     validator: (text){
 
-      if(text!.isEmpty){
-        return "This Field Cannot be empty";
-      }
-      if(isEmail&&!EmailValidator.validate(text, true)){
+      validator: (text){
 
-       return "Invalid Email Address";
-      }
-      return null;
-    },
+        if(text!.isEmpty){
+          return "This Field Cannot be empty";
+        }
+        if(isEmail&&!EmailValidator.validate(text, true)){
 
-      style: TextStyle(color: Colors.grey.withOpacity(0.9)),
+          return "Invalid Email Address";
+        }
+        return null;
+      },
+
+      style: TextStyle(color: Colors.black.withOpacity(0.9)),
       decoration: InputDecoration(
+        hintText: text,
         prefixIcon: Icon(
           icon,color: Colors.grey ,
         ),
+
+
         labelText: text,
         labelStyle: TextStyle(color: Colors.grey.withOpacity(0.9)),
         filled: true,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         fillColor: Colors.white.withOpacity(0.3),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: const BorderSide(width: 0,style: BorderStyle.none),
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(width: 5,style: BorderStyle.solid),
         ),
       ),
       keyboardType: isPasswordType
@@ -68,22 +73,22 @@ Container logInSignUpButton(BuildContext context,bool isLogin, Function onTap){
     child: ElevatedButton(
       onPressed: (){
         onTap();
-        },
+      },
       child: Text(
         isLogin ? 'LOGIN' : 'SIGNUP',
         style: const TextStyle(
-          color: Colors.black54, fontWeight: FontWeight.bold,fontSize: 16
+            color: Colors.black54, fontWeight: FontWeight.bold,fontSize: 16
         ),
       ),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          if(states.contains(MaterialState.pressed)){
-            return hexStringToColor("#b2d8d8");
-          }
-          return Colors.deepPurple.shade500;
-        }),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)))
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if(states.contains(MaterialState.pressed)){
+              return hexStringToColor("#b2d8d8");
+            }
+            return Colors.deepPurple.shade500;
+          }),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)))
       ),
     ),
   );
@@ -131,7 +136,7 @@ Container addProductsField(String text,TextEditingController controller, bool is
         labelText: text,
         labelStyle: TextStyle(color: Colors.black54),
 
-      filled: true,
+        filled: true,
         fillColor: Colors.grey.withOpacity(0.3),
         enabledBorder: UnderlineInputBorder(
           borderRadius: BorderRadius.circular(8),
