@@ -150,4 +150,3 @@ def machine_learning_load(user_id):
             matching_docs.append(doc)
             print(doc)
 
-    print(matching_docs)
