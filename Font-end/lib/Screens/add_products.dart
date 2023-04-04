@@ -58,7 +58,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     final response =
         await http.post(Uri.parse('$apiUrl/register_product'),
             body: {
-              'user_Id': user?.uid,
+              'user_id': user?.uid,
               'product_name': _prodName.text.trim(),
               'product_id': _prodID.text.trim(),
               'product_price': _prodPrice.text.trim(),
