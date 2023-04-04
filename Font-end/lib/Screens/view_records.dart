@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ViewRecords extends StatefulWidget {
@@ -11,37 +8,6 @@ class ViewRecords extends StatefulWidget {
 }
 
 class _ViewRecordsState extends State<ViewRecords> {
-
-  final String apiUrl = "http://10.0.2.2:5000/";
-  var userId = "";
-  User? user = FirebaseAuth.instance.currentUser;
-  List<Map<String, dynamic>> recordsArray = [];
-
-  @override
-  void initState() {
-    super.initState();
-    fetchRecords().then((data) {
-      setState(() {
-        recordsArray = data;
-        print(recordsArray);
-      });
-    });
-  }
-
-  //This method return the recent two records entered to the application
-  Future<List<Map<String, dynamic>>> fetchRecords() async {
-    final response = await http.post(
-      Uri.parse("$apiUrl/getSalesRecords"),
-      body: {'user_id': user?.uid},
-    );
-    if (response.statusCode == 200) {
-      final jsonData = json.decode(response.body);
-      return List<Map<String, dynamic>>.from(jsonData);
-    } else {
-      throw Exception('Failed to fetch data from server');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,11 +65,11 @@ class _ViewRecordsState extends State<ViewRecords> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Date',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Date and Time',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
               rows: <DataRow>[

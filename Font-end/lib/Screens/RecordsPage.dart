@@ -12,7 +12,6 @@ import 'package:salescast/Screens/view_records.dart';
 
 import '../assets/colors.dart';
 
-
 class MyRecordsPage extends StatefulWidget {
   const MyRecordsPage({Key? key}) : super(key: key);
 
@@ -22,12 +21,17 @@ class MyRecordsPage extends StatefulWidget {
 
 class _MyRecordsPageState extends State<MyRecordsPage>{
 
+
   final String apiUrl = "http://10.0.2.2:5000/";
   var userId = "";
   User? user = FirebaseAuth.instance.currentUser;
   late File file;
   List<Map<String, dynamic>> recordsArray = [];
 
+  void initState() {
+    super.initState();
+    fetchLastTwoRecords().then((data) {
+      setState(() {
         recordsArray = data;
         print(recordsArray);
       });
@@ -252,6 +256,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                 IconButton(
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewRecords()));
+
 
                     },
                     icon:Icon(Icons.arrow_circle_down_sharp,)
