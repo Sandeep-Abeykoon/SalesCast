@@ -205,7 +205,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.deepOrange.withOpacity(0.6), // background
+                    primary: Colors.deepPurple.withOpacity(0.6), // background
                     onPrimary: Colors.white, // foreground
                   ),
                   onPressed: () {
