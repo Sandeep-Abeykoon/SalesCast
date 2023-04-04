@@ -28,6 +28,7 @@ def load_products():
 
 @app.route('/upload_csv_contents', methods=['POST'])
 def upload_csv():
+    user_id = request.form['user_id']
     csv_data = request.form['csv_contents']
     records = cp.csv_data_processing(csv_data)
     product_data_frames, last_rows, productIds = dp.data_preprocessing(records)
