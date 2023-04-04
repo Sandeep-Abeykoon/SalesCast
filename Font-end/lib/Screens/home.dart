@@ -88,15 +88,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
+
                       margin: const EdgeInsets.only(right: 15, top: 10),
-                      width: 200,
+                      width: 300,
                       height: 300,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.white,
-                          image: DecorationImage(
-                              image: AssetImage(_images[index]),
-                              fit: BoxFit.cover)),
+                          // image: DecorationImage(
+                          //     image: AssetImage(_images[index]),
+                          //     fit: BoxFit.cover)
+                      ),
                     );
                   },
                 ),

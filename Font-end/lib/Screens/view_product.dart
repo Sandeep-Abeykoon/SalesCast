@@ -21,17 +21,23 @@ class _ViewProductState extends State<ViewProduct> {
   @override
   Widget build(BuildContext context) {
     List<_SalesData> data = [
-      _SalesData('Week 1', 10,),
-      _SalesData('Week 2', 18),
-      _SalesData('Week 3', 24),
-      _SalesData('Week 4', 12),
+      _SalesData('Monday', 10,),
+      _SalesData('Tuesday', 18),
+      _SalesData('Wednesday', 24),
+      _SalesData('Thursday', 12),
+      _SalesData('Friday', 16),
+      _SalesData('Saturday', 11),
+      _SalesData('Sunday', 10),
 
     ];
     final List<ChartData> chartData = <ChartData>[
-      ChartData('Week 1', 128, 129),
-      ChartData('Week 2', 123, 92),
-      ChartData('Week 3', 107, 106),
-      ChartData('Week 4', 87, 95),
+      ChartData('Monday', 128, 129),
+      ChartData('Tuesday', 123, 92),
+      ChartData('Wednesday', 107, 106),
+      ChartData('Thursday', 100, 85),
+      ChartData('Friday', 87, 95),
+      ChartData('Saturday', 71, 65),
+      ChartData('Sunday', 58, 105),
     ];
     return Scaffold(
       appBar: AppBar(
@@ -173,8 +179,9 @@ class _ViewProductState extends State<ViewProduct> {
                         ],
                       ),
                     )
-                    , SizedBox(height: 50,),
+                    , SizedBox(height: 70,),
                     AppLargeText(text: "Forecast"),
+                    SizedBox(height: 40,),
                     Column(
                         children:[
                           Padding(
@@ -182,7 +189,7 @@ class _ViewProductState extends State<ViewProduct> {
                             child: SfCartesianChart(
                                 primaryXAxis: CategoryAxis(),
                                 // Chart title
-                                title: ChartTitle(text: 'Monthly sales analysis of the product'),
+                                title: ChartTitle(text: 'Next Week sales analysis of the product'),
                                 // Enable legend
                                 legend: Legend(isVisible: true),
                                 // Enable tooltip
@@ -198,13 +205,14 @@ class _ViewProductState extends State<ViewProduct> {
                                       dataLabelSettings: DataLabelSettings(isVisible: true))
                                 ]),
                           ),
+                          SizedBox(height: 40,),
                           Container(
                               width: 500,
                               height: 300,
                               child: Padding(
                                 padding: EdgeInsets.fromLTRB(0,30, 0, 0),
                                 child: SfCartesianChart(
-                                    title: ChartTitle(text: 'Monthly sales Comparison analysis'),
+                                    title: ChartTitle(text: 'Next Week sales Comparison analysis'),
                                     legend: Legend(isVisible: true, isResponsive: true, ),
                                     primaryXAxis: CategoryAxis(),
                                     tooltipBehavior: TooltipBehavior(enable: true,),
@@ -217,7 +225,7 @@ class _ViewProductState extends State<ViewProduct> {
                                           yValueMapper: (ChartData data, _) => data.y
                                       ),
                                       LineSeries<ChartData, String>(
-                                          name: "Trending Item",
+                                          name: "Most Trending Item",
                                           dataSource: chartData,
                                           xValueMapper: (ChartData data, _) => data.x,
                                           yValueMapper: (ChartData data, _) => data.y1

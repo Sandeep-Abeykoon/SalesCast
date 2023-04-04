@@ -6,6 +6,7 @@ import 'package:salescast/Screens/forecasts.dart';
 import 'package:salescast/Screens/home.dart';
 import 'package:salescast/Screens/products_page.dart';
 import 'package:salescast/Screens/profile_page.dart';
+import 'package:salescast/Screens/test.dart';
 import 'package:salescast/Screens/view_product.dart';
 
 class MainPage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _MainPageState extends State<MainPage> {
     HomePage(),
     ProductsPage(),
    MyRecordsPage(),
-    ForecastsPage(),
+   Dashboard(),
     ProfilePage()
   ];
   int currentIndex = 0;
