@@ -168,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: Text(
                     'Name',
                     style: TextStyle(
-                      color: Colors.red,
+                      color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
