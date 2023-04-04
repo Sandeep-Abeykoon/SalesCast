@@ -2,7 +2,7 @@ import pymongo
 import ssl
 
 
-def database_add(records):
+def database_add(records,user_id):
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
         ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
@@ -11,9 +11,9 @@ def database_add(records):
         db = client["SalesCast"]
         collection = db["Product"]
         for x in records:
-            new_dict = {"user_id": "MqoldQlyAHb9I3zWGQZGnNbH6qX2"}
+            new_dict = {"user_id": user_id}
             new_dict.update(x)
-            result = collection.find_one({"user_id": "MqoldQlyAHb9I3zWGQZGnNbH6qX2", "id_number": new_dict['id_number'], "product": new_dict['product'], "sold_quantity": new_dict['sold_quantity'], "price": new_dict['price'], "date": new_dict['date']})
+            result = collection.find_one({"user_id": user_id, "id_number": new_dict['id_number'], "product": new_dict['product'], "sold_quantity": new_dict['sold_quantity'], "price": new_dict['price'], "date": new_dict['date']})
             if result is None:
                 collection.insert_one(new_dict)
                 print("added")

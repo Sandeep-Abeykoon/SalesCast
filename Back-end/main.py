@@ -35,13 +35,14 @@ def load_products():
 
 @app.route('/upload_csv_contents', methods=['POST'])
 def upload_csv():
+    user_id = request.form['user_id']
     csv_data = request.form['csv_contents']
     records = cp.csv_data_processing(csv_data)
     product_data_frames, last_rows, productIds = dp.data_preprocessing(records)
     sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
     print(productIds)
     print(sales_predictions)
-    db.database_add(records)
+    db.database_add(records,user_id)
     return [sales_predictions], 200
 
 
