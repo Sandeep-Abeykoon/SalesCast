@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:salescast/Screens/view_records.dart';
 import '../assets/colors.dart';
+
 
 class MyRecordsPage extends StatefulWidget {
   const MyRecordsPage({Key? key}) : super(key: key);
@@ -16,10 +18,36 @@ class MyRecordsPage extends StatefulWidget {
 
 class _MyRecordsPageState extends State<MyRecordsPage>{
 
+  final String apiUrl = "http://10.0.2.2:5000/";
   var userId = "";
   User? user = FirebaseAuth.instance.currentUser;
-
   late File file;
+  List<Map<String, dynamic>> recordsArray = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLastTwoRecords().then((data) {
+      setState(() {
+        recordsArray = data;
+        print(recordsArray);
+      });
+    });
+  }
+
+  //This method return the recent two records entered to the application
+  Future<List<Map<String, dynamic>>> fetchLastTwoRecords() async {
+    final response = await http.post(
+        Uri.parse("$apiUrl/getLastTwoRecords"),
+        body: {'user_id': user?.uid},
+    );
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      return List<Map<String, dynamic>>.from(jsonData);
+    } else {
+      throw Exception('Failed to fetch data from server');
+    }
+  }
 
   Future<void> pickCsvFile() async {
     final result = await FilePicker.platform.pickFiles(
