@@ -39,7 +39,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
     const url = "http://10.0.2.2:5000/upload_csv_contents";
     final response = await http.post(
         Uri.parse(url),
-        body: {'csv_contents': contents}
+        body: {'user_id': user?.uid,'csv_contents': contents}
     );
     if (response.statusCode == 200) {
       if (kDebugMode) {
