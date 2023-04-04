@@ -71,6 +71,7 @@ class _ViewRecordsState extends State<ViewRecords> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
+<<<<<<< Updated upstream
               ],
               rows: <DataRow>[
                 DataRow(
@@ -137,6 +138,23 @@ class _ViewRecordsState extends State<ViewRecords> {
                   ],
                 ),
               ],
+=======
+              ),
+            ],
+            rows: List<DataRow>.generate(
+              recordsArray.length,
+                  (index) {
+                return DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text(recordsArray[index]['id_number'].toString())),
+                    DataCell(Text(recordsArray[index]['product'].toString())),
+                    DataCell(Text(recordsArray[index]['price'].toString())),
+                    DataCell(Text(recordsArray[index]['sold_quantity'].toString())),
+                    DataCell(Text(recordsArray[index]['date'].toString())),
+                  ],
+                );
+              },
+>>>>>>> Stashed changes
             ),
           ),
         ),
