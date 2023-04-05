@@ -8,13 +8,26 @@ class ForecastsPage extends StatefulWidget {
   State<ForecastsPage> createState() => _ForecastsPageState();
 }
 
-List<int> text = [1, 2, 3,4,5,6,7,8,9,];
+List<int> text = [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+];
 
 class _ForecastsPageState extends State<ForecastsPage> {
   @override
   Widget build(BuildContext context) {
     List<_SalesData> data = [
-      _SalesData('Product 1', 10,),
+      _SalesData(
+        'Product 1',
+        10,
+      ),
       _SalesData('Product 2', 18),
       _SalesData('Product 3', 0),
       _SalesData('Product 4', 12),
@@ -68,8 +81,8 @@ class _ForecastsPageState extends State<ForecastsPage> {
                     Container(
                       height: 200,
                       width: MediaQuery.of(context).size.width,
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -161,8 +174,8 @@ class _ForecastsPageState extends State<ForecastsPage> {
                     Container(
                       height: 200,
                       width: MediaQuery.of(context).size.width,
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -191,7 +204,7 @@ class _ForecastsPageState extends State<ForecastsPage> {
                           // Chart title
                           title: ChartTitle(
                               text:
-                              'Next week sales forecast of your products'),
+                                  'Next week sales forecast of your products'),
                           // Enable legend
                           legend: Legend(isVisible: true),
                           // Enable tooltip
@@ -202,11 +215,11 @@ class _ForecastsPageState extends State<ForecastsPage> {
                                 xValueMapper: (_SalesData sales, _) =>
                                 sales.product,
                                 yValueMapper: (_SalesData sales, _) =>
-                                sales.sales,
+                                    sales.sales,
                                 name: 'Sales',
                                 // Enable data label
                                 dataLabelSettings:
-                                const DataLabelSettings(isVisible: true))
+                                    const DataLabelSettings(isVisible: true))
                           ]),
                     ),
                     Padding(
@@ -216,7 +229,7 @@ class _ForecastsPageState extends State<ForecastsPage> {
                           // Chart title
                           title: ChartTitle(
                               text:
-                              'Next week sales forecast of most trending product'),
+                                  'Next week sales forecast of most trending product'),
                           // Enable legend
                           legend: Legend(isVisible: true),
                           // Enable tooltip
@@ -228,11 +241,11 @@ class _ForecastsPageState extends State<ForecastsPage> {
                                 xValueMapper: (_SalesData sales, _) =>
                                 sales.product,
                                 yValueMapper: (_SalesData sales, _) =>
-                                sales.sales,
+                                    sales.sales,
                                 name: 'Sales',
                                 // Enable data label
                                 dataLabelSettings:
-                                const DataLabelSettings(isVisible: true))
+                                    const DataLabelSettings(isVisible: true))
                           ]),
                     ),
                   ],
