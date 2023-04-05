@@ -16,19 +16,21 @@ class _ViewProductState extends State<ViewProduct> {
   @override
   Widget build(BuildContext context) {
     List<_SalesData> data = [
-      _SalesData(
-        'Week 1',
-        10,
-      ),
-      _SalesData('Week 2', 18),
-      _SalesData('Week 3', 24),
-      _SalesData('Week 4', 12),
+      _SalesData('Day 1', 10,),
+      _SalesData('Day 2', 18),
+      _SalesData('Day 3', 24),
+      _SalesData('Day 4', 12),
+      _SalesData('Day 5', 12),
+      _SalesData('Day 6', 12),
+      _SalesData('Day 7', 12),
     ];
     final List<ChartData> chartData = <ChartData>[
-      ChartData('Week 1', 128, 129),
-      ChartData('Week 2', 123, 92),
-      ChartData('Week 3', 107, 106),
-      ChartData('Week 4', 87, 95),
+      ChartData('Day 1', 128, 129),
+      ChartData('Day 2', 123, 92),
+      ChartData('Day 3', 107, 106),
+      ChartData('Day 4', 87, 95),
+      ChartData('Day 5', 87, 95),
+      ChartData('Day 7', 87, 95),
     ];
     return Scaffold(
       appBar: AppBar(
@@ -198,7 +200,7 @@ class _ViewProductState extends State<ViewProduct> {
                           primaryXAxis: CategoryAxis(),
                           // Chart title
                           title: ChartTitle(
-                              text: 'Monthly sales analysis of the product'),
+                              text: 'Weekly sales analysis of the product'),
                           // Enable legend
                           legend: Legend(isVisible: true),
                           // Enable tooltip
@@ -223,7 +225,7 @@ class _ViewProductState extends State<ViewProduct> {
                           padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                           child: SfCartesianChart(
                               title: ChartTitle(
-                                  text: 'Monthly sales Comparison analysis'),
+                                  text: 'Weekly sales Comparison analysis'),
                               legend: Legend(
                                 isVisible: true,
                                 isResponsive: true,
