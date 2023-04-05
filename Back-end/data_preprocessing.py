@@ -2,26 +2,24 @@ import pandas as pd
 
 
 def data_preprocessing(records):
-    registered_products = ['1']
 
-    main_df = pd.DataFrame(records)
+    df = pd.DataFrame(records)
 
-    # filtering only the required data rows (Only for registered products)
-    filtered_df = main_df[main_df['id_number'].isin(registered_products)]
-    main_df = filtered_df
+
     # Deleting the product column as it is not needed (product_id is enough)
-    main_df.drop('product', axis=1, inplace=True)
+    df.drop('product', axis=1, inplace=True)
 
     # Deleting the rows with missing values
-    main_df.dropna(axis=0, how='any', inplace=True)
+    df.dropna(axis=0, how='any', inplace=True)
 
+    registered_products = df['id_number'].unique()
     product_dataframes = []
     last_rows = []
     productIds = []
 
-    # Creating Dataframes for the registered products only
+    # Creating Dataframes for each product seperately
     for id in registered_products:
-        product_df = main_df[main_df['id_number'] == id]
+        product_df = df[df['id_number'] == id]
         # processing each dataframe individually
 
         # Checking if the registered product is included in the data or not
