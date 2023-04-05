@@ -11,10 +11,6 @@ class ViewProduct extends StatefulWidget {
   State<ViewProduct> createState() => _ViewProductState();
 }
 
-var productPrice="";
-var productCategory="";
-var productBrand ="";
-var productImageUrl="";
 List<int> trends = [1,2,3];
 
 class _ViewProductState extends State<ViewProduct> {
@@ -60,8 +56,8 @@ class _ViewProductState extends State<ViewProduct> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Image.asset(
-                "lib/assets/images/Electronics.png",
+              child: Image.network(
+                widget.productDetails['product_image_url']!,
                 height: 200,
                 width: 300,
               ),

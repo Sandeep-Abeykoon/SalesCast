@@ -232,6 +232,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                 'product_price': item.productPrice,
                                 'product_category': item.productCategory,
                                 'product_brand': item.productBrand,
+                                'product_image_url': item.productImageUrl,
                               };
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProduct(productDetails: productData),));
 
