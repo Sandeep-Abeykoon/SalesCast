@@ -101,12 +101,12 @@ bool empty= true;
         child: ListView(children: [
 
           Container(
-            padding: const EdgeInsets.only(top:10),
+            padding: const EdgeInsets.only(top:15),
             decoration: const BoxDecoration(
                 color: Color(0x0ffedcf2),
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)
+                    topLeft: Radius.circular(35),
+                    topRight: Radius.circular(35)
                 )
             ),
             child: SingleChildScrollView(
