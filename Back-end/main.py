@@ -65,6 +65,12 @@ def register_product():
     return ("The product is added sucessfully")
 
 
+@app.route('/getLastTwoRecords', methods=['POST'])
+def getLastTwoRecords():
+    user_id = request.form.get("user_id")
+    records = db.last_two_records(user_id)
+    return jsonify(records)
+
 
 @app.route('/getSalesRecords', methods=['POST'])
 def getSalesRecords():
