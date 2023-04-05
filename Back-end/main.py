@@ -75,6 +75,12 @@ def getSalesRecords():
     return jsonify(records)
 
 
+@app.route('/getForecasts', methods=['POST'])
+def getForecasts():
+    user_id = request.form.get("user_id")
+    
+
+
 #-----------------------------------------------
 def runForecasting(user_id):
     user_sales_records = db.machine_learning_load(user_id)
