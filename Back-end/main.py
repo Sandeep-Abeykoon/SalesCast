@@ -84,7 +84,8 @@ def runForecasting(user_id):
 
     print(productIds)
     print(sales_predictions)
-    
+
+    db.saleforecast_store(user_id,productIds,sales_predictions)
     
     
 

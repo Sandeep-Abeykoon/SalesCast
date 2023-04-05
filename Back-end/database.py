@@ -180,3 +180,36 @@ def last_two_records(user_id):
             arr.append(doc)
             count += 1
     return arr
+
+
+def saleforecast_store(user_id, productIds, sales_predictions):
+    # Connect to MongoDB
+    client = pymongo.MongoClient(
+        'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
+        ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
+
+    # Access the "SalesCast" database
+    db = client["SalesCast"]
+    collection = db["Sales_record"]
+    collection2 = db['Sales_forecast']
+    print(user_id)
+    count = 0
+    for x in productIds:
+        print(f"The product id is: {x}")
+        result = collection.find_one({'user_id': user_id, 'product_id': x})
+        print(f"Product name: {result['product_name']}")
+        post = {
+            'user_id': user_id,
+            'product_id': x,
+            'product_name': result['product_name'],
+            'Day 1': sales_predictions[count][0],
+            'Day 2': sales_predictions[count][1],
+            'Day 3': sales_predictions[count][2],
+            'Day 4': sales_predictions[count][3],
+            'Day 5': sales_predictions[count][4],
+            'Day 6': sales_predictions[count][5],
+            'Day 7': sales_predictions[count][6]
+        }
+        collection2.insert_one(post)
+        print("added successfully")
+        count += 1
