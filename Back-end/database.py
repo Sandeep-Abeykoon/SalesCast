@@ -267,3 +267,15 @@ def return_sales(user_id):
         dict.update({'product_name': name[i], 'total': total[i]})
         final.append(dict)
     print(final)
+def forecast_day_sales(user_id,product_id):
+    # Connect to MongoDB
+    client = pymongo.MongoClient(
+        'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
+        ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
+    # Access the "SalesCast" database
+    db = client["SalesCast"]
+
+    collection = db['Sales_forecast']
+
+    result = collection.find_one({'product_id': product_id, 'user_id': user_id}, {'_id': 0, 'product_id': 0, 'user_id': 0, 'product_name': 0})
+    print(result)
