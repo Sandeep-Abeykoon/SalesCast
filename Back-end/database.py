@@ -247,5 +247,26 @@ def return_sales(user_id):
     db = client["SalesCast"]
     collection = db['Sales_forecast']
     results = collection.find({'user_id': user_id}, {'user_id': 0, '_id': 0, 'product_id': 0})
+    data = []
     for result in results:
-        print(result)
+        data.append(result)
+    total = []
+    name = []
+    for x in data:
+        name.append(x['product_name'])
+        tot = 0
+        tot += x['Day 1']
+        tot += x['Day 2']
+        tot += x['Day 3']
+        tot += x['Day 4']
+        tot += x['Day 5']
+        tot += x['Day 6']
+        tot += x['Day 7']
+        total.append(tot)
+    print(len(name))
+    final = []
+    dict = {}
+    for i in range(len(name)):
+        dict.update({'product_name': name[i], 'total': total[i]})
+        final.append(dict)
+    print(final)
