@@ -26,6 +26,7 @@ List<int> text = [
 class _ForecastsPageState extends State<ForecastsPage> {
 
   List<Map<String, dynamic>> forecasts = [];
+  List<_SalesData> data = [];
 
   final String apiUrl = "http://10.0.2.2:5000/";
   User? user = FirebaseAuth.instance.currentUser;
@@ -54,15 +55,14 @@ class _ForecastsPageState extends State<ForecastsPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<_SalesData> data = [
-      _SalesData(
-        'Product 1',
-        10,
-      ),
-      _SalesData('Product 2', 18),
-      _SalesData('Product 3', 0),
-      _SalesData('Product 4', 12),
-    ];
+
+    for (var item in forecasts) {
+      String productName = item['product_name'];
+      double itemSales = item['total'];
+      data.add(_SalesData(productName, itemSales));
+
+    }
+
     List<_SalesData> data2 = [
       _SalesData(
         'Trending P1',
