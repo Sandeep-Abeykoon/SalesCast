@@ -50,6 +50,14 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
     }
   }
 
+
+  Future<void> runForecasting() async {
+    final response = await http.post(
+      Uri.parse("$apiUrl/runForecasting"),
+      body: {'user_id': user?.uid},
+    );
+  }
+
   Future<void> pickCsvFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
