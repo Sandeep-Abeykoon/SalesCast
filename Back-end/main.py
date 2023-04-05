@@ -79,8 +79,7 @@ def getSalesRecords():
 def getForecasts():
     user_id = request.form.get("user_id")
     forecasting = db.return_sales(user_id)
-    print(forecasting)
-    return "Test"
+    return forecasting
     
 
 
@@ -90,9 +89,6 @@ def runForecasting(user_id):
 
     product_data_frames, last_rows, productIds = dp.data_preprocessing(user_sales_records)
     sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
-
-    print(productIds)
-    print(sales_predictions)
 
     db.saleforecast_store(user_id,productIds,sales_predictions)
     

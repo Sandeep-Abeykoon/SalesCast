@@ -264,7 +264,7 @@ def return_sales(user_id):
     final = []
     dict = {}
     for i in range(len(name)):
-        dict.update({'product_name': name[i], 'total': total[i]})
+        dict = {'product_name': name[i], 'total': total[i]}
         final.append(dict)
     return final
 
