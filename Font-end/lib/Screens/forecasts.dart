@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ForecastsPage extends StatefulWidget {
   const ForecastsPage({Key? key}) : super(key: key);
@@ -21,6 +24,21 @@ List<int> text = [
 ];
 
 class _ForecastsPageState extends State<ForecastsPage> {
+
+  final String apiUrl = "http://10.0.2.2:5000/";
+  User? user = FirebaseAuth.instance.currentUser;
+
+  Future<void> loadForecasts() async {
+    final response = await http
+        .post(Uri.parse("$apiUrl/load_products"), body: {'user_id': user?.uid});
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      print("User Id Sent successfully");
+    } else {
+      print("Server error");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     List<_SalesData> data = [

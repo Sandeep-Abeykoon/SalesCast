@@ -3,11 +3,7 @@ import 'package:salescast/Screens/view_product.dart';
 import 'package:salescast/assets/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:salescast/reusable_widget/app_large_text.dart';
 import 'dart:convert';
-
-import '../reusable_widget/app_medium_text.dart';
-import '../reusable_widget/reusable_widgets.dart';
 import 'add_products.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -81,7 +77,7 @@ class _ProductsPageState extends State<ProductsPage> {
 
   Future<void> _onRefresh() async {
     // Simulate a delay for fetching new data
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     setState(() {
       loadProducts();
     });
