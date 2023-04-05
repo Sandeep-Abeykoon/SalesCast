@@ -217,21 +217,21 @@ bool empty= true;
                                 style:TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    color:Colors.black.withOpacity(0.5)
+                                    color:Colors.black.withOpacity(0.4)
                                 ) ,
                               ),
                               Text("Prices: ${item.productPrice} ",
                                 style:TextStyle(
-                                    fontSize: 17,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    color:Colors.black.withOpacity(0.5)
+                                    color:Colors.black.withOpacity(0.4)
                                 ),
                               ),
                               Text("Price: ${item.productBrand} ",
                                 style:TextStyle(
-                                    fontSize: 17,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    color:Colors.black.withOpacity(0.5)
+                                    color:Colors.black.withOpacity(0.4)
                                 ),
                               ),
                             ],
