@@ -55,6 +55,7 @@ class _ProductsPageState extends State<ProductsPage> {
   void initState() {
     super.initState();
     loadProducts();
+
   }
 
   bool empty = true;
@@ -162,7 +163,7 @@ class _ProductsPageState extends State<ProductsPage> {
 
                           for (Product? item in products!)
                             Container(
-                              height: 110,
+                              height: 152,
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 10),
                               padding: const EdgeInsets.all(10),
@@ -180,11 +181,12 @@ class _ProductsPageState extends State<ProductsPage> {
                               child: Row(
                                 children: [
                                   Container(
-                                    height: 70,
-                                    width: 70,
+                                    height: 100,
+                                    width: 100,
                                     margin: const EdgeInsets.only(right: 20),
                                     child: Image.network(item!.productImageUrl),
                                   ),
+
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10),
@@ -200,12 +202,12 @@ class _ProductsPageState extends State<ProductsPage> {
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black
-                                                  .withOpacity(0.4)),
+                                                  .withOpacity(0.6)),
                                         ),
                                         Text(
                                           "Product Id: ${item.productId}",
                                           style: TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 15,
                                               fontWeight: FontWeight.normal,
                                               color: Colors.black
                                                   .withOpacity(0.4)),
@@ -213,7 +215,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                         Text(
                                           "Prices: ${item.productPrice} ",
                                           style: TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 15,
                                               fontWeight: FontWeight.normal,
                                               color: Colors.black
                                                   .withOpacity(0.4)),
@@ -221,7 +223,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                         Text(
                                           "Product Id: ${item.productId}",
                                           style: TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 15,
                                               fontWeight: FontWeight.normal,
                                               color: Colors.black
                                                   .withOpacity(0.4)),
@@ -229,7 +231,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                         Text(
                                           "Price: ${item.productPrice} ",
                                           style: TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 15,
                                               fontWeight: FontWeight.normal,
                                               color: Colors.black
                                                   .withOpacity(0.4)),
@@ -237,7 +239,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                         Text(
                                           "Brand: ${item.productBrand} ",
                                           style: TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 15,
                                               fontWeight: FontWeight.normal,
                                               color: Colors.black
                                                   .withOpacity(0.4)),
@@ -252,7 +254,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                       children: [
                                         Padding(
                                             padding: const EdgeInsets.fromLTRB(
-                                                67, 0, 0, 0),
+                                                67, 20, 0, 0),
                                             child: IconButton(
                                                 onPressed: () {
                                                   Map<String, String>

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -18,6 +19,7 @@ class MyRecordsPage extends StatefulWidget {
 
 class _MyRecordsPageState extends State<MyRecordsPage>{
 
+bool isloading= true;
 
   final String apiUrl = "http://10.0.2.2:5000/";
   var userId = "";
@@ -33,6 +35,9 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
         recordsArray = data;
       });
     });
+    if(recordsArray.isEmpty){
+      isloading=false;
+    }
   }
 
 
@@ -40,9 +45,12 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
     final response = await http.post(
       Uri.parse("$apiUrl/getLastTwoRecords"),
       body: {'user_id': user?.uid},
+
     );
     if (response.statusCode == 200) {
+
       final jsonData = json.decode(response.body);
+      isloading=false;
       return List<Map<String, dynamic>>.from(jsonData);
     } else {
       throw Exception('Failed to fetch data from server');
@@ -58,6 +66,8 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
     if (result != null) {
       final file = File(result.files.single.path!);
       final contents = await file.readAsString();
+      CoolAlert.show(context: context, type: CoolAlertType.success, backgroundColor: Colors.yellow,
+          animType: CoolAlertAnimType.slideInDown,text: "Csv file Succesfully Uploaded ");
 
       sendCsvContents(contents);
     }
@@ -73,6 +83,10 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
         print("CSV data uploaded successfully");
         recordsArray.clear();
         fetchLastTwoRecords();
+        isloading = false;
+
+
+
       }
     }else{
       if (kDebugMode) {
@@ -183,7 +197,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: SingleChildScrollView(
+                    child: isloading ? Center(child: CircularProgressIndicator(),):SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
                         dataRowHeight: 70,
@@ -200,11 +214,11 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                           ],
                         ),
                         dividerThickness: 1,
-                        columnSpacing: 10,
+                        columnSpacing: 12,
                         columns: const <DataColumn>[
                           DataColumn(
                             label: Text(
-                              'Product Id',
+                              'Product Id    ',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -238,11 +252,11 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
                               (index) {
                             return DataRow(
                               cells: <DataCell>[
-                                DataCell(Text(recordsArray[index]['id_number'].toString())),
-                                DataCell(Text(recordsArray[index]['product'].toString())),
-                                DataCell(Text(recordsArray[index]['price'].toString())),
-                                DataCell(Text(recordsArray[index]['sold_quantity'].toString())),
-                                DataCell(Text(recordsArray[index]['date'].toString())),
+                                DataCell(Text("       "+recordsArray[index]['id_number'].toString())),
+                                DataCell(Text(" "+recordsArray[index]['product'].toString())),
+                                DataCell(Text("  "+recordsArray[index]['price'].toString())),
+                                DataCell(Text("       "+recordsArray[index]['sold_quantity'].toString())),
+                                DataCell(Text(""+recordsArray[index]['date'].toString())),
                               ],
                             );
                           },
