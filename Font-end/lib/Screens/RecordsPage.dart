@@ -31,7 +31,6 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
     fetchLastTwoRecords().then((data) {
       setState(() {
         recordsArray = data;
-        print(recordsArray);
       });
     });
   }
@@ -49,6 +48,7 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
       throw Exception('Failed to fetch data from server');
     }
   }
+
 
   Future<void> pickCsvFile() async {
     final result = await FilePicker.platform.pickFiles(
@@ -71,6 +71,8 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
     if (response.statusCode == 200) {
       if (kDebugMode) {
         print("CSV data uploaded successfully");
+        recordsArray.clear();
+        fetchLastTwoRecords();
       }
     }else{
       if (kDebugMode) {

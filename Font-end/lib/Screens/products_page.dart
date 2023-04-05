@@ -262,8 +262,93 @@ bool empty= true;
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+
+
+                for (Product? item in products!)Container(
+                  height: 110,
+                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                  BoxShadow(
+                  color: Colors.black12.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 5),
+                ),],
+                    color: Colors.grey.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 70,
+                        width: 70,
+                        margin: const EdgeInsets.only(right: 20),
+                        child: Image.network(item!.productImageUrl),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(item.productName,
+                              style:TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                  color:Colors.black.withOpacity(0.4)
+                              ) ,
+                            ),
+                            Text("Product Id: ${item.productId}",
+                              style:TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color:Colors.black.withOpacity(0.4)
+                              ) ,
+                            ),
+                            Text("Price: ${item.productPrice} ",
+                              style:TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color:Colors.black.withOpacity(0.4)
+                              ),
+                            ),
+                            Text("Price: ${item.productBrand} ",
+                              style:TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color:Colors.black.withOpacity(0.4)
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical:20),
+                        child: Column(
+
+                          children: [
+                            Padding(padding:const EdgeInsets.fromLTRB(67, 0, 0, 0),
+                            child: IconButton(onPressed: (){
+                              Map<String, String> productData = {
+                                'product_name': item.productName,
+                                'product_id': item.productId,
+                                'product_price': item.productPrice,
+                                'product_category': item.productCategory,
+                                'product_brand': item.productBrand,
+                                'product_image_url': item.productImageUrl,
+                              };
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProduct(productDetails: productData),));
+
+                            }, icon: const Icon(Icons.navigate_next))),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           )
         ],),
