@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 import data_preprocessing as dp
 import machine_learning as ml
@@ -14,7 +15,7 @@ def get_predictions(product_dataframes, last_rows):
         prediction_df = nextWeekDataFrame(last_rows[count])
         # Predicting the sales
         prediction = predict_sales(model, prediction_df)
-        predictions.append(prediction)
+        predictions.append(prediction.tolist())
         count+=1
 
     return predictions
@@ -44,6 +45,6 @@ def nextWeekDataFrame(last_row):
 def predict_sales(model, prediction_df):
     df = prediction_df.astype(float)
     prediction = model.predict(df)
-    prediction = (round(sum(prediction)))
+    prediction = (np.round(prediction))
 
     return prediction
