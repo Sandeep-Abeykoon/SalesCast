@@ -78,6 +78,9 @@ def getSalesRecords():
 @app.route('/getForecasts', methods=['POST'])
 def getForecasts():
     user_id = request.form.get("user_id")
+    forecasting = db.return_sales(user_id)
+    print(forecasting)
+    return "Test"
     
 
 

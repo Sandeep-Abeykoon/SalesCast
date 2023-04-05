@@ -260,13 +260,15 @@ def return_sales(user_id):
         tot += x['Day 6']
         tot += x['Day 7']
         total.append(tot)
-    print(len(name))
+
     final = []
     dict = {}
     for i in range(len(name)):
         dict.update({'product_name': name[i], 'total': total[i]})
         final.append(dict)
-    print(final)
+    return final
+
+
 def forecast_day_sales(user_id,product_id):
     # Connect to MongoDB
     client = pymongo.MongoClient(
@@ -278,4 +280,4 @@ def forecast_day_sales(user_id,product_id):
     collection = db['Sales_forecast']
 
     result = collection.find_one({'product_id': product_id, 'user_id': user_id}, {'_id': 0, 'product_id': 0, 'user_id': 0, 'product_name': 0})
-    print(result)
+    return result
