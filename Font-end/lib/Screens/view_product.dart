@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:salescast/reusable_widget/app_large_text.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ViewProduct extends StatefulWidget {
   final Map<String, String> productDetails;
@@ -15,6 +18,33 @@ List<int> trends = [1, 2, 3];
 
 class _ViewProductState extends State<ViewProduct> {
 
+  List<Map<String, dynamic>> forecasts = [];
+  List<_SalesData> data = [];
+
+  final String apiUrl = "http://10.0.2.2:5000/";
+  User? user = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    loadForecasts();
+  }
+
+  Future<void> loadForecasts() async {
+    final response = await http
+        .post(Uri.parse("$apiUrl/getWeeklyForecasts"), body: {
+          'user_id': user?.uid,
+          'product_id': widget.productDetails['product_id']});
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      setState(() {
+        forecasts = jsonResponse.cast<Map<String, dynamic>>();
+      });
+      print("User Id Sent successfully");
+    } else {
+      print("Server error");
+    }
+  }
 
   final Uri _url = Uri.parse('');
   Future<void> _launchUrl() async {
