@@ -65,7 +65,6 @@ class _ProductsPageState extends State<ProductsPage> {
       setState(() {
         products =
             List.from(jsonResponse.map((product) => Product.fromJson(product)));
-        print(products![0].productName);
       });
       empty = products!.isEmpty;
       isloading = false;

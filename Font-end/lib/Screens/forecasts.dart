@@ -25,13 +25,27 @@ List<int> text = [
 
 class _ForecastsPageState extends State<ForecastsPage> {
 
+  List<Map<String, dynamic>> forecasts = [];
+
   final String apiUrl = "http://10.0.2.2:5000/";
   User? user = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    loadForecasts();
+  }
+
 
   Future<void> loadForecasts() async {
     final response = await http
         .post(Uri.parse("$apiUrl/getForecasts"), body: {'user_id': user?.uid});
     if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      setState(() {
+        forecasts = jsonResponse.cast<Map<String, dynamic>>();
+      });
       print("User Id Sent successfully");
     } else {
       print("Server error");
@@ -40,7 +54,6 @@ class _ForecastsPageState extends State<ForecastsPage> {
 
   @override
   Widget build(BuildContext context) {
-    loadForecasts();
     List<_SalesData> data = [
       _SalesData(
         'Product 1',
