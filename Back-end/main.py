@@ -79,7 +79,7 @@ def getSalesRecords():
 def getForecasts():
     user_id = request.form.get("user_id")
     forecasting = db.return_sales(user_id)
-    return forecasting
+    return jsonify(forecasting)
     
 
 
