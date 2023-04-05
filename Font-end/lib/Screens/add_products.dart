@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -246,7 +247,18 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                 XFile? file = await imagepicker.pickImage(
                                     source: ImageSource.gallery);
                                 print("${file?.path}");
-                                if (file == null) return;
+                                if (file != null){
+                                  CoolAlert.show(context: context, type: CoolAlertType.success, backgroundColor: Colors.yellow,
+                                      animType: CoolAlertAnimType.slideInDown,text: "Image Succesfully Uploaded ");
+                                }
+                                if (file == null) {
+                                  CoolAlert.show(context: context, type: CoolAlertType.error, backgroundColor: Colors.red,
+                                      animType: CoolAlertAnimType.slideInDown,text: "Image Upload is not successful ");
+
+                                  return;
+
+
+                                };
                                 // String UniqueFileName= DateTime.now().microsecondsSinceEpoch.toString();
 
                                 Reference referenceRoot =

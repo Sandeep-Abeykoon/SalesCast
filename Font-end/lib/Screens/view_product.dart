@@ -60,8 +60,8 @@ class _ViewProductState extends State<ViewProduct> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Image.asset(
-                "lib/assets/images/Electronics.png",
+              child: Image.network(
+                "${widget.productDetails['product_image']!}",
                 height: 200,
                 width: 300,
               ),
