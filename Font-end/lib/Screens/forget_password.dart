@@ -15,30 +15,30 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-  TextEditingController _emailController= TextEditingController();
+  final TextEditingController _emailController= TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: 10),
+          padding: const EdgeInsets.only(left: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 20,),
-              Image(image: AssetImage("lib/assets/images/Forget_Password.png")),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
+              const Image(image: AssetImage("lib/assets/images/Forget_Password.png")),
+              const SizedBox(height: 20,),
               AppLargeText(text: "Forget Password"),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               AppSmallText(text: "Enter your email address to reset the Password", color: Colors.black45),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Form(child: Column(
                   children: [
                     reusableTextfield("Email", Icons.alternate_email, false, _emailController, true),
-                    SizedBox(height: 30,),
+                    const SizedBox(height: 30,),
                     SizedBox(height: 40,
                       width: 80,
                       child: ElevatedButton(
@@ -46,7 +46,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text);
                           Navigator.pop(context);
                         },
-                        child: Text("Next"),
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.resolveWith((states) {
                               if(states.contains(MaterialState.pressed)){
@@ -57,6 +56,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)))
                         ),
+                        child: const Text("Next"),
                       ),)
 
                   ],

@@ -222,7 +222,7 @@ class _ProductsPageState extends State<ProductsPage> {
 
                           children: [
                             Padding(padding:const EdgeInsets.fromLTRB(67, 0, 0, 0),
-                            child: IconButton(onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProduct(id: productId),));
+                            child: IconButton(onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProduct(id: item.productId),));
 
                             }, icon: const Icon(Icons.navigate_next))),
                           ],
