@@ -50,7 +50,7 @@ def product_available(user_id, product_id):
     collection = db["Sales_record"]
 
     # find a document with matching user_id and product_id
-    result = collection.find_one({"user_id": user_id, "product_iD": product_id})
+    result = collection.find_one({"user_id": user_id, "product_id": product_id})
     print("result : ", result)
 
     # if the result is None, the product is not available
