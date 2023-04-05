@@ -233,9 +233,6 @@ def saleforecast_store(user_id, productIds, sales_predictions):
 
         count += 1
 
-    # Return the updated sales forecast for the user
-    return_sales(user_id)
-
 
 def return_sales(user_id):
     # Connect to MongoDB
