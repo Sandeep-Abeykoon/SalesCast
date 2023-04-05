@@ -79,6 +79,16 @@ def getSalesRecords():
 def getForecasts():
     user_id = request.form.get("user_id")
     forecasting = db.return_sales(user_id)
+    print(forecasting)
+    return jsonify(forecasting)
+
+
+@app.route('/getWeeklyForecasts', methods=['POST'])
+def getWeeklyForecasts():
+    user_id = request.form.get("user_id")
+    product_id = request.form.get("product_id")
+    forecasting = db.forecast_day_sales(user_id, product_id)
+    print(forecasting)
     return jsonify(forecasting)
     
 
