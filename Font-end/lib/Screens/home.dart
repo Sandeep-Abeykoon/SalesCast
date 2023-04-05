@@ -108,8 +108,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Visibility(
               visible: !isEmpty,
               child: Container(
-                padding: const EdgeInsets.fromLTRB(25, 35, 25, 15),
-                height: 300,
+                padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
+                height: 280,
                 width: double.maxFinite,
                 child: TabBarView(
                   controller: _tabController,
