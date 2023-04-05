@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
             Container(
               margin: const EdgeInsets.only(left: 20),
-              child: AppLargeText(text: "SalesCast"),
+              child: AppLargeText(text: "SALESCAST"),
             ),
             // SizedBox(
             //   height: 20,
