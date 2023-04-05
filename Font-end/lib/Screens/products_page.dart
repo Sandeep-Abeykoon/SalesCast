@@ -242,15 +242,15 @@ bool empty= true;
                           child: Column(
 
                             children: [
-                              Padding(padding:const EdgeInsets.fromLTRB(65, 0, 0, 0),
+                              Padding(padding:const EdgeInsets.fromLTRB(67, 0, 0, 0),
                               child: IconButton(onPressed: (){
                                 Map<String, String> productData = {
-                                  'Product_name': item.productName,
-                                  'Product_id': item.productId,
-                                  'Product_price': item.productPrice,
-                                  'Product_category': item.productCategory,
-                                  'Product_brand': item.productBrand,
-                                  'Product_image': item.productImageUrl
+                                  'product_name': item.productName,
+                                  'product_id': item.productId,
+                                  'product_price': item.productPrice,
+                                  'product_category': item.productCategory,
+                                  'product_brand': item.productBrand,
+                                  'product_image': item.productImageUrl
                                 };
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProduct(productDetails: productData),));
 
