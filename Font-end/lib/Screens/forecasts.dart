@@ -200,7 +200,7 @@ class _ForecastsPageState extends State<ForecastsPage> {
                             BarSeries<_SalesData, String>(
                                 dataSource: data,
                                 xValueMapper: (_SalesData sales, _) =>
-                                sales.week,
+                                sales.product,
                                 yValueMapper: (_SalesData sales, _) =>
                                 sales.sales,
                                 name: 'Sales',
@@ -226,7 +226,7 @@ class _ForecastsPageState extends State<ForecastsPage> {
                                 color: Colors.redAccent,
                                 dataSource: data2,
                                 xValueMapper: (_SalesData sales, _) =>
-                                sales.week,
+                                sales.product,
                                 yValueMapper: (_SalesData sales, _) =>
                                 sales.sales,
                                 name: 'Sales',
@@ -254,8 +254,8 @@ class ChartData {
 }
 
 class _SalesData {
-  _SalesData(this.week, this.sales);
+  _SalesData(this.product, this.sales);
 
-  final String week;
+  final String product;
   final double sales;
 }
