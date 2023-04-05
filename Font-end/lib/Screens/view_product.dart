@@ -10,6 +10,7 @@ class ViewProduct extends StatefulWidget {
   final Map<String, String> productDetails;
 
   const ViewProduct({Key? key, required this.productDetails}) : super(key: key);
+
   @override
   State<ViewProduct> createState() => _ViewProductState();
 }
@@ -18,8 +19,7 @@ List<int> trends = [1, 2, 3];
 
 class _ViewProductState extends State<ViewProduct> {
 
-  List<Map<String, dynamic>> forecasts = [];
-  List<_SalesData> data = [];
+  Map<String, dynamic> forecasts = {};
 
   final String apiUrl = "http://10.0.2.2:5000/";
   User? user = FirebaseAuth.instance.currentUser;
@@ -36,9 +36,8 @@ class _ViewProductState extends State<ViewProduct> {
           'user_id': user?.uid,
           'product_id': widget.productDetails['product_id']});
     if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
       setState(() {
-        forecasts = jsonResponse.cast<Map<String, dynamic>>();
+        forecasts = jsonDecode(response.body);
       });
       print("User Id Sent successfully");
     } else {
@@ -54,15 +53,13 @@ class _ViewProductState extends State<ViewProduct> {
   }
   @override
   Widget build(BuildContext context) {
-    List<_SalesData> data = [
-      _SalesData('Day 1', 10,),
-      _SalesData('Day 2', 18),
-      _SalesData('Day 3', 24),
-      _SalesData('Day 4', 12),
-      _SalesData('Day 5', 12),
-      _SalesData('Day 6', 12),
-      _SalesData('Day 7', 12),
-    ];
+    List<_SalesData> data = [];
+
+    forecasts.forEach((key, value) {
+      data.add(_SalesData(key, value));
+    });
+
+
     final List<ChartData> chartData = <ChartData>[
       ChartData('Day 1', 128, 129),
       ChartData('Day 2', 123, 92),
@@ -97,7 +94,7 @@ class _ViewProductState extends State<ViewProduct> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Image.network(
-                "${widget.productDetails['product_image']!}",
+                widget.productDetails['product_image']!,
                 height: 200,
                 width: 300,
               ),

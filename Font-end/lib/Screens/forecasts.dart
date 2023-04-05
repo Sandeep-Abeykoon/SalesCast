@@ -42,7 +42,7 @@ class _ForecastsPageState extends State<ForecastsPage> {
     final response = await http
         .post(Uri.parse("$apiUrl/getForecasts"), body: {'user_id': user?.uid});
     if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
+      var jsonResponse = jsonDecode(response.body);
 
       setState(() {
         forecasts = jsonResponse.cast<Map<String, dynamic>>();
