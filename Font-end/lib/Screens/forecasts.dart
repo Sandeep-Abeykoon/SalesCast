@@ -30,9 +30,8 @@ class _ForecastsPageState extends State<ForecastsPage> {
 
   Future<void> loadForecasts() async {
     final response = await http
-        .post(Uri.parse("$apiUrl/load_products"), body: {'user_id': user?.uid});
+        .post(Uri.parse("$apiUrl/getForecasts"), body: {'user_id': user?.uid});
     if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
       print("User Id Sent successfully");
     } else {
       print("Server error");
@@ -41,6 +40,7 @@ class _ForecastsPageState extends State<ForecastsPage> {
 
   @override
   Widget build(BuildContext context) {
+    loadForecasts();
     List<_SalesData> data = [
       _SalesData(
         'Product 1',
