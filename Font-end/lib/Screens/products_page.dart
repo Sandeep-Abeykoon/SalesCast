@@ -46,7 +46,7 @@ class Product {
 
 class _ProductsPageState extends State<ProductsPage> {
   List<Product>? products = [];
-  bool isloading = true;
+  bool isloading = false;
 
   final String apiUrl = "http://10.0.2.2:5000/";
   User? user = FirebaseAuth.instance.currentUser;
@@ -92,13 +92,11 @@ class _ProductsPageState extends State<ProductsPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text("My Products",
-            style: TextStyle(
-                fontSize: 20,
-                color: Colors.black,
-                fontWeight: FontWeight.bold)),
+automaticallyImplyLeading: false,
+        title: const Text("My Products",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 0,
+
       ),
       body: isloading
           ? Center(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salescast/reusable_widget/app_large_text.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ViewProduct extends StatefulWidget {
   final Map<String, String> productDetails;
@@ -13,6 +14,14 @@ class ViewProduct extends StatefulWidget {
 List<int> trends = [1, 2, 3];
 
 class _ViewProductState extends State<ViewProduct> {
+
+
+  final Uri _url = Uri.parse('');
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     List<_SalesData> data = [
@@ -180,7 +189,11 @@ class _ViewProductState extends State<ViewProduct> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+
+                                _launchUrl();
+
+                              },
                               child: Text(
                                 "$i. JVC LT-40CA790 Android TV 40' Smart Full HD LED TV with Google Assistant",
                                 style: const TextStyle(

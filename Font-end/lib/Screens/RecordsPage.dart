@@ -19,7 +19,7 @@ class MyRecordsPage extends StatefulWidget {
 
 class _MyRecordsPageState extends State<MyRecordsPage>{
 
-bool isloading= true;
+bool isloading= false;
 
   final String apiUrl = "http://10.0.2.2:5000/";
   var userId = "";
@@ -59,17 +59,29 @@ bool isloading= true;
 
 
   Future<void> pickCsvFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['csv'],
-    );
-    if (result != null) {
-      final file = File(result.files.single.path!);
-      final contents = await file.readAsString();
-      CoolAlert.show(context: context, type: CoolAlertType.success, backgroundColor: Colors.yellow,
-          animType: CoolAlertAnimType.slideInDown,text: "Csv file Succesfully Uploaded ");
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['csv'],
+      );
+      if (result != null) {
+        final file = File(result.files.single.path!);
+        final contents = await file.readAsString();
+        CoolAlert.show(context: context,
+            type: CoolAlertType.success,
+            backgroundColor: Colors.yellow,
+            animType: CoolAlertAnimType.slideInDown,
+            text: "Csv file Succesfully Uploaded ");
 
-      sendCsvContents(contents);
+        sendCsvContents(contents);
+      }
+    }catch(e){
+
+      CoolAlert.show(context: context,
+          type: CoolAlertType.error,
+          backgroundColor: Colors.red,
+          animType: CoolAlertAnimType.slideInDown,
+          text: "Error Uploading Csv file  ");
     }
   }
   void sendCsvContents(contents) async {
@@ -106,10 +118,11 @@ bool isloading= true;
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          "My Records",style: TextStyle(color: Colors.black),),
+          "My Records",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

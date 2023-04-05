@@ -63,6 +63,7 @@ dependencies:
   syncfusion_flutter_charts: ^21.1.37
   persistent_bottom_nav_bar: ^5.0.2
   adaptive_scrollbar: ^2.1.2
+  url_launcher: ^6.1.10
 
 
   #http
