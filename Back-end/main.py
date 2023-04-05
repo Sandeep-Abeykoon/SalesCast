@@ -34,6 +34,7 @@ def upload_csv():
 
     forecasting_thread = threading.Thread(target=runForecasting(user_id))
     forecasting_thread.start()
+    return "Data uploaded succesfully"
 
     #product_data_frames, last_rows, productIds = dp.data_preprocessing(records)
     #sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
