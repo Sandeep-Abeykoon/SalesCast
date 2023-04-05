@@ -190,26 +190,62 @@ def saleforecast_store(user_id, productIds, sales_predictions):
 
     # Access the "SalesCast" database
     db = client["SalesCast"]
-    collection = db["Sales_record"]
+
+    # Get the collection for sales records and sales forecasts
+    collection = db['Sales_record']
     collection2 = db['Sales_forecast']
-    print(user_id)
+
     count = 0
+
+    # Loop through each product and add its sales forecast
     for x in productIds:
-        print(f"The product id is: {x}")
+        # Get the product's name from the sales records
         result = collection.find_one({'user_id': user_id, 'product_id': x})
-        print(f"Product name: {result['product_name']}")
-        post = {
-            'user_id': user_id,
-            'product_id': x,
-            'product_name': result['product_name'],
-            'Day 1': sales_predictions[count][0],
-            'Day 2': sales_predictions[count][1],
-            'Day 3': sales_predictions[count][2],
-            'Day 4': sales_predictions[count][3],
-            'Day 5': sales_predictions[count][4],
-            'Day 6': sales_predictions[count][5],
-            'Day 7': sales_predictions[count][6]
-        }
-        collection2.insert_one(post)
-        print("added successfully")
+        product_name = result['product_name'] if result is not None and 'product_name' in result else ''
+
+        # Create a new document for the sales forecast if it doesn't exist
+        if collection2.find_one({'user_id': user_id, 'product_id': x}) is None:
+            post = {
+                'user_id': user_id,
+                'product_id': x,
+                'product_name': product_name,
+                'Day 1': sales_predictions[count][0],
+                'Day 2': sales_predictions[count][1],
+                'Day 3': sales_predictions[count][2],
+                'Day 4': sales_predictions[count][3],
+                'Day 5': sales_predictions[count][4],
+                'Day 6': sales_predictions[count][5],
+                'Day 7': sales_predictions[count][6]
+            }
+            collection2.insert_one(post)
+            print(f"Inserted new sales forecast for user_id {user_id}, product_id {x}")
+        # Otherwise, update the existing document with the new sales forecast
+        else:
+            changes = {'$set': {'Day 1': sales_predictions[count][0],
+                                'Day 2': sales_predictions[count][1],
+                                'Day 3': sales_predictions[count][2],
+                                'Day 4': sales_predictions[count][3],
+                                'Day 5': sales_predictions[count][4],
+                                'Day 6': sales_predictions[count][5],
+                                'Day 7': sales_predictions[count][6]}}
+            collection2.update_one({'user_id': user_id, 'product_id': x}, changes, upsert=True)
+            print(f"Updated sales forecast for user_id {user_id}, product_id {x}")
+
         count += 1
+
+    # Return the updated sales forecast for the user
+    return_sales(user_id)
+
+
+def return_sales(user_id):
+    # Connect to MongoDB
+    client = pymongo.MongoClient(
+        'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
+        ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
+
+    # Access the "SalesCast" database
+    db = client["SalesCast"]
+    collection = db['Sales_forecast']
+    results = collection.find({'user_id': user_id}, {'user_id': 0, '_id': 0, 'product_id': 0})
+    for result in results:
+        print(result)
