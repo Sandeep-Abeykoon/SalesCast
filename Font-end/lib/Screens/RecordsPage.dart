@@ -71,6 +71,8 @@ class _MyRecordsPageState extends State<MyRecordsPage>{
     if (response.statusCode == 200) {
       if (kDebugMode) {
         print("CSV data uploaded successfully");
+        recordsArray.clear();
+        fetchLastTwoRecords();
       }
     }else{
       if (kDebugMode) {

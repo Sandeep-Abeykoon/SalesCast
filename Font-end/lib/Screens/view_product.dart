@@ -38,9 +38,9 @@ class _ViewProductState extends State<ViewProduct> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.withOpacity(0.3),
-        title: const Text(
-          "Product Name",
-          style: TextStyle(
+        title: Text(
+          widget.productDetails['product_name']!,
+          style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
         actions: [
