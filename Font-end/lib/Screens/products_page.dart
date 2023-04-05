@@ -20,6 +20,7 @@ class Product {
   final String productName;
   final String productPrice;
   final String productBrand;
+  final String productCategory;
   final String productImageUrl;
 
   Product({
@@ -27,6 +28,7 @@ class Product {
     required this.productName,
     required this.productPrice,
     required this.productBrand,
+    required this.productCategory,
     required this.productImageUrl
   });
 
@@ -36,6 +38,7 @@ class Product {
       productName: json['product_name'] as String? ?? " ",
       productPrice: json['product_price'] as String,
       productBrand: json['product_brand'] as String,
+      productCategory: json['product_category'] as String,
       productImageUrl: json['product_image_url'] as String? ?? " "
     );
   }
@@ -222,7 +225,15 @@ class _ProductsPageState extends State<ProductsPage> {
 
                           children: [
                             Padding(padding:const EdgeInsets.fromLTRB(67, 0, 0, 0),
-                            child: IconButton(onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProduct(id: item.productId),));
+                            child: IconButton(onPressed: (){
+                              Map<String, String> productData = {
+                                'product_name': item.productName,
+                                'product_id': item.productId,
+                                'product_price': item.productPrice,
+                                'product_category': item.productCategory,
+                                'product_brand': item.productBrand,
+                              };
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewProduct(productDetails: productData),));
 
                             }, icon: const Icon(Icons.navigate_next))),
                           ],
