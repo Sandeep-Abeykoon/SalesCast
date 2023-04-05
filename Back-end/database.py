@@ -139,8 +139,6 @@ def machine_learning_load(user_id):
     # remove duplicates from the list and sort it in ascending order
     sorted_product_ids = sorted(set(product_ids), key=int)
 
-    print(sorted_product_ids)
-
     # create an empty list to store the matching documents
     matching_docs = []
 

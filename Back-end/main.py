@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import threading
 
 # Importing Local Modules
 import csv_processesing as cp
@@ -31,23 +32,22 @@ def upload_csv():
     records = cp.csv_data_processing(csv_data)
     db.database_add(records, user_id)
 
-    # Running the ML model to predict the sales based on the added records and available records.
-    db_sales_records = db.machine_learning_load(user_id)
-    print(db_sales_records)
+    forecasting_thread = threading.Thread(target=runForecasting(user_id))
+    forecasting_thread.start()
+
     #product_data_frames, last_rows, productIds = dp.data_preprocessing(records)
     #sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
     #print(productIds)
     #print(sales_predictions)
     #return [sales_predictions], 200
+    return "Hello"
 
 
 @app.route('/product_availability', methods=['POST'])
 def check_availability():
     user_id = request.form.get('user_id')
     product_id = request.form.get('product_id')
-    print(user_id, product_id)
     is_available = db.product_available(user_id, product_id)
-    print(is_available)
     return jsonify({'is_available': is_available})
 
 
@@ -77,6 +77,13 @@ def getSalesRecords():
     user_id = request.form.get("user_id")
     records = db.return_all_records(user_id)
     return jsonify(records)
+
+
+#------------------------------------------------------------
+def runForecasting(user_id):
+    user_sales_records = db.machine_learning_load(user_id)
+    print(user_sales_records)
+
 
 
 if __name__ == "__main__":
