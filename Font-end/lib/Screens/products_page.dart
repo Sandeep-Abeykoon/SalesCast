@@ -280,7 +280,19 @@ bool empty= true;
       //
       //   ),
       // ),
-    
+      floatingActionButton: FloatingActionButton(
+
+        backgroundColor: hexStringToColor("#8776ff"),
+
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_){
+              return const AddNewProductPage();
+            },
+          ));
+        },
+        child: const Icon(Icons.add),
+      ),
 
     );
   }
