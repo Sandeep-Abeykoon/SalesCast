@@ -36,19 +36,13 @@ def upload_csv():
     forecasting_thread.start()
     return "Data uploaded succesfully"
 
-    #product_data_frames, last_rows, productIds = dp.data_preprocessing(records)
-    #sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
-    #print(productIds)
-    #print(sales_predictions)
-    #return [sales_predictions], 200
-    return "Hello"
-
-
 @app.route('/product_availability', methods=['POST'])
 def check_availability():
     user_id = request.form.get('user_id')
     product_id = request.form.get('product_id')
+    print(user_id, product_id)
     is_available = db.product_available(user_id, product_id)
+    print(is_available)
     return jsonify({'is_available': is_available})
 
 
@@ -61,6 +55,7 @@ def register_product():
     product_brand = request.form.get("product_brand")
     product_category = request.form.get("product_category")
     product_image_url = request.form.get("product_image_url")
+    print(product_image_url)
 
     db.add_product(user_id, product_name, product_id, product_price, product_brand, product_category, product_image_url)
     return ("The product is added sucessfully")
@@ -80,12 +75,18 @@ def getSalesRecords():
     return jsonify(records)
 
 
-#------------------------------------------------------------
+#-----------------------------------------------
 def runForecasting(user_id):
     user_sales_records = db.machine_learning_load(user_id)
-    print(user_sales_records)
 
+    product_data_frames, last_rows, productIds = dp.data_preprocessing(user_sales_records)
+    sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
 
+    print(productIds)
+    print(sales_predictions)
+    
+    
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
