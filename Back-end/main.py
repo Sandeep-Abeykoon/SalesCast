@@ -90,6 +90,15 @@ def getWeeklyForecasts():
     forecasting = db.forecast_day_sales(user_id, product_id)
     print(forecasting)
     return jsonify(forecasting)
+
+
+@app.route('/getTrendingProducts', methods=['POST'])
+def getTrendingProducts():
+    user_id = request.form.get("user_id")
+    product_id = request.form.get("product_id")
+    trending_products = ""
+    print(trending_products)
+    return jsonify(trending_products)
     
 
 
@@ -105,6 +114,8 @@ def runForecasting(user_id):
     for id in productIds:
         product_name = db.getProductname(user_id, id)
         getTrendingProducts(product_name)
+
+
 
 def getTrendingProducts(product_name):
     trending_products = ws.getDemandProducts(product_name)
