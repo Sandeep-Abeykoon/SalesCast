@@ -116,7 +116,6 @@ def runForecasting(user_id):
         getTrendingProducts(product_name)
 
 
-
 def getTrendingProducts(product_name):
     trending_products = ws.getDemandProducts(product_name)
     print("-----------------------------------------------")
