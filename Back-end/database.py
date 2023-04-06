@@ -279,3 +279,20 @@ def forecast_day_sales(user_id,product_id):
 
     result = collection.find_one({'product_id': product_id, 'user_id': user_id}, {'_id': 0, 'product_id': 0, 'user_id': 0, 'product_name': 0})
     print(result)
+
+def trending_products_store(user_id, product_id, arr):
+    # connect to the MongoDB Atlas cluster
+    client = pymongo.MongoClient(
+        'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
+        ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
+
+    # access the "SalesCast" database
+    db = client["SalesCast"]
+
+    # access the "Trending_product" collection
+    collection = db["Trending_product"]
+
+    # insert the documents into the collection
+    for x in arr:
+        document = {'user_id': user_id, 'product_id': product_id, **x}
+        collection.insert_one(document)
