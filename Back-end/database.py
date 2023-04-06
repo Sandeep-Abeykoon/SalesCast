@@ -269,7 +269,7 @@ def return_sales(user_id):
     return final
 
 
-def forecast_day_sales(user_id,product_id):
+def forecast_day_sales(user_id, product_id):
     # Connect to MongoDB
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',

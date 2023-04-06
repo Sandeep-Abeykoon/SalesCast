@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    # ws.getDemandProducts()
+    ws.getDemandProducts("Television")
     return "Testing!"
 
 
@@ -101,6 +101,16 @@ def runForecasting(user_id):
     sales_predictions = predictions.get_predictions(product_data_frames, last_rows)
 
     db.saleforecast_store(user_id,productIds,sales_predictions)
+
+    for id in productIds:
+        product_name = db.getProductname(user_id, id)
+        getTrendingProducts(product_name)
+
+def getTrendingProducts(product_name):
+    trending_products = ws.getDemandProducts(product_name)
+    print("-----------------------------------------------")
+    print (trending_products)
+
     
     
 
