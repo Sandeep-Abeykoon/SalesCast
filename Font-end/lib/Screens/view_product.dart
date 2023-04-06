@@ -20,6 +20,7 @@ List<int> trends = [1, 2, 3];
 class _ViewProductState extends State<ViewProduct> {
 
   Map<String, dynamic> forecasts = {};
+  List<dynamic> trendingProducts = [];
 
   final String apiUrl = "http://10.0.2.2:5000/";
   User? user = FirebaseAuth.instance.currentUser;
@@ -27,6 +28,7 @@ class _ViewProductState extends State<ViewProduct> {
   @override
   void initState() {
     super.initState();
+    loadTrendingProducts();
     loadForecasts();
   }
 
@@ -38,6 +40,22 @@ class _ViewProductState extends State<ViewProduct> {
     if (response.statusCode == 200) {
       setState(() {
         forecasts = jsonDecode(response.body);
+      });
+      print("User Id Sent successfully");
+    } else {
+      print("Server error");
+    }
+  }
+
+  Future<void> loadTrendingProducts() async {
+    final response = await http
+        .post(Uri.parse("$apiUrl/getTrendingProducts"), body: {
+      'user_id': user?.uid,
+      'product_id': widget.productDetails['product_id']});
+    if (response.statusCode == 200) {
+      setState(() {
+        trendingProducts = jsonDecode(response.body);
+        print(trendingProducts);
       });
       print("User Id Sent successfully");
     } else {

@@ -23,14 +23,14 @@ class _ViewRecordsState extends State<ViewRecords> {
   void initState() {
     super.initState();
     fetchRecords().then((data) {
-      setState(() {
+      setState((){
         recordsArray = data;
-        print(recordsArray);
       });
     });
+    fetchRecords();
   }
 
-  //This method return the recent two records entered to the application
+
   Future<List<Map<String, dynamic>>> fetchRecords() async {
     final response = await http.post(
       Uri.parse("$apiUrl/getSalesRecords"),
