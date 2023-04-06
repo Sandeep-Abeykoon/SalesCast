@@ -1,0 +1,24 @@
+name: Machine-Learning-Model
+on:[push]
+jobs:
+	runs:
+			runs-on: [ubuntu-latest]
+			container: docker://dvcorg/cml-py3.latest
+			 steps:
+  		  - uses: actions/checkout@v2
+   		 - name: Set up Python 3.9
+     		 uses: actions/setup-python@v2
+    			  with:
+							python-version: 3.9
+			 - name: Install dependencies
+      run: |
+        cd server/app
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+				- name: Test with pytest
+      run: |
+        cd server/app
+        pip install pytest
+        pytest
+      env:
+        PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python

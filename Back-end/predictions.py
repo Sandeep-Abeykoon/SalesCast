@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from datetime import datetime
 
 import data_preprocessing as dp
 import machine_learning as ml
@@ -25,9 +26,10 @@ def nextWeekDataFrame(last_row):
     
     number_of_prediction_days = 7
     # Parse the date string into a datetime object
-    last_date = pd.to_datetime(last_row['date'].iloc[0], format= '%Y-%m-%d')
+    today_date = datetime.today().strftime('%Y-%m-%d')
+    today_timestamp = pd.Timestamp(today_date)
     # Increment the date by one day
-    new_date = last_date + pd.DateOffset(days=1)
+    new_date = today_timestamp + pd.DateOffset(days=1)
     # Create a new dataframe by copying the last record five times
     new_df = pd.concat([last_row] * number_of_prediction_days, ignore_index=True)
     # Dropping the Sold quantity column and Id number columns

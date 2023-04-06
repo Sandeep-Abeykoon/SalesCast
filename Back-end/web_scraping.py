@@ -1,14 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+import re
 
-def getDemandProducts():
-    get_product("toffee")
-    return None
+def getDemandProducts(product_name):
+    data_list = get_product(product_name)
+    print(data_list)
+    print("-----------------------------------------------------------------------------------------------")
+    trending_products = sorted(data_list, key=lambda x: x['total_sold'], reverse=True)[:3]
+    return trending_products
     
     
 
 def get_product(product_name):
+    data_list = []
     url = 'https://www.ebay.com/sch/i.html?_nkw=' + product_name
 
     number_of_pages = 1
@@ -29,12 +34,15 @@ def get_product(product_name):
 
                 if soup != '':
                     print(link)
-                    data = get_detail_data(soup)
+                    data = get_detail_data(soup, link)
+                    if product_name.lower() in (data["title"]).lower():
+                      data_list.append(data)
                 else:
                     print("Page Error")
             pbar.close
         else:
            break
+    return data_list
             
         
 
@@ -65,37 +73,43 @@ def get_index_data(soup):
 
 
 
-def get_detail_data(soup):
+def get_detail_data(soup, link):
   items_sold = ''
   #Title
   try:
     title = soup.find('h1',{'class': 'x-item-title__mainTitle'}).find('span',{'class':'ux-textspans ux-textspans--BOLD'}).text
   except:
     title = ''
-  print(title)
 
   #Price
   try:
     price = soup.find('span', itemprop = 'price') .find('span',{'class':'ux-textspans'}).text
   except: 
     price = ''
-  print(price)
 
   # Total items sold
   try:
     items_sold = soup.find('div',{'class':'d-quantity__availability'}).text.split("/")
   except:
     iems_sold = ''
+  
+  numeric_value = 0
 
   if items_sold != '':
     if len(items_sold) > 1:
       items_sold = items_sold[1].strip()
+      digits = re.findall(r'\d+', items_sold)
+      numeric_value = int(''.join(digits))
+
+      if numeric_value == None:
+        numeric_value = 0
+      print(numeric_value)
 
   data = {
       'title': title,
       'price': price,
-      'total_sold':items_sold
+      'total_sold':numeric_value,
+      'product_url': link
   }
 
-  print(data)
   return(data)

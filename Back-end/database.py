@@ -50,7 +50,7 @@ def product_available(user_id, product_id):
     collection = db["Sales_record"]
 
     # find a document with matching user_id and product_id
-    result = collection.find_one({"user_id": user_id, "product_iD": product_id})
+    result = collection.find_one({"user_id": user_id, "product_id": product_id})
     print("result : ", result)
 
     # if the result is None, the product is not available
@@ -260,14 +260,16 @@ def return_sales(user_id):
         tot += x['Day 6']
         tot += x['Day 7']
         total.append(tot)
-    print(len(name))
+
     final = []
     dict = {}
     for i in range(len(name)):
-        dict.update({'product_name': name[i], 'total': total[i]})
+        dict = {'product_name': name[i], 'total': total[i]}
         final.append(dict)
-    print(final)
-def forecast_day_sales(user_id,product_id):
+    return final
+
+
+def forecast_day_sales(user_id, product_id):
     # Connect to MongoDB
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
