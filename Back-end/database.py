@@ -260,16 +260,17 @@ def return_sales(user_id):
         tot += x['Day 6']
         tot += x['Day 7']
         total.append(tot)
-
+    
     final = []
     dict = {}
+
     for i in range(len(name)):
         dict = {'product_name': name[i], 'total': total[i]}
         final.append(dict)
     return final
 
 
-def forecast_day_sales(user_id, product_id):
+def forecast_day_sales(user_id,product_id):
     # Connect to MongoDB
     client = pymongo.MongoClient(
         'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
@@ -281,3 +282,16 @@ def forecast_day_sales(user_id, product_id):
 
     result = collection.find_one({'product_id': product_id, 'user_id': user_id}, {'_id': 0, 'product_id': 0, 'user_id': 0, 'product_name': 0})
     return result
+
+
+def getProductname(user_id, product_id):
+    # Connect to MongoDB
+    client = pymongo.MongoClient(
+        'mongodb+srv://admin:admin123@cluster0.qva0hbp.mongodb.net/?retryWrites=true&w=majority',
+        ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
+    # Access the "SalesCast" database
+    db = client["SalesCast"]
+    collection = db['Sales_record']
+
+    result = collection.find_one({"user_id": user_id, "product_id": product_id})
+    return result['product_name']
